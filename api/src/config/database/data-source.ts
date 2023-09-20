@@ -6,7 +6,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { SeederOptions } from 'typeorm-extension';
 
 import { entities } from './database-entities';
-// import { MainSeeder } from '../../database/run-seeder';
+import { MainSeeder } from '../../database/run-seeder';
 
 export const ormOptions: DataSourceOptions & SeederOptions = {
   type: process.env.DB_TYPE as any,
@@ -16,12 +16,10 @@ export const ormOptions: DataSourceOptions & SeederOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   entities,
-  migrations: [
-    path.join(__dirname, '../../database/migrations/admin/*{.ts,.js}'),
-  ],
+  migrations: [path.join(__dirname, '../../database/migrations/*{.ts,.js}')],
   synchronize: false,
   logging: false,
-  // seeds: [MainSeeder],
+  seeds: [MainSeeder],
 };
 
 export const AppDataSource = new DataSource(ormOptions);

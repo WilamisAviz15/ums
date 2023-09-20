@@ -1,34 +1,56 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserCreateDto } from './dto/create-user.dto';
+import { UserUpdateDto } from './dto/update-user.dto';
+import { UserFilterInterface } from './interfaces/user-filter.interface';
+import { UserInterface } from './interfaces/user.interface';
+import { AuthUser } from '../../shared/decorators/user.decorator';
+import { UserJwtInterface } from '../../authentication/interfaces/user-jwt.interface';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly service: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async create(
+    @Body() data: UserCreateDto,
+    @AuthUser() currentAdmin: UserInterface,
+  ): Promise<{ user: UserInterface; message: string }> {
+    return await this.service.create(data, currentAdmin);
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll(
+    @Body() filters: UserFilterInterface,
+  ): Promise<UserInterface[]> {
+    return await this.service.findAll(filters);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    return this.service.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Put(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: UserUpdateDto,
+    @AuthUser() user: UserJwtInterface,
+  ): Promise<{ user: UserInterface; message: string }> {
+    return await this.service.update(data, user, id);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.service.delete(+id);
   }
 }
