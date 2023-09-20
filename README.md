@@ -1,1 +1,1 @@
-# ums
+# ums - University meal scheduler
