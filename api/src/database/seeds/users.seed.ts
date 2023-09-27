@@ -12,7 +12,7 @@ export class UsersSeed implements Seeder {
         email: 'adm@nti.ufal.br',
         cpf: '11111111111',
         password:
-          '$2b$10$FjIKpZV8OYgE7BT1d6vmSO6QgCAoutnEKNvodlMIcOH5qMXaFG6u.',
+          '$2b$10$djde7iddrPX7b2aGXOrK5OkkPNaT2h95fy.R613MtSnEThecFJ3Oa',
         register: '11111111',
       },
     ]);

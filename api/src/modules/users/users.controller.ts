@@ -7,7 +7,10 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  ClassSerializerInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
+
 import { UsersService } from './users.service';
 import { UserCreateDto } from './dto/create-user.dto';
 import { UserUpdateDto } from './dto/update-user.dto';
@@ -17,15 +20,16 @@ import { AuthUser } from '../../shared/decorators/user.decorator';
 import { UserJwtInterface } from '../../authentication/interfaces/user-jwt.interface';
 
 @Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Post()
   async create(
     @Body() data: UserCreateDto,
-    @AuthUser() currentAdmin: UserInterface,
+    @AuthUser() currentUser: UserInterface,
   ): Promise<{ user: UserInterface; message: string }> {
-    return await this.service.create(data, currentAdmin);
+    return await this.service.create(data, currentUser);
   }
 
   @Get()

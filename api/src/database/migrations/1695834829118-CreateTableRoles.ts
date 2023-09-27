@@ -1,35 +1,35 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTableRoles1666217221681 implements MigrationInterface {
+export class CreateTableRoles1683638167460 implements MigrationInterface {
   private roleTable = new Table({
     name: 'roles',
     columns: [
       {
         name: 'id',
-        type: 'INTEGER',
+        type: 'integer',
         isPrimary: true,
         isGenerated: true,
         generationStrategy: 'increment',
       },
       {
         name: 'name',
-        type: 'VARCHAR',
+        type: 'varchar',
         length: '255',
         isUnique: true,
       },
       {
         name: 'created_at',
-        type: 'TIMESTAMP',
-        default: 'NOW()',
+        type: 'timestamp',
+        default: 'now()',
       },
       {
         name: 'updated_at',
-        type: 'TIMESTAMP',
-        default: 'NOW() ON UPDATE CURRENT_TIMESTAMP()',
+        type: 'timestamp',
+        default: 'now()',
       },
       {
         name: 'deleted_at',
-        type: 'TIMESTAMP',
+        type: 'timestamp',
         isNullable: true,
       },
     ],

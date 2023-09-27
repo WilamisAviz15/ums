@@ -5,38 +5,38 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class CreateTablePrivileges1666220277280 implements MigrationInterface {
+export class CreateTablePrivileges1683653877332 implements MigrationInterface {
   private privilegesTable = new Table({
     name: 'privileges',
     columns: [
       {
         name: 'id',
-        type: 'INTEGER',
+        type: 'integer',
         isPrimary: true,
         isGenerated: true,
         generationStrategy: 'increment',
       },
       {
         name: 'role_id',
-        type: 'INTEGER',
+        type: 'integer',
       },
       {
         name: 'action_menu_id',
-        type: 'INTEGER',
+        type: 'integer',
       },
       {
         name: 'created_at',
-        type: 'TIMESTAMP',
-        default: 'NOW()',
+        type: 'timestamp',
+        default: 'now()',
       },
       {
         name: 'updated_at',
-        type: 'TIMESTAMP',
-        default: 'NOW() ON UPDATE CURRENT_TIMESTAMP()',
+        type: 'timestamp',
+        default: 'now()',
       },
       {
         name: 'deleted_at',
-        type: 'TIMESTAMP',
+        type: 'timestamp',
         isNullable: true,
       },
     ],

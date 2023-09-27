@@ -30,7 +30,6 @@ export class UsersService {
       const where = createFilters(filters);
       return await this.userRepository.find({ where, order: { id: 'ASC' } });
     } catch (error) {
-      console.log(error);
       throw new HttpException(
         { message: 'Não foi possível encontrar os usuários.' },
         HttpStatus.NOT_FOUND,
@@ -40,7 +39,7 @@ export class UsersService {
 
   async create(
     data: UserCreateDto,
-    currentAdmin: UserInterface,
+    currentUser: UserInterface,
   ): Promise<{ user: UserInterface; message: string }> {
     try {
       const entity = Object.assign(new UserEntity(), data);
@@ -126,10 +125,10 @@ export class UsersService {
 
   async delete(id: number): Promise<{ message: string }> {
     try {
-      const admin = await this.userRepository.findOneOrFail({ where: { id } });
+      const user = await this.userRepository.findOneOrFail({ where: { id } });
 
-      const name = await bcryptjs.hash(admin.name, 10);
-      const email = await bcryptjs.hash(admin.email, 10);
+      const name = await bcryptjs.hash(user.name, 10);
+      const email = await bcryptjs.hash(user.email, 10);
 
       await this.userRepository.update(id, { name, email });
       await this.userRepository.softDelete(id);
@@ -168,7 +167,7 @@ export class UsersService {
     }
   }
 
-  async findByCpf(cpf: string, body: UserInterface): Promise<UserInterface> {
+  async findByCpf(cpf: string, body?: UserInterface): Promise<UserInterface> {
     try {
       const id = body.id || 0;
       return await this.userRepository.findOne({

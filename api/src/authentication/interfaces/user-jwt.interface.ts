@@ -1,3 +1,6 @@
+import { ViewMenuByUserRolesEntity } from '../entities/view-menu-by-user-roles.entity';
+import { ViewPrivilegesByUserRolesEntity } from '../entities/view-privileges-by-user-roles.entity';
+
 export interface UserJwtInterface {
   id: number;
   name: string;
@@ -5,8 +8,7 @@ export interface UserJwtInterface {
   cpf: string;
   register: string;
   rolesId?: number[];
-  //TODO:
-  // menus: ViewMenuByAdminRolesEntity[];
-  // privileges: ViewPrivilegesByAdminRolesEntity[];
+  menus: ViewMenuByUserRolesEntity[];
+  privileges: ViewPrivilegesByUserRolesEntity[];
   createdAt: Date;
 }

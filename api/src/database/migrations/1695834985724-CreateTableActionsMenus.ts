@@ -5,7 +5,7 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class CreateTableActionsMenus1666219180093
+export class CreateTableActionsMenus1683653846284
   implements MigrationInterface
 {
   private actionsMenusTable = new Table({
@@ -13,32 +13,32 @@ export class CreateTableActionsMenus1666219180093
     columns: [
       {
         name: 'id',
-        type: 'INTEGER',
+        type: 'integer',
         isPrimary: true,
         isGenerated: true,
         generationStrategy: 'increment',
       },
       {
         name: 'action_id',
-        type: 'INTEGER',
+        type: 'integer',
       },
       {
         name: 'menu_id',
-        type: 'INTEGER',
+        type: 'integer',
       },
       {
         name: 'created_at',
-        type: 'TIMESTAMP',
-        default: 'NOW()',
+        type: 'timestamp',
+        default: 'now()',
       },
       {
         name: 'updated_at',
-        type: 'TIMESTAMP',
-        default: 'NOW() ON UPDATE CURRENT_TIMESTAMP()',
+        type: 'timestamp',
+        default: 'now()',
       },
       {
         name: 'deleted_at',
-        type: 'TIMESTAMP',
+        type: 'timestamp',
         isNullable: true,
       },
     ],

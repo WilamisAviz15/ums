@@ -1,38 +1,39 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTableActions1666219109936 implements MigrationInterface {
+export class CreateTableActions1683653810005 implements MigrationInterface {
   private actionsTable = new Table({
     name: 'actions',
     columns: [
       {
         name: 'id',
-        type: 'INTEGER',
+        type: 'integer',
         isPrimary: true,
         isGenerated: true,
         generationStrategy: 'increment',
       },
       {
         name: 'name',
-        type: 'VARCHAR',
+        type: 'varchar',
         length: '255',
       },
       {
         name: 'created_at',
-        type: 'TIMESTAMP',
-        default: 'NOW()',
+        type: 'timestamp',
+        default: 'now()',
       },
       {
         name: 'updated_at',
-        type: 'TIMESTAMP',
-        default: 'NOW() ON UPDATE CURRENT_TIMESTAMP()',
+        type: 'timestamp',
+        default: 'now()',
       },
       {
         name: 'deleted_at',
-        type: 'TIMESTAMP',
+        type: 'timestamp',
         isNullable: true,
       },
     ],
   });
+
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(this.actionsTable);
   }

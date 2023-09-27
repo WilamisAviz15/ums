@@ -5,60 +5,59 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class CreateTableMenus1666219134574 implements MigrationInterface {
+export class CreateTableMenus1683653830584 implements MigrationInterface {
   private menusTable = new Table({
     name: 'menus',
     columns: [
       {
         name: 'id',
-        type: 'INTEGER',
+        type: 'integer',
         isPrimary: true,
         isGenerated: true,
         generationStrategy: 'increment',
       },
       {
         name: 'name',
-        type: 'VARCHAR',
+        type: 'varchar',
         length: '255',
       },
       {
         name: 'menu_key',
-        type: 'VARCHAR',
+        type: 'varchar',
         length: '255',
       },
       {
         name: 'route',
-        type: 'VARCHAR',
+        type: 'varchar',
         length: '255',
       },
       {
         name: 'icon',
-        type: 'VARCHAR',
+        type: 'varchar',
         length: '255',
         isNullable: true,
       },
       {
         name: 'menu_group_id',
-        type: 'INTEGER',
+        type: 'integer',
       },
       {
         name: 'created_at',
-        type: 'TIMESTAMP',
-        default: 'NOW()',
+        type: 'timestamp',
+        default: 'now()',
       },
       {
         name: 'updated_at',
-        type: 'TIMESTAMP',
-        default: 'NOW() ON UPDATE CURRENT_TIMESTAMP()',
+        type: 'timestamp',
+        default: 'now()',
       },
       {
         name: 'deleted_at',
-        type: 'TIMESTAMP',
+        type: 'timestamp',
         isNullable: true,
       },
     ],
   });
-
   private menuGroupIdForeignKey = new TableForeignKey({
     name: 'fk_menus_group_menu_id',
     columnNames: ['menu_group_id'],
