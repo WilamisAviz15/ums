@@ -4,10 +4,14 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+
+import { RoleEntity } from '../../../modules/roles/entities/role.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -29,14 +33,13 @@ export class UserEntity {
   @Column()
   register: string;
 
-  //TODO:
-  // @ManyToMany(() => RoleEntity, { cascade: true })
-  // @JoinTable({
-  //   name: 'users_roles',
-  //   joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-  //   inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
-  // })
-  // roles: RoleEntity[];
+  @ManyToMany(() => RoleEntity, { cascade: true })
+  @JoinTable({
+    name: 'users_roles',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+  })
+  roles: RoleEntity[];
 
   @Column({ name: 'last_access' })
   lastAccess?: Date;

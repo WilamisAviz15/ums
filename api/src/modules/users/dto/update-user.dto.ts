@@ -14,6 +14,8 @@ import {
 
 import { IsCPF } from 'brazilian-class-validator';
 import { UserCpfAlreadyExist } from '../validate/users-cpf-already-exist.constraint';
+import { RoleUserAlreadyExist } from '../validate/role-already-exist.constraint';
+import { UserRolesDto } from './user-roles.dto';
 
 export class UserUpdateDto {
   @IsNotEmpty({ message: 'O campo de ID do Usuário é obrigátorio.' })
@@ -57,14 +59,13 @@ export class UserUpdateDto {
   })
   cpf: string;
 
-  //TODO:
-  // @IsArray()
-  // @ArrayMinSize(0, { message: 'Informe ao menos um perfil de acesso' })
-  // @ValidateNested({ each: true })
-  // @Type(() => AdminRolesDto)
-  // @Validate(RoleAdminAlreadyExist, {
-  //   message:
-  //     'Não é possível associar o mesmo PERFIL a um usuário, por favor verifique os perfis selecionados.',
-  // })
-  // roles: AdminRolesDto[];
+  @IsArray()
+  @ArrayMinSize(0, { message: 'Informe ao menos um perfil de acesso' })
+  @ValidateNested({ each: true })
+  @Type(() => UserRolesDto)
+  @Validate(RoleUserAlreadyExist, {
+    message:
+      'Não é possível associar o mesmo PERFIL a um usuário, por favor verifique os perfis selecionados.',
+  })
+  roles: UserRolesDto[];
 }

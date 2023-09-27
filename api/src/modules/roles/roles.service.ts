@@ -5,9 +5,9 @@ import { RoleEntity } from './entities/role.entity';
 import { RoleCreateDto } from './dto/create-role.dto';
 import { RoleUpdateDto } from './dto/update-role.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RoleFilterInterface } from './interfaces/admin-role.interface';
 import { RoleInterface } from './interfaces/role.interface';
 import { createFilters } from '../../shared/utils/typeorm/create-filters.utils';
+import { RoleFilterInterface } from './interfaces/role-filter.interface';
 
 @Injectable()
 export class RolesService {

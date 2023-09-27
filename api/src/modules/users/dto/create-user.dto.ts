@@ -1,5 +1,5 @@
 import { IsCPF } from 'brazilian-class-validator';
-import { Transform, TransformFnParams } from 'class-transformer';
+import { Transform, TransformFnParams, Type } from 'class-transformer';
 import {
   IsString,
   IsNotEmpty,
@@ -9,9 +9,14 @@ import {
   IsEmail,
   Validate,
   IsDefined,
+  IsArray,
+  ArrayMinSize,
+  ValidateNested,
 } from 'class-validator';
 import { UserEmailAlreadyExist } from '../validate/users-email-already-exist.constraint';
 import { UserCpfAlreadyExist } from '../validate/users-cpf-already-exist.constraint';
+import { UserRolesDto } from './user-roles.dto';
+import { RoleUserAlreadyExist } from '../validate/role-already-exist.constraint';
 
 export class UserCreateDto {
   @IsString({ message: 'O campo de nome precisa ser uma string.' })
@@ -63,14 +68,13 @@ export class UserCreateDto {
   })
   register: string;
 
-  //TODO:
-  // @IsArray()
-  // @ArrayMinSize(0, { message: 'Informe ao menos um perfil de acesso' })
-  // @ValidateNested({ each: true })
-  // @Type(() => AdminRolesDto)
-  // @Validate(RoleAdminAlreadyExist, {
-  //   message:
-  //     'Não é possível associar o mesmo PERFIL a um usuário, por favor verifique os perfis selecionados.',
-  // })
-  // roles: AdminRolesDto[];
+  @IsArray()
+  @ArrayMinSize(0, { message: 'Informe ao menos um perfil de acesso' })
+  @ValidateNested({ each: true })
+  @Type(() => UserRolesDto)
+  @Validate(RoleUserAlreadyExist, {
+    message:
+      'Não é possível associar o mesmo PERFIL a um usuário, por favor verifique os perfis selecionados.',
+  })
+  roles: UserRolesDto[];
 }

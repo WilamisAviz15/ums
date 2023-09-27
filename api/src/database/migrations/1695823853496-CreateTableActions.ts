@@ -1,45 +1,43 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTableRoles1695239303042 implements MigrationInterface {
-  private roleTable = new Table({
-    name: 'roles',
+export class CreateTableActions1666219109936 implements MigrationInterface {
+  private actionsTable = new Table({
+    name: 'actions',
     columns: [
       {
         name: 'id',
-        type: 'integer',
+        type: 'INTEGER',
         isPrimary: true,
         isGenerated: true,
         generationStrategy: 'increment',
       },
       {
         name: 'name',
-        type: 'varchar',
+        type: 'VARCHAR',
         length: '255',
-        isUnique: true,
       },
       {
         name: 'created_at',
-        type: 'timestamp',
-        default: 'now()',
+        type: 'TIMESTAMP',
+        default: 'NOW()',
       },
       {
         name: 'updated_at',
-        type: 'timestamp',
-        default: 'now()',
+        type: 'TIMESTAMP',
+        default: 'NOW() ON UPDATE CURRENT_TIMESTAMP()',
       },
       {
         name: 'deleted_at',
-        type: 'timestamp',
+        type: 'TIMESTAMP',
         isNullable: true,
       },
     ],
   });
-
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.createTable(this.roleTable);
+    await queryRunner.createTable(this.actionsTable);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable(this.roleTable);
+    await queryRunner.dropTable(this.actionsTable);
   }
 }

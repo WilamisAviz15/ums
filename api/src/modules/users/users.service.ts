@@ -69,12 +69,11 @@ export class UsersService {
 
       const entity = Object.assign(new UserEntity(), { ...data, id });
 
-      //TODO:
-      // for (const entityRole of entity.roles) {
-      //   if (!entityRole.id) {
-      //     delete entityRole.id;
-      //   }
-      // }
+      for (const entityRole of entity.roles) {
+        if (!entityRole.id) {
+          delete entityRole.id;
+        }
+      }
 
       await queryRunner.connect();
 
