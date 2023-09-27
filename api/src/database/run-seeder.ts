@@ -8,6 +8,7 @@ import { MenusSeed } from './seeds/menus.seed';
 import { MenuGroupsSeed } from './seeds/menu-groups.seed';
 import { PrivilegesSeed } from './seeds/privileges.seed';
 import { UsersRolesSeed } from './seeds/user-roles.seed';
+import { MealsSeed } from './seeds/meals.seed';
 
 export class MainSeeder implements Seeder {
   public async run(dataSource: DataSource): Promise<any> {
@@ -21,6 +22,7 @@ export class MainSeeder implements Seeder {
         ActionsMenuSeed,
         PrivilegesSeed,
         UsersRolesSeed,
+        MealsSeed,
       ],
     });
   }

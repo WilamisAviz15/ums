@@ -7,6 +7,7 @@ import { ActionsMenuEntity } from '../../modules/actions/entities/actions-menu.e
 import { PrivilegeEntity } from '../../modules/menus/entities/privilege.entity';
 import { ViewMenuByUserRolesEntity } from '../../authentication/entities/view-menu-by-user-roles.entity';
 import { ViewPrivilegesByUserRolesEntity } from '../../authentication/entities/view-privileges-by-user-roles.entity';
+import { MealEntity } from '../../modules/meals/entities/meal.entity';
 
 export const entities = [
   UserEntity,
@@ -18,4 +19,5 @@ export const entities = [
   MenusGroupEntity,
   ViewMenuByUserRolesEntity,
   ViewPrivilegesByUserRolesEntity,
+  MealEntity,
 ];

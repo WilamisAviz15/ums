@@ -9,6 +9,7 @@ import { ActionsModule } from './modules/actions/actions.module';
 import { MenusModule } from './modules/menus/menus.module';
 import { MenusGroupsModule } from './modules/menus-groups/menus-groups.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { MealsModule } from './modules/meals/meals.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
     ActionsModule,
     MenusModule,
     MenusGroupsModule,
+    MealsModule,
   ],
   controllers: [],
   providers: [EnvironmentProviderModule],
