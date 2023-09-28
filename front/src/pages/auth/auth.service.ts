@@ -20,10 +20,8 @@ class AuthService {
   async login(data: AuthLoginInterface): Promise<any> {
     try {
       const jwt: any = await this.httpPost(data);
-      console.log(jwt);
       return this.saveUser(jwt.accessToken);
     } catch (error: any) {
-      console.log(error);
       throw error;
     }
   }
