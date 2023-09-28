@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import Button from "../Button";
 
-const Header = ({ children }: { children: JSX.Element }) => {
+const Header = ({ menus, children }: { menus: any[]; children: JSX.Element }) => {
   const [isLogged, setIsLogged] = useState(false);
-
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
       setIsLogged((value) => !value);
@@ -25,9 +24,11 @@ const Header = ({ children }: { children: JSX.Element }) => {
       <header className={styles.header}>
         <img src="/logo" alt="logo do RU" />
         <ul>
-          <li>
-            <Link to="/">Início</Link>
-          </li>
+          {menus.map((menu, index) => (
+            <li key={index}>
+              <a href={`/${menu.route}`}>{menu.menu}</a>
+            </li>
+          ))}
           <li>
             <Link to="/auth/login">
               <Button

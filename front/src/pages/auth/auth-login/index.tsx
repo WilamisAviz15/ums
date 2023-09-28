@@ -44,9 +44,7 @@ const AuthLogin = () => {
     e.preventDefault();
 
     try {
-      const res = await authService.httpPost(user);
-      authService.setTokenToStorage(res.token);
-      handleOpenSnackbar("Login bem sucedido.", "success");
+      await authService.login(user);
       navigate("/");
     } catch (error: any) {
       if (error instanceof AxiosError) {

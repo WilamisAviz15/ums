@@ -9,7 +9,7 @@ export class MenusSeed implements Seeder {
     await repository.insert([
       {
         name: 'Início',
-        route: '',
+        route: 'inicio',
         menuKey: 'inicio',
         menuGroupId: 1,
       },
