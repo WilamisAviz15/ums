@@ -44,7 +44,7 @@ export class UsersService {
     try {
       const entity = Object.assign(new UserEntity(), data);
       const user = await this.userRepository.save(entity);
-      return { user, message: 'O usuário foi criada com sucesso.' };
+      return { user, message: 'O usuário foi criado com sucesso.' };
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;

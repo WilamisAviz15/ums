@@ -49,6 +49,24 @@ export class MenusSeed implements Seeder {
         menuKey: 'parameters',
         menuGroupId: 2,
       },
+      {
+        name: 'Agendamentos',
+        route: 'agendamentos',
+        menuKey: 'schedules',
+        menuGroupId: 1,
+      },
+      {
+        name: 'Perfil',
+        route: 'perfil',
+        menuKey: 'profile',
+        menuGroupId: 1,
+      },
+      {
+        name: 'Cardápio',
+        route: 'cardapio',
+        menuKey: 'menu',
+        menuGroupId: 1,
+      },
     ]);
   }
 }
