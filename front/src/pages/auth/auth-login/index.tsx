@@ -9,6 +9,7 @@ import authService from "../auth.service";
 import { CartToast } from "../../../components/snackbar";
 import { AuthLoginInterface } from "../interfaces/auth-login.interface";
 import { SnackbarInterface } from "../../../shared/interfaces/snackbar.interface";
+import logo from "../../../assets/logo-ums.png";
 
 const AuthLogin = () => {
   const [user, setUser] = useState<AuthLoginInterface>({ username: "", password: "" });
@@ -56,7 +57,7 @@ const AuthLogin = () => {
     <>
       <form onSubmit={login} className={styles.login}>
         <div>
-          <img src="/logo" alt="logo do RU" />
+          <img src={logo} alt="logo do RU" />
           <InputText
             type="text"
             value={user.username}

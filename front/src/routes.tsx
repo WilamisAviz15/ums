@@ -32,6 +32,18 @@ const MyRoutes = ({ name }: { name: string }) => {
       name: "parameters",
       component: <></>,
     },
+    {
+      name: "schedules",
+      component: <></>,
+    },
+    {
+      name: "profile",
+      component: <></>,
+    },
+    {
+      name: "menu",
+      component: <></>,
+    },
   ];
 
   return components.filter((component) => component.name === name)[0].component;

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./Header.module.scss";
 import Button from "../Button";
+import logo from "../../assets/logo-ums.png";
 
 const Header = ({ menus, children }: { menus: any[]; children: JSX.Element }) => {
   const [isLogged, setIsLogged] = useState(false);
@@ -22,12 +23,12 @@ const Header = ({ menus, children }: { menus: any[]; children: JSX.Element }) =>
   return (
     <>
       <header className={styles.header}>
-        <img src="/logo" alt="logo do RU" />
+        <img src={logo} alt="logo do RU" />
         <ul>
           {menus.map((menu, index) => (
-            <li key={index}>
-              <a href={`/${menu.route}`}>{menu.menu}</a>
-            </li>
+            <Link key={index} to={`/${menu.route}`}>
+              {menu.menu}
+            </Link>
           ))}
           <li>
             <Link to="/auth/login">
