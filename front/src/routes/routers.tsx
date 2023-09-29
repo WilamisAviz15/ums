@@ -8,7 +8,9 @@ import ScheduleList from "../pages/schedules/schedules-list";
 import Schedules from "../pages/schedules";
 import SchedulesForm from "../pages/schedules/schedules-form";
 import Profile from "../pages/profile";
-import ProfileForm from "../pages/profile/profile-form";
+import MenuMeal from "../pages/menu-meal";
+import MenuMealList from "../pages/menu-meal/menu-meal-list";
+import MenuMealForm from "../pages/menu-meal/menu-meal-form";
 
 const routers = () => {
   const components = [
@@ -85,8 +87,21 @@ const routers = () => {
     },
     {
       name: "menu",
-      component: <></>,
-      child: [],
+      component: <MenuMeal />,
+      child: [
+        {
+          name: "",
+          component: <MenuMealList />,
+        },
+        {
+          name: "cadastrar",
+          component: <MenuMealForm />,
+        },
+        {
+          name: "editar/:id",
+          component: <MenuMealForm />,
+        },
+      ],
     },
   ];
   return components;

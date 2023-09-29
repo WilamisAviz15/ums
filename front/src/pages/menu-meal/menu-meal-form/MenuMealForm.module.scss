@@ -1,0 +1,11 @@
+.title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+form > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

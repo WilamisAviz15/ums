@@ -24,7 +24,7 @@ export class MenuMealService {
       return await this.menuMealsRepository.find({
         where,
         order: { id: 'ASC' },
-        relations: ['user', 'meal'],
+        relations: ['meal'],
       });
     } catch (error) {
       throw new HttpException(
