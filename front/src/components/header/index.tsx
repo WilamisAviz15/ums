@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import styles from "./Header.module.scss";
 import Button from "../Button";
 import logo from "../../assets/logo-ums.png";
+import authService from "../../pages/auth/auth.service";
 
 const Header = ({ menus, children }: { menus: any[]; children: JSX.Element }) => {
   const [isLogged, setIsLogged] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
       setIsLogged((value) => !value);
@@ -16,14 +18,14 @@ const Header = ({ menus, children }: { menus: any[]; children: JSX.Element }) =>
   const handleButton = () => {
     if (isLogged) {
       setIsLogged((value) => !value);
-      localStorage.clear();
+      authService.logout();
     }
   };
 
   return (
     <>
       <header className={styles.header}>
-        <img src={logo} alt="logo do RU" />
+        <img className={styles.img} src={logo} alt="logo do RU" onClick={() => navigate("/inicio")} />
         <ul>
           {menus.map((menu, index) => (
             <Link key={index} to={`/${menu.route}`}>

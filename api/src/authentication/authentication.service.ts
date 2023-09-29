@@ -42,7 +42,7 @@ export class AuthenticationService {
       const user = await this.userRepository.findOne({
         where: [{ cpf: this.removeMask(username) }],
         relations: ['roles'],
-        select: ['id', 'name', 'email', 'cpf', 'password'],
+        select: ['id', 'name', 'email', 'cpf', 'password', 'register'],
       });
       if (!user || !(await user.checkPassword(password))) {
         throw new UnauthorizedException('Essas credencias estão incorretas');
@@ -139,14 +139,12 @@ export class AuthenticationService {
   }
 
   removeMask(cpf: string) {
-    console.log(cpf);
     return cpf.replace(/[^\d]+/g, '');
   }
 
   async signToken(
     user: UserInterface,
   ): Promise<{ accessToken: string; payload: UserJwtInterface }> {
-    console.log(user.roles);
     const menus = await this.viewMenusByRolesRepository.find({
       where: { roleId: In(user.roles.map((role: RoleInterface) => role.id)) },
     });
@@ -157,7 +155,6 @@ export class AuthenticationService {
       },
       select: ['key'],
     });
-
     const rolesId = user.roles.map((role) => role.id);
     const payload = {
       id: user.id,

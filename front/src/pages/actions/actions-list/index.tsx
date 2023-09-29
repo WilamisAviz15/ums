@@ -17,21 +17,21 @@ const ActionsList = () => {
       setActions(res.data);
     };
     getActions();
-  }, [actions]);
+  }, []);
 
   const add = () => {
     navigate("cadastrar");
   };
   return (
     <>
-      <h1>Ações</h1>
-      <div className={styles.actions__wrapper}>
-        <div className={styles.actions__wrapper__index}>
-          <ActionsRenderList data={actions} />
-        </div>
+      <div className={styles.actions__title}>
+        <h1>Ações</h1>
         <Fab color="primary" aria-label="add" sx={{ alignSelf: "flex-end" }} onClick={add}>
           <AddIcon />
         </Fab>
+      </div>
+      <div className={styles.actions__wrapper}>
+        <ActionsRenderList data={actions} setActions={setActions} />
       </div>
     </>
   );

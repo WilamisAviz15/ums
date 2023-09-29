@@ -97,7 +97,7 @@ export class UsersService {
         throw error;
       }
       throw new HttpException(
-        { message: 'Não foi possível atualizar o usuário.' },
+        { message: `Não foi possível atualizar o usuário. ${error}` },
         HttpStatus.BAD_REQUEST,
       );
     } finally {

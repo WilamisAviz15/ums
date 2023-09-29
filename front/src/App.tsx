@@ -14,8 +14,7 @@ function App() {
   const [user, setUser] = useState<any | null>(null);
 
   useEffect(() => {
-    authService.user$.subscribe((user: any) => setUser(user));
-    console.log(user);
+    authService.getUser$().subscribe((user: any) => setUser(user));
     if (user) {
       setMenus(user.menus);
     }

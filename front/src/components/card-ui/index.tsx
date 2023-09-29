@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Card, CardHeader, IconButton, Menu, MenuItem } from "@mui/material";
+import { Card, CardContent, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CardUIInterface } from "./interfaces/card-ui.interface";
 
-const CardUI = ({ title, onEditClick, onDeleteClick }: CardUIInterface) => {
+const CardUI = ({ title, subTitle, extraText, onEditClick, onDeleteClick }: CardUIInterface) => {
   const [openDropdown, setOpenDropdown] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -44,7 +44,15 @@ const CardUI = ({ title, onEditClick, onDeleteClick }: CardUIInterface) => {
           </>
         }
         title={title}
+        subheader={subTitle}
       />
+      {extraText && (
+        <CardContent>
+          <Typography variant="body2" color="text.primary">
+            {extraText}
+          </Typography>
+        </CardContent>
+      )}
     </Card>
   );
 };

@@ -1,13 +1,13 @@
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, take } from "rxjs";
 
 import http from "../../shared/services/axios";
 import { AuthLoginInterface } from "./interfaces/auth-login.interface";
 import { JwtServiceUtil } from "../../shared/utils/jwt-service.util";
 
 class AuthService {
-  bearer$: BehaviorSubject<any> = new BehaviorSubject(null);
-  user$: BehaviorSubject<any> = new BehaviorSubject(null);
-  privileges$: BehaviorSubject<any> = new BehaviorSubject(null);
+  private bearer$: BehaviorSubject<any> = new BehaviorSubject(null);
+  private user$: BehaviorSubject<any> = new BehaviorSubject(null);
+  private privileges$: BehaviorSubject<any> = new BehaviorSubject(null);
   constructor() {
     this.recoveryDataFromLocalStorage();
   }
@@ -20,6 +20,19 @@ class AuthService {
   async login(data: AuthLoginInterface): Promise<any> {
     const jwt: any = await this.httpPost(data);
     return this.saveUser(jwt.accessToken);
+  }
+
+  getUser() {
+    return this.user$.getValue();
+  }
+
+  getUser$() {
+    return this.user$.asObservable();
+  }
+
+  logout() {
+    this.user$.next(null);
+    localStorage.clear();
   }
 
   saveUser(jwt: string): boolean | unknown {

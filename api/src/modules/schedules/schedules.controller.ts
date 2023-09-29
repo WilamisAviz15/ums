@@ -18,10 +18,12 @@ import { ScheduleUpdateDto } from './dto/update-schedule.dto';
 export class SchedulesController {
   constructor(private readonly service: SchedulesService) {}
 
-  @Get()
+  @Get('user/:userId')
   @Roles('ACTIONS_LISTAR')
-  async findAll(): Promise<ScheduleInterface[]> {
-    return await this.service.findAll();
+  async findAll(
+    @Param('userId') userId?: number,
+  ): Promise<ScheduleInterface[]> {
+    return await this.service.findAll(userId);
   }
 
   @Get(':id')

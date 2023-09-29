@@ -1,3 +1,5 @@
+import { MealEntity } from '../../../modules/meals/entities/meal.entity';
+import { UserEntity } from '../../../modules/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -17,8 +19,16 @@ export class ScheduleEntity {
   @Column({ name: 'user_id' })
   userId: number;
 
+  @OneToOne(() => UserEntity)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  user: UserEntity;
+
   @Column({ name: 'meal_id' })
   mealId: number;
+
+  @OneToOne(() => MealEntity)
+  @JoinColumn({ name: 'meal_id', referencedColumnName: 'id' })
+  meal: MealEntity;
 
   @CreateDateColumn({ name: 'date' })
   date: Date;

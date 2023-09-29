@@ -4,6 +4,11 @@ import Actions from "../pages/actions";
 import Home from "../pages/home";
 import ActionsForm from "../pages/actions/actions-form";
 import ActionsList from "../pages/actions/actions-list";
+import ScheduleList from "../pages/schedules/schedules-list";
+import Schedules from "../pages/schedules";
+import SchedulesForm from "../pages/schedules/schedules-form";
+import Profile from "../pages/profile";
+import ProfileForm from "../pages/profile/profile-form";
 
 const routers = () => {
   const components = [
@@ -57,12 +62,25 @@ const routers = () => {
     },
     {
       name: "schedules",
-      component: <></>,
-      child: [],
+      component: <Schedules />,
+      child: [
+        {
+          name: "cadastrar",
+          component: <SchedulesForm />,
+        },
+        {
+          name: "editar/:id",
+          component: <SchedulesForm />,
+        },
+        {
+          name: "",
+          component: <ScheduleList />,
+        },
+      ],
     },
     {
       name: "profile",
-      component: <></>,
+      component: <Profile />,
       child: [],
     },
     {

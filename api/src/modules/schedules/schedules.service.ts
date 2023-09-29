@@ -17,17 +17,19 @@ export class SchedulesService {
   ) {}
 
   async findAll(
+    userId?: number,
     filters?: ScheduleFilterInterface,
   ): Promise<ScheduleInterface[]> {
     try {
       const where = createFilters(filters);
       return await this.schedulesRepository.find({
-        where,
+        where: { userId },
         order: { id: 'ASC' },
+        relations: ['user', 'meal'],
       });
     } catch (error) {
       throw new HttpException(
-        { message: 'Não foi possível encontrar o agendamento.' },
+        { message: 'Não foi possível encontrar os agendamentos.' },
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
@@ -44,19 +46,40 @@ export class SchedulesService {
     }
   }
 
+  async findAllByUserId(
+    userId: number,
+    filters?: ScheduleFilterInterface,
+  ): Promise<ScheduleInterface[]> {
+    try {
+      const where = createFilters(filters);
+      return await this.schedulesRepository.find({
+        where: { userId },
+        order: { id: 'ASC' },
+        relations: ['user', 'meal'],
+      });
+    } catch (error) {
+      throw new HttpException(
+        { message: 'Não foi possível encontrar os agendamentos.' },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   async create(
     data: ScheduleCreateDto,
   ): Promise<{ schedule: ScheduleInterface; message: string }> {
     try {
-      console.log(data);
-
-      const entity = Object.assign(new ScheduleEntity(), data);
+      const entity = Object.assign(new ScheduleEntity(), {
+        userId: data.userId,
+        mealId: data.mealId,
+        date: data.date,
+      });
       const schedule = await this.schedulesRepository.save(entity);
 
       return { schedule, message: 'O agendamento foi criado com sucesso.' };
     } catch (error) {
       throw new HttpException(
-        { message: 'Não foi possível criar o agendamento.' },
+        { message: `Não foi possível criar o agendamento. ${error}` },
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

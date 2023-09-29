@@ -5,7 +5,13 @@ import CardUI from "../../../components/card-ui";
 import { ActionInterface } from "../interfaces/action.interface";
 import actionsService from "../actions.service";
 
-const ActionsRenderList = ({ data }: { data: ActionInterface[] | undefined }) => {
+const ActionsRenderList = ({
+  data,
+  setActions,
+}: {
+  data: ActionInterface[] | undefined;
+  setActions: React.Dispatch<React.SetStateAction<ActionInterface[] | undefined>>;
+}) => {
   const navigate = useNavigate();
   const editAction = (id: number | undefined) => {
     if (!id) return;
@@ -15,6 +21,7 @@ const ActionsRenderList = ({ data }: { data: ActionInterface[] | undefined }) =>
   const deleteAction = async (id: number | undefined) => {
     if (!id) return;
     await actionsService.httpDelete(id);
+    setActions((oldAction) => oldAction?.filter((item) => item.id !== id));
   };
 
   const handleData = () => {
