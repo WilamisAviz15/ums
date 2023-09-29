@@ -5,12 +5,14 @@ import Auth from "./pages/auth";
 import AuthLogin from "./pages/auth/auth-login";
 import Header from "./components/header";
 import authService from "./pages/auth/auth.service";
+import RouteList from "./routes/route-list";
 import { MenuInterface } from "./interfaces/menu.interface";
-import MyRoutes from "./routes";
+import { getChildRoutes } from "./routes/child-routes";
 
 function App() {
   const [menus, setMenus] = useState<MenuInterface[]>([]);
   const [user, setUser] = useState<any | null>(null);
+
   useEffect(() => {
     authService.user$.subscribe((user: any) => setUser(user));
     console.log(user);
@@ -28,10 +30,12 @@ function App() {
             path={`/${menu.route}`}
             element={
               <Header menus={menus}>
-                <MyRoutes name={menu.menuKey} />
+                <RouteList name={menu.menuKey} />
               </Header>
             }
-          />
+          >
+            {getChildRoutes(menu)}
+          </Route>
         ))
       ) : (
         <></>

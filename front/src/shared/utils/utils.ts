@@ -1,4 +1,4 @@
-import { FormErrors } from "../pages/auth/interfaces/auth-register.interface";
+import { FormErrors } from "../../pages/auth/interfaces/auth-register.interface";
 
 export const isFormErrors = (obj: FormErrors | { error: string }): obj is FormErrors => {
   return !("error" in obj);
