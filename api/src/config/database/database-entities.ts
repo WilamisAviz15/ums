@@ -9,6 +9,7 @@ import { ViewMenuByUserRolesEntity } from '../../authentication/entities/view-me
 import { ViewPrivilegesByUserRolesEntity } from '../../authentication/entities/view-privileges-by-user-roles.entity';
 import { MealEntity } from '../../modules/meals/entities/meal.entity';
 import { ScheduleEntity } from '../../modules/schedules/entities/schedule.entity';
+import { MenuMealEntity } from '../../modules/menu-meal/entities/menu-meal.entity';
 
 export const entities = [
   UserEntity,
@@ -22,4 +23,5 @@ export const entities = [
   ViewPrivilegesByUserRolesEntity,
   MealEntity,
   ScheduleEntity,
+  MenuMealEntity,
 ];

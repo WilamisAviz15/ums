@@ -11,6 +11,7 @@ import { MenusGroupsModule } from './modules/menus-groups/menus-groups.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { MealsModule } from './modules/meals/meals.module';
 import { ProfileModule } from './modules/profile/profile.module';
+import { MenuMealModule } from './modules/menu-meal/menu-meal.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ProfileModule } from './modules/profile/profile.module';
     MenusGroupsModule,
     MealsModule,
     ProfileModule,
+    MenuMealModule,
   ],
   controllers: [],
   providers: [EnvironmentProviderModule],
