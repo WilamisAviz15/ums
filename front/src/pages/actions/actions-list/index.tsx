@@ -17,7 +17,7 @@ const ActionsList = () => {
       setActions(res.data);
     };
     getActions();
-  }, []);
+  }, [actions]);
 
   const add = () => {
     navigate("cadastrar");
