@@ -1,13 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import CardUI from "../../../components/card-ui";
 import { ActionInterface } from "../interfaces/action.interface";
 import actionsService from "../actions.service";
 
 const ActionsRenderList = ({ data }: { data: ActionInterface[] | undefined }) => {
+  const navigate = useNavigate();
   const editAction = (id: number | undefined) => {
     if (!id) return;
-    console.log(id);
+    navigate(`editar/${id}`);
   };
 
   const deleteAction = async (id: number | undefined) => {

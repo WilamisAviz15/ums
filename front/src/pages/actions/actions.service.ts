@@ -5,7 +5,11 @@ class ActionsService {
   constructor() {}
 
   async httpGet(): Promise<any> {
-    return await http.get<any, any>("actions/");
+    return await http.get<ActionInterface, any>("actions/");
+  }
+
+  async httpGetById(id: number): Promise<ActionInterface> {
+    return (await http.get<any, any>(`actions/${id}`)).data;
   }
 
   async httpPost(data: ActionInterface): Promise<{ action: ActionInterface; message: string }> {
@@ -14,7 +18,7 @@ class ActionsService {
   }
 
   async httpPut(data: ActionInterface): Promise<{ action: ActionInterface; message: string }> {
-    const response = await http.put<ActionInterface, any>("actions", { data });
+    const response = await http.put<ActionInterface, any>(`actions/${data.id}`, { data });
     return response.data;
   }
 

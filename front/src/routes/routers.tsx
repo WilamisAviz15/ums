@@ -21,6 +21,10 @@ const routers = () => {
           component: <ActionsForm />,
         },
         {
+          name: "editar/:id",
+          component: <ActionsForm />,
+        },
+        {
           name: "",
           component: <ActionsList />,
         },
