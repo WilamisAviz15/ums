@@ -1,6 +1,7 @@
 import React from "react";
 
 import Home from "./pages/home";
+import Actions from "./pages/actions";
 
 const MyRoutes = ({ name }: { name: string }) => {
   const components = [
@@ -10,7 +11,7 @@ const MyRoutes = ({ name }: { name: string }) => {
     },
     {
       name: "actions",
-      component: <></>,
+      component: <Actions />,
     },
     {
       name: "menus-group",
