@@ -45,7 +45,8 @@ const AuthLogin = () => {
     e.preventDefault();
 
     try {
-      authService.login(user).then(() => navigate("/inicio"));
+      await authService.login(user);
+      navigate("/inicio");
     } catch (error: any) {
       if (error instanceof AxiosError) {
         handleOpenSnackbar(error.response?.data["message"], "error");

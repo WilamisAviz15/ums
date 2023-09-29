@@ -18,12 +18,8 @@ class AuthService {
   }
 
   async login(data: AuthLoginInterface): Promise<any> {
-    try {
-      const jwt: any = await this.httpPost(data);
-      return this.saveUser(jwt.accessToken);
-    } catch (error: any) {
-      throw error;
-    }
+    const jwt: any = await this.httpPost(data);
+    return this.saveUser(jwt.accessToken);
   }
 
   saveUser(jwt: string): boolean | unknown {

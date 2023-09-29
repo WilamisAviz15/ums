@@ -1,0 +1,17 @@
+.menus {
+  margin: 0 12rem;
+  height: calc(100vh - 3rem - 112px);
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 3rem - 176px);
+
+    &__index {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 16px;
+    }
+  }
+}
