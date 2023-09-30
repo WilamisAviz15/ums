@@ -20,6 +20,9 @@ import MenusForm from "../pages/menus/menus-form";
 import Roles from "../pages/roles";
 import RolesList from "../pages/roles/roles-list";
 import RolesForm from "../pages/roles/roles-form";
+import Users from "../pages/users";
+import UsersList from "../pages/users/users-list";
+import UsersForm from "../pages/users/users-form";
 
 const routers = () => {
   const components = [
@@ -102,8 +105,21 @@ const routers = () => {
     },
     {
       name: "users",
-      component: <></>,
-      child: [],
+      component: <Users />,
+      child: [
+        {
+          name: "",
+          component: <UsersList />,
+        },
+        {
+          name: "cadastrar",
+          component: <UsersForm />,
+        },
+        {
+          name: "editar/:id",
+          component: <UsersForm />,
+        },
+      ],
     },
     {
       name: "parameters",

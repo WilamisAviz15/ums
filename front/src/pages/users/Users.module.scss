@@ -1,0 +1,17 @@
+.users {
+  margin: 0 12rem;
+  height: calc(100vh - 3rem - 112px);
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 16px;
+  }
+}

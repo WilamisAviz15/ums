@@ -28,7 +28,11 @@ export class UsersService {
   async findAll(filters: UserFilterInterface) {
     try {
       const where = createFilters(filters);
-      return await this.userRepository.find({ where, order: { id: 'ASC' } });
+      return await this.userRepository.find({
+        where,
+        order: { id: 'ASC' },
+        relations: ['roles'],
+      });
     } catch (error) {
       throw new HttpException(
         { message: 'Não foi possível encontrar os usuários.' },
@@ -50,7 +54,7 @@ export class UsersService {
         throw error;
       }
       throw new HttpException(
-        { message: `Não foi possível criar o usuário.` },
+        { message: `Não foi possível criar o usuário. ${error}` },
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

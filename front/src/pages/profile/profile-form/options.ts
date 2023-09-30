@@ -1,6 +1,6 @@
-import { UserInterface } from "../interfaces/user.interface";
+import { ProfileInterface } from "../interfaces/profile.interface";
 
-export const initialForm: UserInterface = {
+export const initialForm: ProfileInterface = {
   cpf: "",
   email: "",
   id: 0,

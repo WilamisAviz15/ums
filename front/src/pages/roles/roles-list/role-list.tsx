@@ -29,7 +29,7 @@ const RolesRenderList = ({
       return data.map((item) => (
         <CardUI
           key={item.id}
-          title={item.name}
+          title={item.name!}
           onEditClick={() => editRoles(item.id)}
           onDeleteClick={() => deleteRoles(item.id)}
         />

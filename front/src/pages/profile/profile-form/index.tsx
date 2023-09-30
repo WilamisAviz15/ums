@@ -1,15 +1,15 @@
 import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { AxiosError } from "axios";
 
 import styles from "./ProfileForm.module.scss";
 import authService from "../../auth/auth.service";
-import { UserInterface } from "../interfaces/user.interface";
 import { initialForm } from "./options";
-import { AxiosError } from "axios";
+import { ProfileInterface } from "../interfaces/profile.interface";
 import profileService from "./profile.service";
 
 const ProfileForm = () => {
-  const [form, setForm] = useState<UserInterface>(initialForm);
+  const [form, setForm] = useState<ProfileInterface>(initialForm);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   useEffect(() => {
