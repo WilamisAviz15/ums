@@ -14,6 +14,12 @@ import MenuMealForm from "../pages/menu-meal/menu-meal-form";
 import MenusGroup from "../pages/menus-groups";
 import MenusGroupsList from "../pages/menus-groups/menu-groups-list";
 import MenusGroupsForm from "../pages/menus-groups/menus-groups-form";
+import Menus from "../pages/menus";
+import MenusList from "../pages/menus/menus-list";
+import MenusForm from "../pages/menus/menus-form";
+import Roles from "../pages/roles";
+import RolesList from "../pages/roles/roles-list";
+import RolesForm from "../pages/roles/roles-form";
 
 const routers = () => {
   const components = [
@@ -60,13 +66,39 @@ const routers = () => {
     },
     {
       name: "menus",
-      component: <></>,
-      child: [],
+      component: <Menus />,
+      child: [
+        {
+          name: "",
+          component: <MenusList />,
+        },
+        {
+          name: "cadastrar",
+          component: <MenusForm />,
+        },
+        {
+          name: "editar/:id",
+          component: <MenusForm />,
+        },
+      ],
     },
     {
       name: "access-profile",
-      component: <></>,
-      child: [],
+      component: <Roles />,
+      child: [
+        {
+          name: "",
+          component: <RolesList />,
+        },
+        {
+          name: "cadastrar",
+          component: <RolesForm />,
+        },
+        {
+          name: "editar/:id",
+          component: <RolesForm />,
+        },
+      ],
     },
     {
       name: "users",

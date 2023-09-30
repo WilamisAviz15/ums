@@ -1,12 +1,12 @@
 export interface MenuInterface {
   id?: number;
   name: string;
+  menu: string;
   menuKey: string;
   route: string;
   icon: string;
-  menuGroupId: number;
+  roleId: number;
   group?: any;
-  createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
+  menuGroup: string;
+  menuGroupId: number;
 }

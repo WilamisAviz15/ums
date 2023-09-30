@@ -6,11 +6,11 @@ import AuthLogin from "./pages/auth/auth-login";
 import Header from "./components/header";
 import authService from "./pages/auth/auth.service";
 import RouteList from "./routes/route-list";
-import { MenuInterface } from "./interfaces/menu.interface";
 import { getChildRoutes } from "./routes/child-routes";
+import { MenuInterface } from "./pages/menus/interfaces/menu.interface";
 
 function App() {
-  const [menus, setMenus] = useState<MenuInterface[]>([]);
+  const [menus, setMenus] = useState<Partial<MenuInterface>[]>([]);
   const [user, setUser] = useState<any | null>(null);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function App() {
             path={`/${menu.route}`}
             element={
               <Header menus={menus}>
-                <RouteList name={menu.menuKey} />
+                <RouteList name={menu.menuKey!} />
               </Header>
             }
           >
