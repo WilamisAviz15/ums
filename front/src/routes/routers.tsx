@@ -11,6 +11,9 @@ import Profile from "../pages/profile";
 import MenuMeal from "../pages/menu-meal";
 import MenuMealList from "../pages/menu-meal/menu-meal-list";
 import MenuMealForm from "../pages/menu-meal/menu-meal-form";
+import MenusGroup from "../pages/menus-groups";
+import MenusGroupsList from "../pages/menus-groups/menu-groups-list";
+import MenusGroupsForm from "../pages/menus-groups/menus-groups-form";
 
 const routers = () => {
   const components = [
@@ -39,8 +42,21 @@ const routers = () => {
     },
     {
       name: "menus-group",
-      component: <></>,
-      child: [],
+      component: <MenusGroup />,
+      child: [
+        {
+          name: "",
+          component: <MenusGroupsList />,
+        },
+        {
+          name: "cadastrar",
+          component: <MenusGroupsForm />,
+        },
+        {
+          name: "editar/:id",
+          component: <MenusGroupsForm />,
+        },
+      ],
     },
     {
       name: "menus",
