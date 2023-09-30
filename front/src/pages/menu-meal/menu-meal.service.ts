@@ -4,8 +4,8 @@ import { MenuMealInterface } from "./interfaces/menu-meal.interface";
 class MenuMealService {
   constructor() {}
 
-  async httpGet(): Promise<any> {
-    return await http.get<MenuMealInterface, any>("menu-meal/");
+  async httpGet(): Promise<MenuMealInterface[]> {
+    return (await http.get<any, any>("menu-meal")).data;
   }
 
   async httpGetById(id: number): Promise<MenuMealInterface> {

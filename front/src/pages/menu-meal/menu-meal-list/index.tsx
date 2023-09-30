@@ -14,7 +14,7 @@ const MenuMealList = () => {
   useEffect(() => {
     const getMenuMeal = async () => {
       const res = await menuMealService.httpGet();
-      setMenuMeal(res.data);
+      setMenuMeal(res);
     };
     getMenuMeal();
   }, []);

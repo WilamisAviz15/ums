@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { format } from "date-fns-tz";
 
 import CardUI from "../../../components/card-ui";
 import scheduleService from "../schedules.service";
 import styles from "./SchedulesList.module.scss";
 import { ScheduleInterface } from "../interfaces/schedule.interface";
+import { formatDate } from "../../../shared/utils/utils";
 
 const ScheduleRenderList = ({
   data,
@@ -25,11 +25,6 @@ const ScheduleRenderList = ({
     await scheduleService.httpDelete(id);
     setSchedules((olSchedules) => olSchedules?.filter((item) => item.id !== id));
   };
-
-  const formatDate = (date: Date) =>
-    format(new Date(date), "dd/MM/yyyy", {
-      timeZone: "America/Sao_Paulo",
-    });
 
   const handleData = () => {
     if (data && Array.isArray(data)) {
