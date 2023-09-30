@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Fab } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
+import { AxiosError } from "axios";
 
 import styles from "../Schedules.module.scss";
 import schedulesService from "../schedules.service";
@@ -13,8 +14,15 @@ const ScheduleList = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const getSchedules = async () => {
-      const res = await schedulesService.httpGet();
-      setSchedules(res.data);
+      try {
+        const res = await schedulesService.httpGet();
+        setSchedules(res.data);
+      } catch (error: any) {
+        if (error instanceof AxiosError) {
+          console.error(error);
+          // handleOpenSnackbar(error.response?.data["message"], "error");
+        }
+      }
     };
     getSchedules();
   }, []);

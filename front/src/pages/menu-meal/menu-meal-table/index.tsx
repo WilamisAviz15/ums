@@ -11,13 +11,21 @@ import { useEffect, useState } from "react";
 import menuMealService from "../menu-meal.service";
 import { MenuMealInterface } from "../interfaces/menu-meal.interface";
 import { dayOfWeek } from "../../../shared/utils/utils";
+import { AxiosError } from "axios";
 
 const MenuMealTable = () => {
   const [menuMeal, setMenuMeal] = useState<MenuMealInterface[]>([]);
   useEffect(() => {
     const handleData = async () => {
-      const res = await menuMealService.httpGet();
-      setMenuMeal(res);
+      try {
+        const res = await menuMealService.httpGet();
+        setMenuMeal(res);
+      } catch (error: any) {
+        if (error instanceof AxiosError) {
+          console.error(error);
+          // handleOpenSnackbar(error.response?.data["message"], "error");
+        }
+      }
     };
 
     handleData();
