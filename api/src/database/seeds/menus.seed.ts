@@ -44,12 +44,6 @@ export class MenusSeed implements Seeder {
         menuGroupId: 2,
       },
       {
-        name: 'Parâmetros de Sistema',
-        route: 'parametros-de-sistema',
-        menuKey: 'parameters',
-        menuGroupId: 2,
-      },
-      {
         name: 'Agendamentos',
         route: 'agendamentos',
         menuKey: 'schedules',
