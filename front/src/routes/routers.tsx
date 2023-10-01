@@ -23,6 +23,8 @@ import RolesForm from "../pages/roles/roles-form";
 import Users from "../pages/users";
 import UsersList from "../pages/users/users-list";
 import UsersForm from "../pages/users/users-form";
+import ConfirmMeal from "../pages/confirm-meal";
+import ConfirmMealForm from "../pages/confirm-meal/confirm-meal-form";
 
 const routers = () => {
   const components = [
@@ -164,6 +166,16 @@ const routers = () => {
         {
           name: "editar/:id",
           component: <MenuMealForm />,
+        },
+      ],
+    },
+    {
+      name: "confirm-meal",
+      component: <ConfirmMeal />,
+      child: [
+        {
+          name: "",
+          component: <ConfirmMealForm />,
         },
       ],
     },

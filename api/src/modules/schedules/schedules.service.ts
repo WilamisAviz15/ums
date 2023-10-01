@@ -8,12 +8,14 @@ import { ScheduleInterface } from './interfaces/schedule.interface';
 import { createFilters } from '../../shared/utils/typeorm/create-filters.utils';
 import { ScheduleCreateDto } from './dto/create-schedule.dto';
 import { ScheduleUpdateDto } from './dto/update-schedule.dto';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class SchedulesService {
   constructor(
     @InjectRepository(ScheduleEntity)
     private readonly schedulesRepository: Repository<ScheduleEntity>,
+    private readonly usersService: UsersService,
   ) {}
 
   async findAll(
@@ -60,6 +62,52 @@ export class SchedulesService {
     } catch (error) {
       throw new HttpException(
         { message: 'Não foi possível encontrar os agendamentos.' },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async findAllByUserCPF(cpf: string): Promise<ScheduleInterface[]> {
+    const user = await this.usersService.findUserByCPF(cpf);
+    if (!user) return [];
+
+    try {
+      return await this.schedulesRepository.find({
+        where: { userId: user.id, used: false },
+        order: { id: 'ASC' },
+        relations: ['user', 'meal'],
+      });
+    } catch (error) {
+      throw new HttpException(
+        { message: 'Não foi possível encontrar os agendamentos.' },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async confirmSchedule(data: ScheduleCreateDto): Promise<{
+    id: number;
+    message: string;
+  }> {
+    const { date, mealId, userId } = data;
+    try {
+      const schedule = await this.schedulesRepository.findOne({
+        where: { userId, mealId, date },
+        order: { id: 'ASC' },
+        relations: ['user', 'meal'],
+      });
+
+      schedule.used = true;
+      const entity = Object.assign(new ScheduleEntity(), schedule);
+      await this.schedulesRepository.save(entity);
+
+      return {
+        id: schedule.id,
+        message: 'O agendamento foi atualizado com sucesso.',
+      };
+    } catch (error) {
+      throw new HttpException(
+        { message: 'Não foi possível atualizar o agendamento.' },
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

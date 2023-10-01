@@ -16,7 +16,7 @@ const ScheduleList = () => {
     const getSchedules = async () => {
       try {
         const res = await schedulesService.httpGet();
-        setSchedules(res.data);
+        setSchedules(res);
       } catch (error: any) {
         if (error instanceof AxiosError) {
           console.error(error);

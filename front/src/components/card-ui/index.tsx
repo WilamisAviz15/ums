@@ -1,9 +1,20 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CardUIInterface } from "./interfaces/card-ui.interface";
+import authService from "../../pages/auth/auth.service";
 
-const CardUI = ({ title, subTitle, extraText, onEditClick, onDeleteClick }: CardUIInterface) => {
+const CardUI = ({ title, subTitle, extraText, onIsManager, onEditClick, onDeleteClick }: CardUIInterface) => {
   const [openDropdown, setOpenDropdown] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -12,6 +23,11 @@ const CardUI = ({ title, subTitle, extraText, onEditClick, onDeleteClick }: Card
 
   const handleClose = () => {
     setOpenDropdown(null);
+  };
+
+  const isAdminOrManager = () => {
+    const privilege = authService.getUserBiggerPrivilege();
+    return privilege === 1 || privilege === 2;
   };
 
   return (
@@ -24,14 +40,16 @@ const CardUI = ({ title, subTitle, extraText, onEditClick, onDeleteClick }: Card
               <MoreVertIcon />
             </IconButton>
             <Menu id="menu" anchorEl={openDropdown} open={Boolean(openDropdown)} onClose={handleClose}>
-              <MenuItem
-                onClick={() => {
-                  onEditClick();
-                  handleClose();
-                }}
-              >
-                Editar
-              </MenuItem>
+              {isAdminOrManager() && !onIsManager && (
+                <MenuItem
+                  onClick={() => {
+                    onEditClick();
+                    handleClose();
+                  }}
+                >
+                  Editar
+                </MenuItem>
+              )}
               <MenuItem
                 onClick={() => {
                   onDeleteClick();
@@ -52,6 +70,13 @@ const CardUI = ({ title, subTitle, extraText, onEditClick, onDeleteClick }: Card
             {extraText}
           </Typography>
         </CardContent>
+      )}
+      {isAdminOrManager() && onIsManager && (
+        <CardActions>
+          <Button size="small" onClick={onIsManager}>
+            Confirmar
+          </Button>
+        </CardActions>
       )}
     </Card>
   );

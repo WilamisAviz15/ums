@@ -6,6 +6,7 @@ import {
   Put,
   Param,
   Delete,
+  Patch,
 } from '@nestjs/common';
 
 import { SchedulesService } from './schedules.service';
@@ -24,6 +25,14 @@ export class SchedulesController {
     @Param('userId') userId?: number,
   ): Promise<ScheduleInterface[]> {
     return await this.service.findAll(userId);
+  }
+
+  @Get('user/cpf/:cpf')
+  @Roles('ACTIONS_LISTAR')
+  async findByUserCPF(
+    @Param('cpf') cpf?: string,
+  ): Promise<ScheduleInterface[]> {
+    return await this.service.findAllByUserCPF(cpf);
   }
 
   @Get(':id')
@@ -47,6 +56,14 @@ export class SchedulesController {
     @Param('id') id: number,
   ): Promise<{ schedule: ScheduleInterface; message: string }> {
     return await this.service.update(data, id);
+  }
+
+  @Patch('confirm')
+  async confirm(@Body() data: ScheduleCreateDto): Promise<{
+    id: number;
+    message: string;
+  }> {
+    return await this.service.confirmSchedule(data);
   }
 
   @Delete(':id')

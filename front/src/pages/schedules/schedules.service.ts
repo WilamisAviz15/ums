@@ -1,6 +1,6 @@
-import { Subscription } from "rxjs";
 import http from "../../shared/services/axios";
 import authService from "../auth/auth.service";
+import { ConfirmMealInterface } from "../confirm-meal/interfaces/confirm-meal.interface";
 import { ScheduleInterface } from "./interfaces/schedule.interface";
 
 class SchedulesService {
@@ -10,8 +10,8 @@ class SchedulesService {
     authService.getUser$().subscribe((user) => (this.user = user));
   }
 
-  async httpGet(): Promise<any> {
-    return await http.get<ScheduleInterface, any>(`schedules/user/${this.user.id}`);
+  async httpGet(): Promise<ScheduleInterface[]> {
+    return (await http.get<ScheduleInterface, any>(`schedules/user/${this.user.id}`)).data;
   }
 
   async httpGetById(id: number): Promise<ScheduleInterface> {

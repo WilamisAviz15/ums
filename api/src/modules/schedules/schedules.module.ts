@@ -5,6 +5,7 @@ import { SchedulesService } from './schedules.service';
 import { SchedulesController } from './schedules.controller';
 import { ScheduleEntity } from './entities/schedule.entity';
 import { AuthenticationModule } from '../../authentication/authentication.module';
+import { UsersService } from '../users/users.service';
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { AuthenticationModule } from '../../authentication/authentication.module
     TypeOrmModule.forFeature([ScheduleEntity]),
   ],
   controllers: [SchedulesController],
-  providers: [SchedulesService],
+  providers: [SchedulesService, UsersService],
 })
 export class SchedulesModule {}

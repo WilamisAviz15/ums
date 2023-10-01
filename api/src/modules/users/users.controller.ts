@@ -44,6 +44,11 @@ export class UsersController {
     return this.service.findOne(+id);
   }
 
+  @Get('cpf/:cpf')
+  findOneByCpf(@Param('cpf') cpf: string) {
+    return this.service.findUserByCPF(cpf);
+  }
+
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,

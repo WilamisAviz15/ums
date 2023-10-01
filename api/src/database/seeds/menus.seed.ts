@@ -61,6 +61,12 @@ export class MenusSeed implements Seeder {
         menuKey: 'menu',
         menuGroupId: 1,
       },
+      {
+        name: 'Confirmar refeição',
+        route: 'confirmar-refeicao',
+        menuKey: 'confirm-meal',
+        menuGroupId: 1,
+      },
     ]);
   }
 }

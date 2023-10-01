@@ -41,6 +41,21 @@ export class UsersService {
     }
   }
 
+  async findUserByCPF(cpf: string) {
+    try {
+      return await this.userRepository.findOne({
+        where: { cpf },
+        order: { id: 'ASC' },
+        relations: ['roles'],
+      });
+    } catch (error) {
+      throw new HttpException(
+        { message: 'Não foi possível encontrar os usuários.' },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  }
+
   async create(
     data: UserCreateDto,
     currentUser: UserInterface,

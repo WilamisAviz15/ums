@@ -35,6 +35,17 @@ class AuthService {
     localStorage.clear();
   }
 
+  getUserBiggerPrivilege(): number {
+    const user = this.getUser();
+    const roleIds = user.rolesId;
+
+    if (roleIds.length === 0) {
+      return 0;
+    }
+
+    return Math.max(...roleIds);
+  }
+
   saveUser(jwt: string): boolean | unknown {
     try {
       const jwtDecoded = JwtServiceUtil.getDecodedAccessToken(jwt);
