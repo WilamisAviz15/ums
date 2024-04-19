@@ -14,7 +14,16 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CardUIInterface } from "./interfaces/card-ui.interface";
 import authService from "../../pages/auth/auth.service";
 
-const CardUI = ({ title, subTitle, extraText, onIsManager, onEditClick, onDeleteClick }: CardUIInterface) => {
+const CardUI = ({
+  title,
+  subTitle,
+  extraText,
+  customStyles,
+  isDeletable = true,
+  onIsManager,
+  onEditClick,
+  onDeleteClick,
+}: CardUIInterface) => {
   const [openDropdown, setOpenDropdown] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,7 +40,7 @@ const CardUI = ({ title, subTitle, extraText, onIsManager, onEditClick, onDelete
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} style={customStyles}>
       <CardHeader
         titleTypographyProps={{ variant: "h6" }}
         action={
@@ -50,14 +59,26 @@ const CardUI = ({ title, subTitle, extraText, onIsManager, onEditClick, onDelete
                   Editar
                 </MenuItem>
               )}
-              <MenuItem
-                onClick={() => {
-                  onDeleteClick();
-                  handleClose();
-                }}
-              >
-                Excluir
-              </MenuItem>
+              {isDeletable ? (
+                <MenuItem
+                  onClick={() => {
+                    onDeleteClick();
+                    handleClose();
+                  }}
+                >
+                  Excluir
+                </MenuItem>
+              ) : (
+                <MenuItem
+                  onClick={() => {
+                    onDeleteClick();
+                    handleClose();
+                  }}
+                  disabled
+                >
+                  Excluir
+                </MenuItem>
+              )}
             </Menu>
           </>
         }

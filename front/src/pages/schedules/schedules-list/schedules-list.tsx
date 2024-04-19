@@ -26,24 +26,45 @@ const ScheduleRenderList = ({
     setSchedules((olSchedules) => olSchedules?.filter((item) => item.id !== id));
   };
 
+  const isUsed = (item: ScheduleInterface) => {
+    return item.used ? (
+      <CardUI
+        key={item.id}
+        title={item.meal.name}
+        subTitle={formatDate(item.date)}
+        customStyles={{ opacity: "0.5" }}
+        isDeletable={false}
+        extraText={
+          <span className={styles.extraText}>
+            <span>Usuário: {item.user.name}</span>
+            <br />
+            <span>Usado?: {item.used ? "Sim" : "Não"}</span>
+          </span>
+        }
+        onEditClick={() => {}}
+        onDeleteClick={() => {}}
+      />
+    ) : (
+      <CardUI
+        key={item.id}
+        title={item.meal.name}
+        subTitle={formatDate(item.date)}
+        extraText={
+          <span className={styles.extraText}>
+            <span>Usuário: {item.user.name}</span>
+            <br />
+            <span>Usado?: {item.used ? "Sim" : "Não"}</span>
+          </span>
+        }
+        onEditClick={() => editAction(item.id)}
+        onDeleteClick={() => deleteAction(item.id)}
+      />
+    );
+  };
+
   const handleData = () => {
     if (data && Array.isArray(data)) {
-      return data.map((item) => (
-        <CardUI
-          key={item.id}
-          title={item.meal.name}
-          subTitle={formatDate(item.date)}
-          extraText={
-            <span className={styles.extraText}>
-              <span>Usuário: {item.user.name}</span>
-              <br />
-              <span>Usado?: {item.used ? "Sim" : "Não"}</span>
-            </span>
-          }
-          onEditClick={() => editAction(item.id)}
-          onDeleteClick={() => deleteAction(item.id)}
-        />
-      ));
+      return data.map((item) => isUsed(item));
     }
     return null;
   };
