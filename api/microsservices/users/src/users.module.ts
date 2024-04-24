@@ -1,10 +1,22 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { UsersController } from './users.controller';
+import { EnvironmentProviderModule } from './environment/environment.provider';
 import { UsersService } from './users.service';
+import { DatabaseProviderModule } from './providers/database/database.provider';
+import { UserCpfAlreadyExist } from './validate/users-cpf-already-exist.constraint';
+import { UserEmailAlreadyExist } from './validate/users-email-already-exist.constraint';
+import { UserEntity } from './entities/user.entity';
 
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forFeature([UserEntity]), DatabaseProviderModule],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [
+    EnvironmentProviderModule,
+    UsersService,
+    UserEmailAlreadyExist,
+    UserCpfAlreadyExist,
+  ],
 })
 export class AppModule {}
