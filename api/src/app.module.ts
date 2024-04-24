@@ -35,6 +35,10 @@ import { AppService } from './app.service';
         transport: Transport.TCP,
         options: { port: 3001 },
       },
+      {
+        name: 'ROLES',
+        transport: Transport.TCP,
+      },
     ]),
   ],
   controllers: [AppController],
