@@ -65,4 +65,9 @@ export class AppController {
   removeRole(@Param('id') id: string) {
     return this.service.deleteRole(+id);
   }
+
+  @Get('actions')
+  getActions() {
+    return this.service.getActions();
+  }
 }

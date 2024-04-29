@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './users.module';
 import { Transport } from '@nestjs/microservices';
+import { Logger } from '@nestjs/common';
+
+import { AppModule } from './users.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,6 +13,9 @@ async function bootstrap() {
     },
   });
   await app.startAllMicroservices();
-  await app.listen(3001);
+  app.enableCors();
+  await app.listen(process.env.APP_PORT, () => {
+    Logger.log(`Listening at http://localhost:${process.env.APP_PORT}`);
+  });
 }
 bootstrap();

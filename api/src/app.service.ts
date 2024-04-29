@@ -13,6 +13,7 @@ export class AppService {
   constructor(
     @Inject('USERS') private readonly msUsers: ClientProxy,
     @Inject('ROLES') private readonly msRoles: ClientProxy,
+    @Inject('ACTIONS') private readonly msActions: ClientProxy,
   ) {}
 
   getUsers(): Observable<any> {
@@ -45,5 +46,9 @@ export class AppService {
 
   deleteRole(id: number) {
     return this.msRoles.send('delete_role', id);
+  }
+
+  getActions() {
+    return this.msActions.send('get_actions', {});
   }
 }
