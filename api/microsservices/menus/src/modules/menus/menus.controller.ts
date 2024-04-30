@@ -1,0 +1,31 @@
+import { MessagePattern } from '@nestjs/microservices';
+import { Body, Controller } from '@nestjs/common';
+
+import { MenusService } from './menus.service';
+import { MenuInterface } from './interfaces/menu.interface';
+import { MenuFilterInterface } from './interfaces/menu-filter.interface';
+import { MenuCreateDto } from './dto/create-menu.dto';
+
+@Controller('menus')
+export class MenusController {
+  constructor(private service: MenusService) {}
+
+  @MessagePattern('get_menus')
+  async findAll(
+    @Body() filters: MenuFilterInterface,
+  ): Promise<MenuInterface[]> {
+    return await this.service.findAll(filters);
+  }
+
+  @MessagePattern('create_menu')
+  async create(
+    @Body() data: MenuCreateDto,
+  ): Promise<{ menu: MenuInterface; message: string }> {
+    return await this.service.create(data);
+  }
+
+  @MessagePattern('delete_menu')
+  async delete(@Body() id: string): Promise<{ message: string }> {
+    return this.service.delete(+id);
+  }
+}

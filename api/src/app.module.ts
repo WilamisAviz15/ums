@@ -45,6 +45,11 @@ import { AppService } from './app.service';
         transport: Transport.TCP,
         options: { port: 3003 },
       },
+      {
+        name: 'MENUS',
+        transport: Transport.TCP,
+        options: { port: 3004 },
+      },
     ]),
   ],
   controllers: [AppController],

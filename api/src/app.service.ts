@@ -7,6 +7,9 @@ import { UserUpdateDto } from './modules/users/dto/update-user.dto';
 import { UserJwtInterface } from './authentication/interfaces/user-jwt.interface';
 import { RoleInterface } from './modules/roles/interfaces/role.interface';
 import { RoleUpdateDto } from './modules/roles/dto/update-role.dto';
+import { MenuInterface } from './modules/menus/interfaces/menu.interface';
+import { MenusGroupUpdateDto } from './modules/menus-groups/dto/update-menus-group.dto';
+import { MenusGroupInterface } from './modules/menus-groups/interfaces/menus-group.interface';
 
 @Injectable()
 export class AppService {
@@ -14,6 +17,7 @@ export class AppService {
     @Inject('USERS') private readonly msUsers: ClientProxy,
     @Inject('ROLES') private readonly msRoles: ClientProxy,
     @Inject('ACTIONS') private readonly msActions: ClientProxy,
+    @Inject('MENUS') private readonly msMenus: ClientProxy,
   ) {}
 
   getUsers(): Observable<any> {
@@ -50,5 +54,33 @@ export class AppService {
 
   getActions() {
     return this.msActions.send('get_actions', {});
+  }
+
+  getMenusGroups() {
+    return this.msMenus.send('get_menus_groups', {});
+  }
+
+  createMenuGroup(data: MenusGroupInterface) {
+    return this.msMenus.send('create_menu_groups', data);
+  }
+
+  updateMenuGroup(data: MenusGroupUpdateDto, id: number) {
+    return this.msMenus.send('update_menu_groups', { data, id });
+  }
+
+  deleteMenuGroup(id: number) {
+    return this.msMenus.send('delete_menu_groups', id);
+  }
+
+  getMenus() {
+    return this.msMenus.send('get_menus', {});
+  }
+
+  createMenu(data: MenuInterface) {
+    return this.msMenus.send('create_menu', data);
+  }
+
+  deleteMenu(id: number) {
+    return this.msMenus.send('delete_menu', id);
   }
 }
