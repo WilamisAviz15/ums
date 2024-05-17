@@ -18,6 +18,10 @@ import { RoleUpdateDto } from './modules/roles/dto/update-role.dto';
 import { MenuInterface } from './modules/menus/interfaces/menu.interface';
 import { MenusGroupUpdateDto } from './modules/menus-groups/dto/update-menus-group.dto';
 import { MenusGroupInterface } from './modules/menus-groups/interfaces/menus-group.interface';
+import { ActionInterface } from './modules/actions/interfaces/action.interface';
+import { ActionUpdateDto } from './modules/actions/dto/update-action.dto';
+import { ActionsMenuInterface } from './modules/actions/interfaces/actions-menu.interface';
+import { Patch } from '@nestjs/common/decorators';
 
 @Controller()
 export class AppController {
@@ -75,6 +79,24 @@ export class AppController {
     return this.service.getActions();
   }
 
+  @Post('actions')
+  createAction(@Body() data: ActionInterface) {
+    return this.service.createAction(data);
+  }
+
+  @Put('actions/:id')
+  async updateAction(
+    @Body() data: ActionUpdateDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.service.updateAction(data, id);
+  }
+
+  @Delete('actions/:id')
+  deleteAction(@Param('id') id: string) {
+    return this.service.deleteAction(+id);
+  }
+
   @Get('menus-groups')
   getMenusGroups() {
     return this.service.getMenusGroups();
@@ -111,5 +133,10 @@ export class AppController {
   @Delete('menus/:id')
   deleteMenu(@Param('id') id: string) {
     return this.service.deleteMenu(+id);
+  }
+
+  @Patch('menus/remove-privileges')
+  removePrivileges(@Body() data: ActionsMenuInterface[]) {
+    return this.service.removePrivileges(data);
   }
 }

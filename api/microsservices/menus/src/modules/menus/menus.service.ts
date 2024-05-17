@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Not, Repository } from 'typeorm';
+import { In, Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { MenuEntity } from './entities/menu.entity';
@@ -9,12 +9,16 @@ import { createFilters } from '../../shared/utils/typeorm/create-filters.utils';
 import { MenuCreateDto } from './dto/create-menu.dto';
 import { MenuUpdateDto } from './dto/update-menu.dto';
 import { ActionsMenuInterface } from './interfaces/actions-menu.interface';
+import { PrivilegeEntity } from './entities/privilege.entity';
 
 @Injectable()
 export class MenusService {
   constructor(
     @InjectRepository(MenuEntity)
     private menuRepository: Repository<MenuEntity>,
+
+    @InjectRepository(PrivilegeEntity)
+    private privilegeRepository: Repository<PrivilegeEntity>,
   ) {}
 
   async findAll(filter?: MenuFilterInterface): Promise<MenuInterface[]> {
@@ -119,6 +123,21 @@ export class MenusService {
     } catch (error) {
       throw new HttpException(
         { message: 'Não foi possível excluir o menu.' },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async removePrivileges(actionsMenu: ActionsMenuInterface[]) {
+    try {
+      await this.privilegeRepository.delete({
+        actionMenuId: In(actionsMenu.map((item) => item.id)),
+      });
+
+      return { message: 'Privilégios excluídos com sucesso.' };
+    } catch (error) {
+      throw new HttpException(
+        { message: 'Não foi possível excluir os privilégios.' },
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

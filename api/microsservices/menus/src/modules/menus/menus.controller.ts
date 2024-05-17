@@ -5,6 +5,7 @@ import { MenusService } from './menus.service';
 import { MenuInterface } from './interfaces/menu.interface';
 import { MenuFilterInterface } from './interfaces/menu-filter.interface';
 import { MenuCreateDto } from './dto/create-menu.dto';
+import { ActionsMenuInterface } from './interfaces/actions-menu.interface';
 
 @Controller('menus')
 export class MenusController {
@@ -27,5 +28,10 @@ export class MenusController {
   @MessagePattern('delete_menu')
   async delete(@Body() id: string): Promise<{ message: string }> {
     return this.service.delete(+id);
+  }
+
+  @MessagePattern('remove_privileges')
+  removePrivileges(@Body() actionsMenu: ActionsMenuInterface[]) {
+    return this.service.removePrivileges(actionsMenu);
   }
 }

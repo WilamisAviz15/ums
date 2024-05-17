@@ -10,6 +10,9 @@ import { RoleUpdateDto } from './modules/roles/dto/update-role.dto';
 import { MenuInterface } from './modules/menus/interfaces/menu.interface';
 import { MenusGroupUpdateDto } from './modules/menus-groups/dto/update-menus-group.dto';
 import { MenusGroupInterface } from './modules/menus-groups/interfaces/menus-group.interface';
+import { ActionInterface } from './modules/actions/interfaces/action.interface';
+import { ActionUpdateDto } from './modules/actions/dto/update-action.dto';
+import { ActionsMenuInterface } from './modules/actions/interfaces/actions-menu.interface';
 
 @Injectable()
 export class AppService {
@@ -56,6 +59,18 @@ export class AppService {
     return this.msActions.send('get_actions', {});
   }
 
+  createAction(data: ActionInterface): Observable<any> {
+    return this.msActions.send('create_action', data);
+  }
+
+  updateAction(data: ActionUpdateDto, id: number) {
+    return this.msActions.send('update_action', { data, id });
+  }
+
+  deleteAction(id: number) {
+    return this.msActions.send('delete_action', id);
+  }
+
   getMenusGroups() {
     return this.msMenus.send('get_menus_groups', {});
   }
@@ -82,5 +97,9 @@ export class AppService {
 
   deleteMenu(id: number) {
     return this.msMenus.send('delete_menu', id);
+  }
+
+  removePrivileges(actionsMenu: ActionsMenuInterface[]) {
+    return this.msMenus.send('remove_privileges', actionsMenu);
   }
 }

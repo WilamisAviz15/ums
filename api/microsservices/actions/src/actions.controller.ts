@@ -5,6 +5,7 @@ import { ActionsService } from './actions.service';
 import { ActionFilterInterface } from './interfaces/action-filter.interface';
 import { ActionInterface } from './interfaces/action.interface';
 import { ActionCreateDto } from './dto/create-action.dto';
+import { ActionUpdateDto } from './dto/update-action.dto';
 
 @Controller()
 export class ActionsController {
@@ -17,10 +18,23 @@ export class ActionsController {
     return await this.service.findAll(filters);
   }
 
-  @MessagePattern('create_actions')
+  @MessagePattern('create_action')
   async create(
     @Body() data: ActionCreateDto,
   ): Promise<{ action: ActionInterface; message: string }> {
     return await this.service.create(data);
+  }
+
+  @MessagePattern('update_action')
+  async update(
+    @Body()
+    { id, data }: { id: number; data: ActionUpdateDto },
+  ): Promise<{ action: ActionInterface; message: string }> {
+    return await this.service.update(data, id);
+  }
+
+  @MessagePattern('delete_action')
+  async delete(@Body() id: string): Promise<{ message: string }> {
+    return this.service.delete(+id);
   }
 }
