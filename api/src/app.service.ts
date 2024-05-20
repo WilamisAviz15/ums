@@ -13,6 +13,7 @@ import { MenusGroupInterface } from './modules/menus-groups/interfaces/menus-gro
 import { ActionInterface } from './modules/actions/interfaces/action.interface';
 import { ActionUpdateDto } from './modules/actions/dto/update-action.dto';
 import { ActionsMenuInterface } from './modules/actions/interfaces/actions-menu.interface';
+import { EditPersonalDataDto } from './modules/profile/dto/edit-profile.dto';
 
 @Injectable()
 export class AppService {
@@ -21,6 +22,7 @@ export class AppService {
     @Inject('ROLES') private readonly msRoles: ClientProxy,
     @Inject('ACTIONS') private readonly msActions: ClientProxy,
     @Inject('MENUS') private readonly msMenus: ClientProxy,
+    @Inject('PROFILE') private readonly msProfile: ClientProxy,
   ) {}
 
   getUsers(): Observable<any> {
@@ -101,5 +103,9 @@ export class AppService {
 
   removePrivileges(actionsMenu: ActionsMenuInterface[]) {
     return this.msMenus.send('remove_privileges', actionsMenu);
+  }
+
+  updateProfile(profile: EditPersonalDataDto) {
+    return this.msProfile.send('update_profile', profile);
   }
 }

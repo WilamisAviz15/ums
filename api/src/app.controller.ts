@@ -22,6 +22,7 @@ import { ActionInterface } from './modules/actions/interfaces/action.interface';
 import { ActionUpdateDto } from './modules/actions/dto/update-action.dto';
 import { ActionsMenuInterface } from './modules/actions/interfaces/actions-menu.interface';
 import { Patch } from '@nestjs/common/decorators';
+import { EditPersonalDataDto } from './modules/profile/dto/edit-profile.dto';
 
 @Controller()
 export class AppController {
@@ -138,5 +139,10 @@ export class AppController {
   @Patch('menus/remove-privileges')
   removePrivileges(@Body() data: ActionsMenuInterface[]) {
     return this.service.removePrivileges(data);
+  }
+
+  @Patch('profile')
+  updateProfile(@Body() data: EditPersonalDataDto) {
+    return this.service.updateProfile(data);
   }
 }
