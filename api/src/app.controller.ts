@@ -23,6 +23,7 @@ import { ActionUpdateDto } from './modules/actions/dto/update-action.dto';
 import { ActionsMenuInterface } from './modules/actions/interfaces/actions-menu.interface';
 import { Patch } from '@nestjs/common/decorators';
 import { EditPersonalDataDto } from './modules/profile/dto/edit-profile.dto';
+import { LoginDto } from './authentication/dtos/login.dto';
 
 @Controller()
 export class AppController {
@@ -36,6 +37,16 @@ export class AppController {
   @Get('users')
   getUsers() {
     return this.service.getUsers();
+  }
+
+  @Post('users/findUserByEmail')
+  findUserByEmail(@Body() email: string) {
+    return this.service.findUserByEmail(email);
+  }
+
+  @Post('users/findUserByLogin')
+  findUserByLogin(@Body() username: string) {
+    return this.service.findUserByLogin(username);
   }
 
   @Put('users/:id')
@@ -144,5 +155,10 @@ export class AppController {
   @Patch('profile')
   updateProfile(@Body() data: EditPersonalDataDto) {
     return this.service.updateProfile(data);
+  }
+
+  @Post('auth/login')
+  async login(@Body() data: LoginDto) {
+    return this.service.login(data);
   }
 }

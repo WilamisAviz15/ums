@@ -16,7 +16,7 @@ import { UsersService } from '../modules/users/users.service';
 import { UserInterface } from '../modules/users/interfaces/user.interface';
 import { ViewMenuByUserRolesEntity } from './entities/view-menu-by-user-roles.entity';
 import { ViewPrivilegesByUserRolesEntity } from './entities/view-privileges-by-user-roles.entity';
-import { ViewPrivilegeByRoleInterface } from 'src/modules/menus/interfaces/view-privilege-by-role.interface';
+import { ViewPrivilegeByRoleInterface } from '../modules/menus/interfaces/view-privilege-by-role.interface';
 import { LoginDto } from './dtos/login.dto';
 import { RecoverPasswordDto } from './dtos/recover-password.dto';
 import { ResetPasswordDto } from './dtos/reset-password.dto';

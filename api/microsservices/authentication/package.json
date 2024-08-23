@@ -17,14 +17,31 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migration:create": "cd src/database/migrations && npx typeorm-ts-node-commonjs migration:create",
+    "migration:run": "typeorm-ts-node-commonjs -d ./src/config/database/data-source.ts migration:run",
+    "seed:run": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d ./src/config/database/data-source.ts",
+    "db:create": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js db:create -d ./src/config/database/data-source.ts && npm run seed:run",
+    "db:drop": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js db:drop -d ./src/config/database/data-source.ts && npm run db:create"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/microservices": "^10.3.8",
+    "@nestjs/typeorm": "^10.0.2",
+    "@nestjs/config": "^3.2.2",
     "@nestjs/platform-express": "^10.0.0",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.17",
+    "typeorm-extension": "^2.8.0",
+    "@nestjs/axios": "^3.0.2",
+    "axios": "^1.6.8",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/passport": "^10.0.3",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
@@ -47,7 +64,8 @@
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.3",
+    "@types/passport-local": "^1.0.36"
   },
   "jest": {
     "moduleFileExtensions": [

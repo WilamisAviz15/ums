@@ -55,6 +55,11 @@ import { AppService } from './app.service';
         transport: Transport.TCP,
         options: { port: 3005 },
       },
+      {
+        name: 'AUTHENTICATION',
+        transport: Transport.TCP,
+        options: { port: 3006 },
+      },
     ]),
   ],
   controllers: [AppController],

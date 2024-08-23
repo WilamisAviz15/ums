@@ -47,4 +47,18 @@ export class UsersController {
   ): Promise<UserInterface[]> {
     return await this.service.findAll(filters);
   }
+
+  @MessagePattern('find_user_by_email')
+  async findByEmail(
+    @Body() data: { username: string; user?: UserInterface },
+  ): Promise<UserInterface> {
+    return await this.service.findByEmail(data.username, data.user);
+  }
+
+  @MessagePattern('find_user_by_login')
+  async findByRegister(
+    @Body() data: { register: string },
+  ): Promise<UserInterface> {
+    return await this.service.findByRegister(data.register);
+  }
 }

@@ -14,6 +14,7 @@ import { ActionInterface } from './modules/actions/interfaces/action.interface';
 import { ActionUpdateDto } from './modules/actions/dto/update-action.dto';
 import { ActionsMenuInterface } from './modules/actions/interfaces/actions-menu.interface';
 import { EditPersonalDataDto } from './modules/profile/dto/edit-profile.dto';
+import { LoginDto } from './authentication/dtos/login.dto';
 
 @Injectable()
 export class AppService {
@@ -23,6 +24,7 @@ export class AppService {
     @Inject('ACTIONS') private readonly msActions: ClientProxy,
     @Inject('MENUS') private readonly msMenus: ClientProxy,
     @Inject('PROFILE') private readonly msProfile: ClientProxy,
+    @Inject('AUTHENTICATION') private readonly msAuthentication: ClientProxy,
   ) {}
 
   getUsers(): Observable<any> {
@@ -39,6 +41,14 @@ export class AppService {
 
   deleteUser(id: number) {
     return this.msUsers.send('delete_user', id);
+  }
+
+  findUserByEmail(email: string) {
+    return this.msUsers.send('find_user_by_email', email);
+  }
+
+  findUserByLogin(username: string) {
+    return this.msUsers.send('find_user_by_login', username);
   }
 
   getRoles() {
@@ -107,5 +117,9 @@ export class AppService {
 
   updateProfile(profile: EditPersonalDataDto) {
     return this.msProfile.send('update_profile', profile);
+  }
+
+  login(data: LoginDto) {
+    return this.msAuthentication.send('login', data);
   }
 }

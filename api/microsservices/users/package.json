@@ -35,7 +35,9 @@
     "typeorm": "^0.3.17",
     "typeorm-extension": "^2.8.0",
     "@nestjs/config": "^3.2.2",
-    "bcrypt": "^5.1.0"
+    "bcrypt": "^5.1.0",
+    "@nestjs/axios": "^3.0.2",
+    "axios": "^1.6.8"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

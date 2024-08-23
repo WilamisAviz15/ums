@@ -14,6 +14,8 @@ import { UserInterface } from './interfaces/user.interface';
 import { UserFilterInterface } from './interfaces/user-filter.interface';
 import { createFilters } from './utils/typeorm/create-filters.utils';
 import { UserUpdateDto } from './dto/update-user.dto';
+import { HttpService } from '@nestjs/axios';
+import { environment } from './environment/environment';
 
 @Injectable()
 export class UsersService {
@@ -22,6 +24,8 @@ export class UsersService {
 
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+
+    private readonly http: HttpService,
   ) {}
 
   async create(
@@ -69,6 +73,46 @@ export class UsersService {
     } catch (error) {
       throw new HttpException(
         { message: 'Não foi possível encontrar os usuários.' },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  }
+
+  async getRoleById(id: number): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${environment.api}/roles`).subscribe({
+        next: (roles) => {
+          const role = roles.data.filter((role) => role.id === id);
+          resolve(role);
+        },
+        error: (rej) => {
+          reject(rej);
+        },
+      });
+    });
+  }
+
+  async findByRegister(register: string): Promise<UserEntity> {
+    try {
+      const user = await this.userRepository.findOne({
+        select: [
+          'id',
+          'name',
+          'email',
+          'cpf',
+          'password',
+          'createdAt',
+          'roleId',
+        ],
+        where: { register },
+      });
+      await this.getRoleById(user.roleId).then(
+        (role) => (user.roles = [...role]),
+      );
+      return user;
+    } catch (error) {
+      throw new HttpException(
+        { message: `Não foi possível encontrar o usuário. ${error}` },
         HttpStatus.NOT_FOUND,
       );
     }
@@ -167,18 +211,18 @@ export class UsersService {
     body?: UserInterface,
   ): Promise<UserInterface> {
     try {
-      const id = body.id || 0;
+      // const id = body.id || 0;
       return await this.userRepository.findOne({
-        select: ['email'],
+        select: ['id', 'name', 'email', 'createdAt'],
         where: {
           email,
-          id: Not(id),
+          // id: Not(id),
           deletedAt: null,
         },
       });
     } catch (error) {
       throw new HttpException(
-        { message: 'Não foi possível encontrar o usuário.' },
+        { message: `Não foi possível encontrar o usuário. ${error}` },
         HttpStatus.NOT_FOUND,
       );
     }

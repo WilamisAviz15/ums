@@ -37,6 +37,9 @@ export class UserEntity {
   // })
   roles: number[];
 
+  @Column({ name: 'role_id' })
+  roleId: number;
+
   @Column({ name: 'last_access' })
   lastAccess?: Date;
 
