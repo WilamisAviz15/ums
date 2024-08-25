@@ -60,6 +60,11 @@ import { AppService } from './app.service';
         transport: Transport.TCP,
         options: { port: 3006 },
       },
+      {
+        name: 'MEALS',
+        transport: Transport.TCP,
+        options: { port: 3007 },
+      },
     ]),
   ],
   controllers: [AppController],
