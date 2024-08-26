@@ -43,6 +43,10 @@ export class AppService {
     return this.msUsers.send('find_user_by_id', id);
   }
 
+  findUserByCpf(cpf: string): Observable<any> {
+    return this.msUsers.send('find_user_by_cpf', cpf);
+  }
+
   createUser(createUserRequest: UserInterface): Observable<any> {
     return this.msUsers.send('create_user', createUserRequest);
   }

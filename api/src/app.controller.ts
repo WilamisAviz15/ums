@@ -61,6 +61,11 @@ export class AppController {
     return this.service.findUserByLogin(username);
   }
 
+  @Post('users/findUserByCpf')
+  findUserByCpf(@Body() username: string) {
+    return this.service.findUserByCpf(username);
+  }
+
   @Put('users/:id')
   async updateUser(
     @Param('id', ParseIntPipe) id: number,

@@ -73,18 +73,20 @@ export class AuthenticationService {
     });
   }
 
-  // async getFindByCPF(cpf: string): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     this.http.post(`${environment.api}/users/`, cpf).subscribe({
-  //       next: (users) => {
-  //         resolve(users.data);
-  //       },
-  //       error: (rej) => {
-  //         reject(rej);
-  //       },
-  //     });
-  //   });
-  // }
+  async getFindByCPF(cpf: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(`${environment.api}/users/findUserByLogin`, cpf)
+        .subscribe({
+          next: (users) => {
+            resolve(users.data);
+          },
+          error: (rej) => {
+            reject(rej);
+          },
+        });
+    });
+  }
 
   removeMask(cpf: string) {
     return cpf.replace(/[^\d]+/g, '');
@@ -92,7 +94,7 @@ export class AuthenticationService {
 
   async login({ username, password }: LoginDto) {
     try {
-      const user = await this.getFindByRegister({ register: username });
+      const user = await this.getFindByCPF(username);
       if (!user || !(await this.checkPassword(password, user.password))) {
         throw new UnauthorizedException('Essas credencias estão incorretas');
       }

@@ -62,6 +62,11 @@ export class UsersController {
     return await this.service.findByRegister(data.register);
   }
 
+  @MessagePattern('find_user_by_cpf')
+  async findByCPF(@Body() data: { cpf: string }): Promise<UserInterface> {
+    return await this.service.findLoginByCpf(data.cpf);
+  }
+
   @MessagePattern('find_user_by_id')
   async findById(@Body() id: string): Promise<UserInterface> {
     return await this.service.findOne(+id);

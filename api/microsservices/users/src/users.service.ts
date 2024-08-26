@@ -230,18 +230,42 @@ export class UsersService {
 
   async findByCpf(cpf: string, body?: UserInterface): Promise<UserInterface> {
     try {
-      const id = body.id || 0;
       return await this.userRepository.findOne({
         select: ['cpf'],
         where: {
           cpf,
-          id: Not(id),
           deletedAt: null,
         },
       });
     } catch (error) {
       throw new HttpException(
         { message: 'Não foi possível encontrar o usuário pelo CPF fornecido.' },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  }
+
+  async findLoginByCpf(cpf: string): Promise<UserInterface> {
+    try {
+      const user = await this.userRepository.findOne({
+        select: [
+          'id',
+          'name',
+          'email',
+          'cpf',
+          'password',
+          'createdAt',
+          'roleId',
+        ],
+        where: { cpf },
+      });
+      await this.getRoleById(user.roleId).then(
+        (role) => (user.roles = [...role]),
+      );
+      return user;
+    } catch (error) {
+      throw new HttpException(
+        { message: `Não foi possível encontrar o usuário. ${error}` },
         HttpStatus.NOT_FOUND,
       );
     }
