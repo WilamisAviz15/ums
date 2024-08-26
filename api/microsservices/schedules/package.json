@@ -36,7 +36,9 @@
     "typeorm-extension": "^2.8.0",
     "brazilian-class-validator": "^0.1.6",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.0"
+    "class-validator": "^0.14.0",
+    "@nestjs/axios": "^3.0.2",
+    "axios": "^1.6.8"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

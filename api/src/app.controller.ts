@@ -217,9 +217,19 @@ export class AppController {
     return this.service.deleteMenuMeal(+id);
   }
 
-  @Get('schedules')
-  getSchedules() {
-    return this.service.getSchedules();
+  @Get('schedules/user/:userId')
+  getSchedules(@Param('userId') userId: number) {
+    return this.service.getSchedules(userId);
+  }
+
+  @Patch('schedules/confirm-meal')
+  confirmSchedules(@Body() data: ScheduleCreateDto) {
+    return this.service.confirmSchedule(data);
+  }
+
+  @Get('schedules/cpf/:cpf')
+  findByUserCPF(@Param('cpf') cpf?: string) {
+    return this.service.findByUserCPF(cpf);
   }
 
   @Post('schedules')

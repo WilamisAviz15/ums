@@ -163,19 +163,27 @@ export class AppService {
     return this.msMeals.send('delete_menu_meal', id);
   }
 
-  getSchedules() {
-    return this.msUsers.send('get_schedules', {});
+  getSchedules(userId: number) {
+    return this.msSchedules.send('get_schedules', userId);
   }
 
   createSchedule(createUserRequest: ScheduleCreateDto): Observable<any> {
-    return this.msUsers.send('create_schedules', createUserRequest);
+    return this.msSchedules.send('create_schedules', createUserRequest);
   }
 
   updateSchedule(data: ScheduleUpdateDto) {
-    return this.msUsers.send('update_schedules', data);
+    return this.msSchedules.send('update_schedules', data);
   }
 
   deleteSchedule(id: number) {
-    return this.msUsers.send('delete_schedules', id);
+    return this.msSchedules.send('delete_schedules', id);
+  }
+
+  confirmSchedule(data: ScheduleCreateDto) {
+    return this.msSchedules.send('confirm_schedules', data);
+  }
+
+  findByUserCPF(cpf: string) {
+    return this.msSchedules.send('get_schedules_by_user_cpf', cpf);
   }
 }
