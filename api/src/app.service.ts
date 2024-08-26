@@ -15,6 +15,8 @@ import { ActionUpdateDto } from './modules/actions/dto/update-action.dto';
 import { ActionsMenuInterface } from './modules/actions/interfaces/actions-menu.interface';
 import { EditPersonalDataDto } from './modules/profile/dto/edit-profile.dto';
 import { LoginDto } from './authentication/dtos/login.dto';
+import { MealInterface } from './modules/meals/interfaces/meal.interface';
+import { MealUpdateDto } from 'microsservices/meals/src/dto/update-meal.dto';
 
 @Injectable()
 export class AppService {
@@ -25,6 +27,7 @@ export class AppService {
     @Inject('MENUS') private readonly msMenus: ClientProxy,
     @Inject('PROFILE') private readonly msProfile: ClientProxy,
     @Inject('AUTHENTICATION') private readonly msAuthentication: ClientProxy,
+    @Inject('MEALS') private readonly msMeals: ClientProxy,
   ) {}
 
   getUsers(): Observable<any> {
@@ -121,5 +124,21 @@ export class AppService {
 
   login(data: LoginDto) {
     return this.msAuthentication.send('login', data);
+  }
+
+  getMeals() {
+    return this.msMeals.send('get_meals', {});
+  }
+
+  createMeal(data: MealInterface) {
+    return this.msMeals.send('create_meal', data);
+  }
+
+  updateMeal(data: MealUpdateDto) {
+    return this.msMeals.send('update_meal', data);
+  }
+
+  deleteMeal(id: number) {
+    return this.msMeals.send('delete_meal', id);
   }
 }

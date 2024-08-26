@@ -24,6 +24,8 @@ import { ActionsMenuInterface } from './modules/actions/interfaces/actions-menu.
 import { Patch } from '@nestjs/common/decorators';
 import { EditPersonalDataDto } from './modules/profile/dto/edit-profile.dto';
 import { LoginDto } from './authentication/dtos/login.dto';
+import { MealInterface } from './modules/meals/interfaces/meal.interface';
+import { MealUpdateDto } from 'microsservices/meals/src/dto/update-meal.dto';
 
 @Controller()
 export class AppController {
@@ -160,5 +162,29 @@ export class AppController {
   @Post('auth/login')
   async login(@Body() data: LoginDto) {
     return this.service.login(data);
+  }
+
+  @Get('meals')
+  getMeals() {
+    return this.service.getMeals();
+  }
+
+  @Post('meals')
+  createMeal(@Body() data: MealInterface) {
+    return this.service.createMeal(data);
+  }
+
+  @Put('meals/:id')
+  async updateMeal(
+    @Body() data: MealUpdateDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    data.id = id;
+    return this.service.updateMeal(data);
+  }
+
+  @Delete('meals/:id')
+  removeMeal(@Param('id') id: string) {
+    return this.service.deleteMeal(+id);
   }
 }
