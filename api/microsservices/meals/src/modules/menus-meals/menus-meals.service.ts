@@ -36,7 +36,7 @@ export class MenuMealService {
 
   async findOne(id: number): Promise<MenuMealInterface> {
     try {
-      return await this.menuMealsRepository.findOneOrFail({ where: { id } });
+      return await this.menuMealsRepository.findOne({ where: { id } });
     } catch (error) {
       throw new HttpException(
         { message: 'Não foi possível encontrar o cardápio.' },

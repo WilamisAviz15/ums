@@ -19,8 +19,12 @@ export class MenuMealController {
 
   @MessagePattern('get_menus_meals')
   findAll(): Promise<MenuMealInterface[]> {
-    console.log('>>>');
     return this.service.findAll();
+  }
+
+  @MessagePattern('get_menus_meals_by_id')
+  findOne(id: number): Promise<MenuMealInterface> {
+    return this.service.findOne(id);
   }
 
   @MessagePattern('update_menu_meal')

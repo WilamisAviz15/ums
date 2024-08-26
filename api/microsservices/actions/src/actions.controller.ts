@@ -18,6 +18,13 @@ export class ActionsController {
     return await this.service.findAll(filters);
   }
 
+  @MessagePattern('get_actions_by_id')
+  async findById(
+    @Body() filters: ActionFilterInterface,
+  ): Promise<ActionInterface> {
+    return await this.service.findById(filters);
+  }
+
   @MessagePattern('create_action')
   async create(
     @Body() data: ActionCreateDto,

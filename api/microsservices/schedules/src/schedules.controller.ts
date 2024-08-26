@@ -20,21 +20,18 @@ export class SchedulesController {
     return await this.service.findAllByUserCPF(cpf);
   }
 
-  // async findOne(id: number): Promise<ScheduleInterface> {
-  //   return await this.service.findOne(id);
-  // }
+  @MessagePattern('get_schedules_by_id')
+  async findOne(id: number): Promise<ScheduleInterface> {
+    return await this.service.findOne(id);
+  }
 
   @MessagePattern('create_schedules')
-  async create(
-    @Body() data: ScheduleCreateDto,
-  ): Promise<{ schedule: ScheduleInterface; message: string }> {
+  async create(@Body() data: ScheduleCreateDto): Promise<{ schedule: ScheduleInterface; message: string }> {
     return await this.service.create(data);
   }
 
   @MessagePattern('update_schedules')
-  async update(
-    @Body() data: ScheduleUpdateDto,
-  ): Promise<{ schedule: ScheduleInterface; message: string }> {
+  async update(@Body() data: ScheduleUpdateDto): Promise<{ schedule: ScheduleInterface; message: string }> {
     return await this.service.update(data);
   }
 

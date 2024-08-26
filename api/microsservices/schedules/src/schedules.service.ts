@@ -48,7 +48,8 @@ export class SchedulesService {
 
   async findOne(id: number): Promise<ScheduleInterface> {
     try {
-      return await this.schedulesRepository.findOneOrFail({ where: { id } });
+      console.log(id);
+      return await this.schedulesRepository.findOne({ where: { id } });
     } catch (error) {
       throw new HttpException({ message: 'Não foi possível encontrar o agendamento.' }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -130,7 +131,6 @@ export class SchedulesService {
       const schedule = await this.schedulesRepository.findOne({
         where: { userId, mealId, date },
         order: { id: 'ASC' },
-        // relations: ['user', 'meal'],
       });
 
       schedule.used = true;

@@ -33,6 +33,17 @@ export class MenusGroupsService {
     }
   }
 
+  async findOne(id: number): Promise<MenusGroupInterface> {
+    try {
+      return await this.menusGroupsRepository.findOne({ where: { id } });
+    } catch (error) {
+      throw new HttpException(
+        { message: 'Não foi possível encontrar o grupos de menus.' },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   async findByName(
     name: string,
     menusGroup: MenusGroupInterface,

@@ -76,10 +76,10 @@ export class AuthenticationService {
   async getFindByCPF(cpf: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .post(`${environment.api}/users/findUserByLogin`, cpf)
+        .post(`${environment.api}/users/findUserByCpf`, { cpf })
         .subscribe({
-          next: (users) => {
-            resolve(users.data);
+          next: (user) => {
+            resolve(user.data);
           },
           error: (rej) => {
             reject(rej);
@@ -116,7 +116,6 @@ export class AuthenticationService {
   async signToken(
     user: UserInterface,
   ): Promise<{ accessToken: string; payload: UserJwtInterface }> {
-    console.log(user);
     const menus = await this.viewMenusByRolesRepository.find({
       where: { roleId: In(user.roles.map((role: any) => role.id)) },
     });

@@ -35,6 +35,20 @@ export class ActionsService {
     }
   }
 
+  async findById(filters?: ActionFilterInterface): Promise<ActionInterface> {
+    try {
+      const where = createFilters(filters);
+      return await this.actionsRepository.findOne({
+        where,
+      });
+    } catch (error) {
+      throw new HttpException(
+        { message: 'Não foi possível encontrar a ação.' },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   async create(
     data: ActionCreateDto,
   ): Promise<{ action: ActionInterface; message: string }> {

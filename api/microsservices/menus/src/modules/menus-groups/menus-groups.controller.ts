@@ -14,6 +14,11 @@ export class MenusGroupsController {
     return await this.service.findAll(filters);
   }
 
+  @MessagePattern('get_menus_groups_by_id')
+  async findOne(@Body() id: number) {
+    return await this.service.findOne(id);
+  }
+
   @MessagePattern('create_menu_groups')
   async create(
     @Body() data: MenusGroupCreateDto,

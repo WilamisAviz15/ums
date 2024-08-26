@@ -6,14 +6,14 @@ class ConfirmMealService {
   constructor() {}
 
   async httpGet(cpf: string): Promise<ScheduleInterface[]> {
-    return (await http.get<{ cpf: string }, any>(`schedules/user/cpf/${cpf}`)).data;
+    return (await http.get<{ cpf: string }, any>(`schedules/cpf/${cpf}`)).data;
   }
 
   async httpPatch(data: ConfirmMealInterface): Promise<{
     id: number;
     message: string;
   }> {
-    return (await http.patch<ConfirmMealInterface, any>(`schedules/confirm/`, { data })).data;
+    return (await http.patch<ConfirmMealInterface, any>(`schedules/confirm-meal/`, { data })).data;
   }
 }
 

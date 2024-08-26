@@ -112,44 +112,13 @@ const MenusForm = () => {
       </div>
       <form>
         <div>
-          <TextField
-            label="Nome"
-            variant="outlined"
-            name="name"
-            onChange={(v) => handleInputChange(v)}
-            value={form.name}
-          />
-          <TextField
-            label="Email"
-            variant="outlined"
-            name="email"
-            onChange={(v) => handleInputChange(v)}
-            value={form.email}
-          />
-          <TextField
-            label="CPF"
-            variant="outlined"
-            name="cpf"
-            onChange={(v) => handleInputChange(v)}
-            value={form.cpf}
-          />
-          <TextField
-            label="Matrícula"
-            variant="outlined"
-            name="register"
-            onChange={(v) => handleInputChange(v)}
-            value={form.register}
-          />
+          <TextField label="Nome" variant="outlined" name="name" onChange={(v) => handleInputChange(v)} value={form.name} />
+          <TextField label="Email" variant="outlined" name="email" onChange={(v) => handleInputChange(v)} value={form.email} />
+          <TextField label="CPF" variant="outlined" name="cpf" onChange={(v) => handleInputChange(v)} value={form.cpf} />
+          <TextField label="Matrícula" variant="outlined" name="register" onChange={(v) => handleInputChange(v)} value={form.register} />
           {!id && (
             <div className={styles.password}>
-              <TextField
-                type="password"
-                name="password"
-                value={form.password}
-                fullWidth
-                label="Senha"
-                onChange={handlePasswordChange}
-              />
+              <TextField type="password" name="password" value={form.password} fullWidth label="Senha" onChange={handlePasswordChange} />
               <TextField
                 type="password"
                 name="confirmPassword"

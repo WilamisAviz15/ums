@@ -15,7 +15,7 @@ export class MealsController {
     return await this.service.findAll();
   }
 
-  @MessagePattern('get_meal')
+  @MessagePattern('get_meals_by_id')
   async findOne(@Param('id') id: number): Promise<MealInterface> {
     return await this.service.findOne(id);
   }

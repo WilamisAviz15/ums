@@ -33,6 +33,11 @@ export class RolesController {
     return await this.service.findAll(filters);
   }
 
+  @MessagePattern({ cmd: 'get_roles_by_id' })
+  async findOne(@Body() id: number): Promise<RoleInterface> {
+    return await this.service.findOne(id);
+  }
+
   @MessagePattern('delete_role')
   async delete(@Body() id: string): Promise<{ message: string }> {
     return this.service.delete(+id);

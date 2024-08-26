@@ -85,6 +85,11 @@ export class AppController {
     return this.service.getRoles();
   }
 
+  @Get('roles/:id')
+  getRolesById(@Param('id') id: string) {
+    return this.service.getRolesById(+id);
+  }
+
   @Post('roles')
   createRoles(@Body() data: RoleInterface) {
     return this.service.createRole(data);
@@ -106,6 +111,11 @@ export class AppController {
   @Get('actions')
   getActions() {
     return this.service.getActions();
+  }
+
+  @Get('actions/:id')
+  getAction(@Param('id') id: string) {
+    return this.service.getActionsById(+id);
   }
 
   @Post('actions')
@@ -131,6 +141,11 @@ export class AppController {
     return this.service.getMenusGroups();
   }
 
+  @Get('menus-groups/:id')
+  getMenusGroupsById(@Param('id') id: string) {
+    return this.service.getMenusGroupsById(+id);
+  }
+
   @Post('menus-groups')
   createMenuGroup(@Body() data: MenusGroupInterface) {
     return this.service.createMenuGroup(data);
@@ -152,6 +167,11 @@ export class AppController {
   @Get('menus')
   getMenus() {
     return this.service.getMenus();
+  }
+
+  @Get('menus/:id')
+  getMenusById(@Param('id') id: string) {
+    return this.service.getMenusById(+id);
   }
 
   @Post('menus')
@@ -184,6 +204,11 @@ export class AppController {
     return this.service.getMeals();
   }
 
+  @Get('meals/:id')
+  getMealsById(@Param('id') id: string) {
+    return this.service.getMealsById(+id);
+  }
+
   @Post('meals')
   createMeal(@Body() data: MealInterface) {
     return this.service.createMeal(data);
@@ -208,6 +233,11 @@ export class AppController {
     return this.service.getMenusMeals();
   }
 
+  @Get('menu-meals/:id')
+  getMenusMealsById(@Param('id') id: string) {
+    return this.service.getMenusMealsById(+id);
+  }
+
   @Post('menu-meals')
   createMenuMeals(@Body() data: MenuMealCreateDto) {
     return this.service.createMenuMeal(data);
@@ -230,6 +260,11 @@ export class AppController {
   @Get('schedules/user/:userId')
   getSchedules(@Param('userId') userId: number) {
     return this.service.getSchedules(userId);
+  }
+
+  @Get('schedules/:id')
+  getSchedulesById(@Param('id') id: string) {
+    return this.service.getSchedulesById(+id);
   }
 
   @Patch('schedules/confirm-meal')

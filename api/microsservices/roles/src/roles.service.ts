@@ -32,6 +32,17 @@ export class RolesService {
     }
   }
 
+  async findOne(id: number): Promise<RoleInterface> {
+    try {
+      return await this.rolesRepository.findOne({ where: { id } });
+    } catch (error) {
+      throw new HttpException(
+        { message: 'Não foi possível encontrar o perfil de acesso.' },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   async findByName(name: string, role: RoleInterface): Promise<RoleInterface> {
     try {
       const id = role.id || 0;

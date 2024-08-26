@@ -30,7 +30,7 @@ export class MealsService {
 
   async findOne(id: number): Promise<MealInterface> {
     try {
-      return await this.mealsRepository.findOneOrFail({ where: { id } });
+      return await this.mealsRepository.findOne({ where: { id } });
     } catch (error) {
       throw new HttpException(
         { message: 'Não foi possível encontrar a refeição.' },

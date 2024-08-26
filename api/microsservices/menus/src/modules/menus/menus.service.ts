@@ -37,6 +37,17 @@ export class MenusService {
     }
   }
 
+  async findOne(id: number): Promise<MenuInterface> {
+    try {
+      return await this.menuRepository.findOne({ where: { id } });
+    } catch (error) {
+      throw new HttpException(
+        { message: 'Não foi possível encontrar o menu.' },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   async findByName(name: string, body: MenuInterface): Promise<MenuInterface> {
     try {
       const id = body.id || 0;

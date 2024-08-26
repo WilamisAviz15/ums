@@ -71,6 +71,10 @@ export class AppService {
     return this.msRoles.send({ cmd: 'get_roles' }, {});
   }
 
+  getRolesById(id: number) {
+    return this.msRoles.send({ cmd: 'get_roles_by_id' }, id);
+  }
+
   createRole(data: RoleInterface) {
     return this.msRoles.send('create_role', data);
   }
@@ -85,6 +89,10 @@ export class AppService {
 
   getActions() {
     return this.msActions.send('get_actions', {});
+  }
+
+  getActionsById(id: number) {
+    return this.msActions.send('get_actions_by_id', { id });
   }
 
   createAction(data: ActionInterface): Observable<any> {
@@ -103,6 +111,10 @@ export class AppService {
     return this.msMenus.send('get_menus_groups', {});
   }
 
+  getMenusGroupsById(id: number) {
+    return this.msMenus.send('get_menus_groups_by_id', id);
+  }
+
   createMenuGroup(data: MenusGroupInterface) {
     return this.msMenus.send('create_menu_groups', data);
   }
@@ -117,6 +129,10 @@ export class AppService {
 
   getMenus() {
     return this.msMenus.send('get_menus', {});
+  }
+
+  getMenusById(id: number) {
+    return this.msMenus.send('get_menus_by_id', id);
   }
 
   createMenu(data: MenuInterface) {
@@ -143,6 +159,10 @@ export class AppService {
     return this.msMeals.send('get_meals', {});
   }
 
+  getMealsById(id: number) {
+    return this.msMeals.send('get_meals_by_id', id);
+  }
+
   createMeal(data: MealInterface) {
     return this.msMeals.send('create_meal', data);
   }
@@ -159,6 +179,10 @@ export class AppService {
     return this.msMeals.send('get_menus_meals', {});
   }
 
+  getMenusMealsById(id: number) {
+    return this.msMeals.send('get_menus_meals_by_id', id);
+  }
+
   createMenuMeal(data: MenuMealCreateDto) {
     return this.msMeals.send('create_menu_meal', data);
   }
@@ -173,6 +197,10 @@ export class AppService {
 
   getSchedules(userId: number) {
     return this.msSchedules.send('get_schedules', userId);
+  }
+
+  getSchedulesById(id: number) {
+    return this.msSchedules.send('get_schedules_by_id', id);
   }
 
   createSchedule(createUserRequest: ScheduleCreateDto): Observable<any> {

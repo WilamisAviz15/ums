@@ -18,6 +18,11 @@ export class MenusController {
     return await this.service.findAll(filters);
   }
 
+  @MessagePattern('get_menus_by_id')
+  async findOne(@Body() id: number): Promise<MenuInterface> {
+    return await this.service.findOne(id);
+  }
+
   @MessagePattern('create_menu')
   async create(
     @Body() data: MenuCreateDto,
