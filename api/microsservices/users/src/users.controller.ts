@@ -61,4 +61,9 @@ export class UsersController {
   ): Promise<UserInterface> {
     return await this.service.findByRegister(data.register);
   }
+
+  @MessagePattern('find_user_by_id')
+  async findById(@Body() id: string): Promise<UserInterface> {
+    return await this.service.findOne(+id);
+  }
 }

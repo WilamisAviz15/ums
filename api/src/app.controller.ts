@@ -46,6 +46,11 @@ export class AppController {
     return this.service.getUsers();
   }
 
+  @Get('users/:id')
+  getUserById(@Param('id', ParseIntPipe) id: number) {
+    return this.service.getUserById(id);
+  }
+
   @Post('users/findUserByEmail')
   findUserByEmail(@Body() email: string) {
     return this.service.findUserByEmail(email);

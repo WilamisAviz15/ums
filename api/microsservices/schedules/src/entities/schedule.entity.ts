@@ -1,11 +1,7 @@
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+
+import { MealInterface } from 'src/interfaces/meal.interface';
+import { UserInterface } from '../interfaces/user.interface';
 
 @Entity({ name: 'schedules' })
 export class ScheduleEntity {
@@ -15,16 +11,12 @@ export class ScheduleEntity {
   @Column({ name: 'user_id' })
   userId: number;
 
-  // @OneToOne(() => UserEntity)
-  // @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
-  // user: UserEntity;
+  user?: UserInterface;
 
   @Column({ name: 'meal_id' })
   mealId: number;
 
-  // @OneToOne(() => MealEntity)
-  // @JoinColumn({ name: 'meal_id', referencedColumnName: 'id' })
-  // meal: MealEntity;
+  meal?: MealInterface;
 
   @CreateDateColumn({ name: 'date' })
   date: Date;

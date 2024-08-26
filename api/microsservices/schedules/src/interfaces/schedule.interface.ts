@@ -1,9 +1,12 @@
+import { MealInterface } from './meal.interface';
+import { UserInterface } from './user.interface';
+
 export interface ScheduleInterface {
   id?: number;
   userId: number;
-  // user?: UserInterface;
+  user?: UserInterface;
   mealId: number;
-  // meal?: MealInterface;
+  meal?: MealInterface;
   date: Date;
   used: boolean;
 }

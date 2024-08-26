@@ -39,6 +39,10 @@ export class AppService {
     return this.msUsers.send({ cmd: 'get_users' }, {});
   }
 
+  getUserById(id: number): Observable<any> {
+    return this.msUsers.send('find_user_by_id', id);
+  }
+
   createUser(createUserRequest: UserInterface): Observable<any> {
     return this.msUsers.send('create_user', createUserRequest);
   }
