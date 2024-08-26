@@ -29,6 +29,8 @@ import { MealUpdateDto } from 'microsservices/meals/src/modules/meals/dto/update
 import { MenuMealInterface } from './modules/menu-meal/interfaces/menu-meal.interface';
 import { MenuMealUpdateDto } from './modules/menu-meal/dto/update-menu-meal.dto';
 import { MenuMealCreateDto } from './modules/menu-meal/dto/create-menu-meal.dto';
+import { ScheduleCreateDto } from 'microsservices/schedules/src/dto/create-schedule.dto';
+import { ScheduleUpdateDto } from 'microsservices/schedules/src/dto/update-schedule.dto';
 
 @Controller()
 export class AppController {
@@ -213,5 +215,29 @@ export class AppController {
   @Delete('menu-meals/:id')
   removeMenuMeals(@Param('id') id: string) {
     return this.service.deleteMenuMeal(+id);
+  }
+
+  @Get('schedules')
+  getSchedules() {
+    return this.service.getSchedules();
+  }
+
+  @Post('schedules')
+  createSchedules(@Body() data: ScheduleCreateDto) {
+    return this.service.createSchedule(data);
+  }
+
+  @Put('schedules/:id')
+  async updateSchedules(
+    @Body() data: ScheduleUpdateDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    data.id = id;
+    return this.service.updateSchedule(data);
+  }
+
+  @Delete('schedules/:id')
+  removeSchedules(@Param('id') id: string) {
+    return this.service.deleteSchedule(+id);
   }
 }

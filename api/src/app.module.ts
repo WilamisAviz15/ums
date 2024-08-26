@@ -65,6 +65,11 @@ import { AppService } from './app.service';
         transport: Transport.TCP,
         options: { port: 3007 },
       },
+      {
+        name: 'SCHEDULES',
+        transport: Transport.TCP,
+        options: { port: 3008 },
+      },
     ]),
   ],
   controllers: [AppController],

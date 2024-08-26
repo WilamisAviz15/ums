@@ -19,6 +19,8 @@ import { MealInterface } from './modules/meals/interfaces/meal.interface';
 import { MealUpdateDto } from 'microsservices/meals/src/modules/meals/dto/update-meal.dto';
 import { MenuMealCreateDto } from './modules/menu-meal/dto/create-menu-meal.dto';
 import { MenuMealUpdateDto } from './modules/menu-meal/dto/update-menu-meal.dto';
+import { ScheduleUpdateDto } from './modules/schedules/dto/update-schedule.dto';
+import { ScheduleCreateDto } from './modules/schedules/dto/create-schedule.dto';
 
 @Injectable()
 export class AppService {
@@ -30,6 +32,7 @@ export class AppService {
     @Inject('PROFILE') private readonly msProfile: ClientProxy,
     @Inject('AUTHENTICATION') private readonly msAuthentication: ClientProxy,
     @Inject('MEALS') private readonly msMeals: ClientProxy,
+    @Inject('SCHEDULES') private readonly msSchedules: ClientProxy,
   ) {}
 
   getUsers(): Observable<any> {
@@ -158,5 +161,21 @@ export class AppService {
 
   deleteMenuMeal(id: number) {
     return this.msMeals.send('delete_menu_meal', id);
+  }
+
+  getSchedules() {
+    return this.msUsers.send('get_schedules', {});
+  }
+
+  createSchedule(createUserRequest: ScheduleCreateDto): Observable<any> {
+    return this.msUsers.send('create_schedules', createUserRequest);
+  }
+
+  updateSchedule(data: ScheduleUpdateDto) {
+    return this.msUsers.send('update_schedules', data);
+  }
+
+  deleteSchedule(id: number) {
+    return this.msUsers.send('delete_schedules', id);
   }
 }
