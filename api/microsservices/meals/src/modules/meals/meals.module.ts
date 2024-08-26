@@ -4,9 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MealsController } from './meals.controller';
 import { MealsService } from './meals.service';
 import { MealEntity } from './entities/meal.entity';
-import { DatabaseProviderModule } from './providers/database.provider';
+import { DatabaseProviderModule } from '../../providers/database.provider';
 import { HttpModule } from '@nestjs/axios';
-import { EnvironmentProviderModule } from './environment/environment.provider';
+import { EnvironmentProviderModule } from '../../environment/environment.provider';
 
 @Module({
   imports: [

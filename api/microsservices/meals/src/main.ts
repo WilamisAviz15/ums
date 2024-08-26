@@ -2,10 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { Logger } from '@nestjs/common';
 
-import { MealsModule } from './meals.module';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(MealsModule);
+  const app = await NestFactory.create(AppModule);
   app.connectMicroservice({
     transport: Transport.TCP,
     options: { port: 3007 },

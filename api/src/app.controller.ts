@@ -25,7 +25,10 @@ import { Patch } from '@nestjs/common/decorators';
 import { EditPersonalDataDto } from './modules/profile/dto/edit-profile.dto';
 import { LoginDto } from './authentication/dtos/login.dto';
 import { MealInterface } from './modules/meals/interfaces/meal.interface';
-import { MealUpdateDto } from 'microsservices/meals/src/dto/update-meal.dto';
+import { MealUpdateDto } from 'microsservices/meals/src/modules/meals/dto/update-meal.dto';
+import { MenuMealInterface } from './modules/menu-meal/interfaces/menu-meal.interface';
+import { MenuMealUpdateDto } from './modules/menu-meal/dto/update-menu-meal.dto';
+import { MenuMealCreateDto } from './modules/menu-meal/dto/create-menu-meal.dto';
 
 @Controller()
 export class AppController {
@@ -186,5 +189,29 @@ export class AppController {
   @Delete('meals/:id')
   removeMeal(@Param('id') id: string) {
     return this.service.deleteMeal(+id);
+  }
+
+  @Get('menu-meals')
+  getMenusMeals() {
+    return this.service.getMenusMeals();
+  }
+
+  @Post('menu-meals')
+  createMenuMeals(@Body() data: MenuMealCreateDto) {
+    return this.service.createMenuMeal(data);
+  }
+
+  @Put('menu-meals/:id')
+  async updateMenuMeals(
+    @Body() data: MenuMealUpdateDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    data.id = id;
+    return this.service.updateMenuMeal(data);
+  }
+
+  @Delete('menu-meals/:id')
+  removeMenuMeals(@Param('id') id: string) {
+    return this.service.deleteMenuMeal(+id);
   }
 }

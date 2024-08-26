@@ -5,7 +5,7 @@ import { Not, Repository } from 'typeorm';
 import { MealInterface } from './interfaces/meal.interface';
 import { MealEntity } from './entities/meal.entity';
 import { MealFilterInterface } from './interfaces/meal-filter.interface';
-import { createFilters } from './utils/typeorm/create-filters.utils';
+import { createFilters } from '../../utils/typeorm/create-filters.utils';
 import { MealCreateDto } from './dto/create-meal.dto';
 import { MealUpdateDto } from './dto/update-meal.dto';
 

@@ -16,7 +16,9 @@ import { ActionsMenuInterface } from './modules/actions/interfaces/actions-menu.
 import { EditPersonalDataDto } from './modules/profile/dto/edit-profile.dto';
 import { LoginDto } from './authentication/dtos/login.dto';
 import { MealInterface } from './modules/meals/interfaces/meal.interface';
-import { MealUpdateDto } from 'microsservices/meals/src/dto/update-meal.dto';
+import { MealUpdateDto } from 'microsservices/meals/src/modules/meals/dto/update-meal.dto';
+import { MenuMealCreateDto } from './modules/menu-meal/dto/create-menu-meal.dto';
+import { MenuMealUpdateDto } from './modules/menu-meal/dto/update-menu-meal.dto';
 
 @Injectable()
 export class AppService {
@@ -140,5 +142,21 @@ export class AppService {
 
   deleteMeal(id: number) {
     return this.msMeals.send('delete_meal', id);
+  }
+
+  getMenusMeals() {
+    return this.msMeals.send('get_menus_meals', {});
+  }
+
+  createMenuMeal(data: MenuMealCreateDto) {
+    return this.msMeals.send('create_menu_meal', data);
+  }
+
+  updateMenuMeal(data: MenuMealUpdateDto) {
+    return this.msMeals.send('update_menu_meal', data);
+  }
+
+  deleteMenuMeal(id: number) {
+    return this.msMeals.send('delete_menu_meal', id);
   }
 }
