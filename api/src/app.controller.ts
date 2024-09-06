@@ -295,4 +295,9 @@ export class AppController {
   removeSchedules(@Param('id') id: string) {
     return this.service.deleteSchedule(+id);
   }
+
+  @Get('users-roles/:userId')
+  findUserRolesByUserId(@Param('userId') userId?: string) {
+    return this.service.getUsersRolesByUserId(+userId);
+  }
 }

@@ -33,6 +33,7 @@ export class AppService {
     @Inject('AUTHENTICATION') private readonly msAuthentication: ClientProxy,
     @Inject('MEALS') private readonly msMeals: ClientProxy,
     @Inject('SCHEDULES') private readonly msSchedules: ClientProxy,
+    @Inject('USERS_ROLES') private readonly msUsersRoles: ClientProxy,
   ) {}
 
   getUsers(): Observable<any> {
@@ -221,5 +222,9 @@ export class AppService {
 
   findByUserCPF(cpf: string) {
     return this.msSchedules.send('get_schedules_by_user_cpf', cpf);
+  }
+
+  getUsersRolesByUserId(userId: number) {
+    return this.msUsersRoles.send('get_users_roles_by_user_id', userId);
   }
 }

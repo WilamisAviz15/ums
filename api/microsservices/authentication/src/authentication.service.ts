@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { JwtService } from '@nestjs/jwt';
 import { Repository, In } from 'typeorm';
@@ -30,10 +25,7 @@ export class AuthenticationService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async findByEmail(
-    email: string,
-    user?: UserInterface | { id: number },
-  ): Promise<UserInterface> {
+  async findByEmail(email: string, user?: UserInterface | { id: number }): Promise<UserInterface> {
     const userFound = await this.getFindByEmail(email);
     if (userFound) {
       console.log('user: ', userFound);
@@ -45,46 +37,40 @@ export class AuthenticationService {
 
   async getFindByEmail(email: string): Promise<UserInterface> {
     return new Promise((resolve, reject) => {
-      this.http
-        .post(`${environment.api}/users/findUserByEmail`, email)
-        .subscribe({
-          next: (user) => {
-            resolve(user.data);
-          },
-          error: (rej) => {
-            reject(rej);
-          },
-        });
+      this.http.post(`${environment.api}/users/findUserByEmail`, email).subscribe({
+        next: (user) => {
+          resolve(user.data);
+        },
+        error: (rej) => {
+          reject(rej);
+        },
+      });
     });
   }
 
   async getFindByRegister({ register: string }): Promise<UserInterface> {
     return new Promise((resolve, reject) => {
-      this.http
-        .post(`${environment.api}/users/findUserByLogin`, { register: string })
-        .subscribe({
-          next: (user) => {
-            resolve(user.data);
-          },
-          error: (rej) => {
-            reject(rej);
-          },
-        });
+      this.http.post(`${environment.api}/users/findUserByLogin`, { register: string }).subscribe({
+        next: (user) => {
+          resolve(user.data);
+        },
+        error: (rej) => {
+          reject(rej);
+        },
+      });
     });
   }
 
   async getFindByCPF(cpf: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http
-        .post(`${environment.api}/users/findUserByCpf`, { cpf })
-        .subscribe({
-          next: (user) => {
-            resolve(user.data);
-          },
-          error: (rej) => {
-            reject(rej);
-          },
-        });
+      this.http.post(`${environment.api}/users/findUserByCpf`, { cpf }).subscribe({
+        next: (user) => {
+          resolve(user.data);
+        },
+        error: (rej) => {
+          reject(rej);
+        },
+      });
     });
   }
 
@@ -106,19 +92,18 @@ export class AuthenticationService {
       if (error instanceof HttpException) {
         throw error;
       }
-      throw new HttpException(
-        { message: `Não foi possivel realizar o login. ${error}` },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException({ message: `Não foi possivel realizar o login. ${error}` }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async signToken(
-    user: UserInterface,
-  ): Promise<{ accessToken: string; payload: UserJwtInterface }> {
+  async signToken(user: UserInterface): Promise<{ accessToken: string; payload: UserJwtInterface }> {
     const menus = await this.viewMenusByRolesRepository.find({
       where: { roleId: In(user.roles.map((role: any) => role.id)) },
     });
+
+    const uniqueMenus = menus.filter(
+      (menu, index, self) => index === self.findIndex((m) => m.menu === menu.menu && m.menuGroup === menu.menuGroup && m.route === menu.route && m.menuKey === menu.menuKey),
+    );
 
     const privileges = await this.viewPrivilegesByRolesRepository.find({
       where: {
@@ -134,7 +119,7 @@ export class AuthenticationService {
       register: user.register,
       cpf: user.cpf,
       rolesId: rolesId,
-      menus,
+      menus: uniqueMenus,
       privileges,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
@@ -143,10 +128,7 @@ export class AuthenticationService {
     return { accessToken: this.jwtService.sign(payload), payload };
   }
 
-  async checkPassword(
-    plainPassword: string,
-    password: string,
-  ): Promise<boolean> {
+  async checkPassword(plainPassword: string, password: string): Promise<boolean> {
     return (await bcrypt.compare(plainPassword, password)) as boolean;
   }
 }

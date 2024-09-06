@@ -15,7 +15,6 @@ export class UsersSeed implements Seeder {
         password:
           '$2b$10$djde7iddrPX7b2aGXOrK5OkkPNaT2h95fy.R613MtSnEThecFJ3Oa',
         register: '11111111',
-        roleId: 1,
       },
     ]);
   }

@@ -46,11 +46,6 @@ export class CreateTableUser1695229594731 implements MigrationInterface {
         length: '255',
       },
       {
-        name: 'role_id',
-        type: 'varchar',
-        length: '5',
-      },
-      {
         name: 'created_at',
         type: 'timestamp',
         default: 'now()',

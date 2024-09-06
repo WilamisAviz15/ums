@@ -29,16 +29,7 @@ export class UserEntity {
   @Column()
   register: string;
 
-  // @ManyToMany(() => RoleEntity, { cascade: true })
-  // @JoinTable({
-  //   name: 'users_roles',
-  //   joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-  //   inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
-  // })
   roles: number[];
-
-  @Column({ name: 'role_id' })
-  roleId: number;
 
   @Column({ name: 'last_access' })
   lastAccess?: Date;

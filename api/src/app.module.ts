@@ -70,6 +70,11 @@ import { AppService } from './app.service';
         transport: Transport.TCP,
         options: { port: 3008 },
       },
+      {
+        name: 'USERS_ROLES',
+        transport: Transport.TCP,
+        options: { port: 3009 },
+      },
     ]),
   ],
   controllers: [AppController],

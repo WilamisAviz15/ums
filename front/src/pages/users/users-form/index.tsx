@@ -24,6 +24,7 @@ const MenusForm = () => {
       if (!id) return;
       usersService.httpGetById(+id).then((res) => {
         setForm(res);
+        console.log(res);
         if (res.roles) {
           const userRoles = res.roles.map((role) => ({ id: role.id } as { id: number }));
           setSelectedRoles(userRoles);

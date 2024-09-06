@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { DataSource, Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcryptjs from 'bcrypt';
@@ -28,10 +23,7 @@ export class UsersService {
     private readonly http: HttpService,
   ) {}
 
-  async create(
-    data: UserCreateDto,
-    currentUser: UserInterface,
-  ): Promise<{ user: UserInterface; message: string }> {
+  async create(data: UserCreateDto, currentUser: UserInterface): Promise<{ user: UserInterface; message: string }> {
     try {
       const entity = Object.assign(new UserEntity(), data);
       const user = await this.userRepository.save(entity);
@@ -40,10 +32,7 @@ export class UsersService {
       if (error instanceof HttpException) {
         throw error;
       }
-      throw new HttpException(
-        { message: `Não foi possível criar o usuário. ${error}` },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException({ message: `Não foi possível criar o usuário. ${error}` }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -56,10 +45,7 @@ export class UsersService {
         // relations: ['roles'],
       });
     } catch (error) {
-      throw new HttpException(
-        { message: 'Não foi possível encontrar os usuários.' },
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException({ message: 'Não foi possível encontrar os usuários.' }, HttpStatus.NOT_FOUND);
     }
   }
 
@@ -71,19 +57,16 @@ export class UsersService {
         // relations: ['roles'],
       });
     } catch (error) {
-      throw new HttpException(
-        { message: 'Não foi possível encontrar os usuários.' },
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException({ message: 'Não foi possível encontrar os usuários.' }, HttpStatus.NOT_FOUND);
     }
   }
 
-  async getRoleById(id: number): Promise<any[]> {
+  async getRolesByUserId(userId: number): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this.http.get(`${environment.api}/roles`).subscribe({
+      this.http.get(`${environment.api}/users-roles/${userId}`).subscribe({
         next: (roles) => {
-          const role = roles.data.filter((role) => role.id === id);
-          resolve(role);
+          const rolesUser = roles.data.map((item) => ({ id: item.roles.id }));
+          resolve(rolesUser);
         },
         error: (rej) => {
           reject(rej);
@@ -92,43 +75,15 @@ export class UsersService {
     });
   }
 
-  async findByRegister(register: string): Promise<UserEntity> {
-    try {
-      const user = await this.userRepository.findOne({
-        select: [
-          'id',
-          'name',
-          'email',
-          'cpf',
-          'password',
-          'createdAt',
-          'roleId',
-        ],
-        where: { register },
-      });
-      await this.getRoleById(user.roleId).then(
-        (role) => (user.roles = [...role]),
-      );
-      return user;
-    } catch (error) {
-      throw new HttpException(
-        { message: `Não foi possível encontrar o usuário. ${error}` },
-        HttpStatus.NOT_FOUND,
-      );
-    }
-  }
-
   async findOne(id: number): Promise<UserInterface> {
     try {
-      return await this.userRepository.findOne({
+      const user = await this.userRepository.findOne({
         where: { id },
-        // relations: ['roles'],
       });
+      await this.getRolesByUserId(user.id).then((roles) => (user.roles = roles));
+      return user;
     } catch (error) {
-      throw new HttpException(
-        { message: 'Não foi possível encontrar o usuário.' },
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException({ message: 'Não foi possível encontrar o usuário.' }, HttpStatus.NOT_FOUND);
     }
   }
 
@@ -136,11 +91,7 @@ export class UsersService {
     return cpf.replace(/[^\d]+/g, '');
   }
 
-  async update(
-    data: UserUpdateDto,
-    currentUser: UserInterface,
-    id: number,
-  ): Promise<{ user: UserInterface; message: string }> {
+  async update(data: UserUpdateDto, id: number): Promise<{ user: UserInterface; message: string }> {
     const queryRunner = this.dataSource.createQueryRunner();
 
     try {
@@ -175,10 +126,7 @@ export class UsersService {
       if (error instanceof UnauthorizedException) {
         throw error;
       }
-      throw new HttpException(
-        { message: `Não foi possível atualizar o usuário. ${error}` },
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException({ message: `Não foi possível atualizar o usuário. ${error}` }, HttpStatus.BAD_REQUEST);
     } finally {
       await queryRunner.release();
     }
@@ -199,17 +147,11 @@ export class UsersService {
       if (error instanceof HttpException) {
         throw error;
       }
-      throw new HttpException(
-        { message: 'Falha ao remover usuário.' },
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException({ message: 'Falha ao remover usuário.' }, HttpStatus.BAD_REQUEST);
     }
   }
 
-  async findByEmail(
-    email: string,
-    body?: UserInterface,
-  ): Promise<UserInterface> {
+  async findByEmail(email: string, body?: UserInterface): Promise<UserInterface> {
     try {
       // const id = body.id || 0;
       return await this.userRepository.findOne({
@@ -221,10 +163,7 @@ export class UsersService {
         },
       });
     } catch (error) {
-      throw new HttpException(
-        { message: `Não foi possível encontrar o usuário. ${error}` },
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException({ message: `Não foi possível encontrar o usuário. ${error}` }, HttpStatus.NOT_FOUND);
     }
   }
 
@@ -238,36 +177,20 @@ export class UsersService {
         },
       });
     } catch (error) {
-      throw new HttpException(
-        { message: 'Não foi possível encontrar o usuário pelo CPF fornecido.' },
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException({ message: 'Não foi possível encontrar o usuário pelo CPF fornecido.' }, HttpStatus.NOT_FOUND);
     }
   }
 
   async findLoginByCpf(cpf: string): Promise<UserInterface> {
     try {
       const user = await this.userRepository.findOne({
-        select: [
-          'id',
-          'name',
-          'email',
-          'cpf',
-          'password',
-          'createdAt',
-          'roleId',
-        ],
+        select: ['id', 'name', 'email', 'cpf', 'password', 'createdAt'],
         where: { cpf },
       });
-      await this.getRoleById(user.roleId).then(
-        (role) => (user.roles = [...role]),
-      );
+      await this.getRolesByUserId(user.id).then((roles) => (user.roles = roles));
       return user;
     } catch (error) {
-      throw new HttpException(
-        { message: `Não foi possível encontrar o usuário. ${error}` },
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException({ message: `Não foi possível encontrar o usuário. ${error}` }, HttpStatus.NOT_FOUND);
     }
   }
 }
