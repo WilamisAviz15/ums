@@ -32,30 +32,50 @@ const ConfirmMealRenderList = ({ data, setUserMeal }: { data: ScheduleInterface[
   const handleData = () => {
     if (data && Array.isArray(data)) {
       return data
-        .filter((item) => !item.used)
-        .map((item) => (
-          <CardUI
-            key={item.id}
-            title={item.meal.name}
-            subTitle={formatDate(item.date)}
-            extraText={
-              <span className={styles.extraText}>
-                <span>Usuário: {item.user.name}</span>
-                <br />
-                <span>Usado?: {item.used ? "Sim" : "Não"}</span>
-              </span>
-            }
-            onEditClick={() => {}}
-            onDeleteClick={() => deleteMeal(item.id)}
-            onIsManager={() =>
-              confirmMeal({
-                userId: item.userId,
-                mealId: item.mealId,
-                date: new Date(item.date.toString().split("T")[0]),
-              })
-            }
-          />
-        ));
+        .filter((item) => item)
+        .map((item) =>
+          item.used ? (
+            <CardUI
+              key={item.id}
+              title={item.meal.name}
+              subTitle={formatDate(item.date)}
+              customStyles={{ opacity: "0.5" }}
+              isDeletable={false}
+              extraText={
+                <span className={styles.extraText}>
+                  <span>Usuário: {item.user.name}</span>
+                  <br />
+                  <span>Usado?: {item.used ? "Sim" : "Não"}</span>
+                </span>
+              }
+              onEditClick={() => {}}
+              onDeleteClick={() => {}}
+              onIsManager={() => {}}
+            />
+          ) : (
+            <CardUI
+              key={item.id}
+              title={item.meal.name}
+              subTitle={formatDate(item.date)}
+              extraText={
+                <span className={styles.extraText}>
+                  <span>Usuário: {item.user.name}</span>
+                  <br />
+                  <span>Usado?: {item.used ? "Sim" : "Não"}</span>
+                </span>
+              }
+              onEditClick={() => {}}
+              onDeleteClick={() => deleteMeal(item.id)}
+              onIsManager={() =>
+                confirmMeal({
+                  userId: item.userId,
+                  mealId: item.mealId,
+                  date: new Date(item.date.toString().split("T")[0]),
+                })
+              }
+            />
+          )
+        );
     }
     return null;
   };

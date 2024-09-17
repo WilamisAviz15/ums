@@ -10,6 +10,8 @@ export interface CardUIInterface {
   extraText?: ReactElement<any, any>;
   customStyles?: CustomStyles;
   isDeletable?: boolean;
+  isCardHeaderEnabled?: boolean;
+  iconButton?: boolean;
   onIsManager?: () => void;
   onEditClick: () => void;
   onDeleteClick: () => void;
