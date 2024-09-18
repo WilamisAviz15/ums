@@ -1,16 +1,6 @@
 import { Transform, TransformFnParams } from 'class-transformer';
-import {
-  IsOptional,
-  IsInt,
-  IsDefined,
-  IsString,
-  IsNotEmpty,
-  MinLength,
-  MaxLength,
-  IsEmail,
-  ValidateIf,
-} from 'class-validator';
-import { Match } from '../shared/decorators/match.decorator';
+import { IsOptional, IsInt, IsDefined, IsString, IsNotEmpty, MinLength, MaxLength, IsEmail, ValidateIf } from 'class-validator';
+import { Match } from '../../../../shared/decorators/match.decorator';
 
 export class EditPersonalDataDto {
   @IsOptional()
@@ -27,12 +17,10 @@ export class EditPersonalDataDto {
     message: 'Nome do usuário: O campo do "name" não pode ser vázio.',
   })
   @MinLength(2, {
-    message:
-      'Nome do usuário: O campo do "name" deve possuir no mínimo 2 caracteres.',
+    message: 'Nome do usuário: O campo do "name" deve possuir no mínimo 2 caracteres.',
   })
   @MaxLength(50, {
-    message:
-      'Nome do usuário: O campo do "name" deve possuir no máximo 50 caracteres.',
+    message: 'Nome do usuário: O campo do "name" deve possuir no máximo 50 caracteres.',
   })
   name: string;
 
@@ -50,30 +38,18 @@ export class EditPersonalDataDto {
 
   @IsOptional()
   @IsDefined({ message: 'O campo da Nova Senha deve ser válido!' })
-  @ValidateIf(
-    (obj, value) =>
-      obj.password !== undefined ||
-      obj.password !== null ||
-      obj.password !== '',
-  )
+  @ValidateIf((obj, value) => obj.password !== undefined || obj.password !== null || obj.password !== '')
   @IsNotEmpty({
-    message:
-      'O campo da Nova senha deve ser informado caso deseje alterar a senha',
+    message: 'O campo da Nova senha deve ser informado caso deseje alterar a senha',
   })
   @IsString({ message: 'O campo de Nova Senha deve ser uma string!' })
   newPassword?: string;
 
   @IsOptional()
   @IsDefined({ message: 'O campo da Confirmação da Senha deve ser válido!' })
-  @ValidateIf(
-    (obj, value) =>
-      obj.newPassword !== undefined ||
-      obj.newPassword !== null ||
-      obj.newPassword !== '',
-  )
+  @ValidateIf((obj, value) => obj.newPassword !== undefined || obj.newPassword !== null || obj.newPassword !== '')
   @IsNotEmpty({
-    message:
-      'O campo da Confirmação de senha deve ser informado caso deseje alterar a senha',
+    message: 'O campo da Confirmação de senha deve ser informado caso deseje alterar a senha',
   })
   @IsString({ message: 'O campo de Confirmação da Senha deve ser uma string!' })
   @Match('newPassword', {
