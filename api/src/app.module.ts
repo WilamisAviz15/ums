@@ -11,9 +11,10 @@ import { ProfileModule } from './modules/profile/src/profile.module';
 import { MenuMealModule } from './modules/menus-meals/src/menus-meals.module';
 import { MenuGroupModule } from './modules/menus-group/src/menus-group.module';
 import { EnvironmentProviderModule } from './environment/environment.provider';
+import { UserRoleModule } from './modules/users-roles/src/users-roles.module';
 
 @Module({
-  imports: [AuthenticationModule, RoleModule, UserModule, ScheduleModule, ActionModule, MenuModule, MenuGroupModule, MealModule, ProfileModule, MenuMealModule],
+  imports: [AuthenticationModule, RoleModule, UserModule, UserRoleModule, ScheduleModule, ActionModule, MenuModule, MenuGroupModule, MealModule, ProfileModule, MenuMealModule],
   controllers: [],
   providers: [EnvironmentProviderModule],
 })
