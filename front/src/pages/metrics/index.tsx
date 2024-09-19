@@ -5,6 +5,14 @@ import styles from "./Metrics.module.scss";
 import CardUI from "../../components/card-ui";
 
 const Metrics = () => {
+  const cardStyle = {
+    color: "#fff",
+    backgroundColor: "#5ea9ff",
+    fontFamily: 'font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  };
   return (
     <div className={styles.metrics}>
       <CardUI
@@ -15,6 +23,7 @@ const Metrics = () => {
             <b>0</b>
           </span>
         }
+        customStyles={cardStyle}
         iconButton={false}
         onEditClick={() => {}}
         onDeleteClick={() => {}}
@@ -28,17 +37,19 @@ const Metrics = () => {
           </span>
         }
         iconButton={false}
+        customStyles={{ ...cardStyle, backgroundColor: "#43dcbd" }}
         onEditClick={() => {}}
         onDeleteClick={() => {}}
       />
       <CardUI
         key={1}
-        title={"Refeições agendadase e não pagas para hoje"}
+        title={"Refeições agendadas e não pagas para hoje"}
         extraText={
           <span className={styles.extraText}>
             <b>0</b>
           </span>
         }
+        customStyles={{ ...cardStyle, backgroundColor: "#ffc168" }}
         iconButton={false}
         onEditClick={() => {}}
         onDeleteClick={() => {}}
@@ -52,6 +63,7 @@ const Metrics = () => {
           </span>
         }
         iconButton={false}
+        customStyles={{ ...cardStyle, backgroundColor: "#ff6e86" }}
         onEditClick={() => {}}
         onDeleteClick={() => {}}
       />
@@ -64,6 +76,7 @@ const Metrics = () => {
           </span>
         }
         iconButton={false}
+        customStyles={{ ...cardStyle, backgroundColor: "#b39ddb   " }}
         onEditClick={() => {}}
         onDeleteClick={() => {}}
       />
@@ -76,6 +89,7 @@ const Metrics = () => {
           </span>
         }
         iconButton={false}
+        customStyles={{ ...cardStyle, backgroundColor: "#f48fb1   " }}
         onEditClick={() => {}}
         onDeleteClick={() => {}}
       />
