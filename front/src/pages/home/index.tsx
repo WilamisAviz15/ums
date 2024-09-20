@@ -7,12 +7,17 @@ import authService from "../auth/auth.service";
 import Metrics from "../metrics";
 
 const Home = () => {
+  const isAdminOrManager = () => {
+    const privilege = authService.getUserBiggerPrivilege();
+    return privilege === 1 || privilege === 2;
+  };
+
   return (
     <div className={styles.home}>
       <h1>Bem vindo ao Sistema de Agendamento de Refeição de Universidades</h1>
       <h2>Sua universidade: Universidade Federal de Alagoas</h2>
       <h2>Seu usuário: {authService.getUser().name}</h2>
-      <Metrics />
+      {isAdminOrManager() && <Metrics />}
       {/* <img src={ru} alt="imagem do ru da ufal" className={styles.img} /> */}
       <h1>Mural de Avisos</h1>
       carrosssel com imagem de avisos e cardapio
