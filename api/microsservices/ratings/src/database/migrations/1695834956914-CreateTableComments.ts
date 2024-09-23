@@ -27,6 +27,10 @@ export class CreateTableRatings1683653810005 implements MigrationInterface {
         length: '255',
       },
       {
+        name: 'stars',
+        type: 'integer',
+      },
+      {
         name: 'menu_meal_id',
         type: 'integer',
       },

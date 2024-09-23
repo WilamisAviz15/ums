@@ -14,6 +14,9 @@ export class RatingEntity {
   @Column()
   message: string;
 
+  @Column()
+  stars: number;
+
   @Column({ name: 'menu_meal_id' })
   menuMealId: number;
 

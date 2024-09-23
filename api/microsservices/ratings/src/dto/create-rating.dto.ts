@@ -26,6 +26,10 @@ export class RatingCreateDto {
   @Transform(({ value }: TransformFnParams) => value?.trim())
   message: string;
 
+  @IsNotEmpty({ message: 'O campo de nota da avaliação é obrigátorio.' })
+  @IsInt({ message: 'O campo de nota da avaliação precisa ser um inteiro.' })
+  stars: number;
+
   @IsNotEmpty({ message: 'O campo ID da refeição é obrigátorio.' })
   @IsInt({ message: 'O campo de ID da refeição precisa ser um inteiro.' })
   menuMealId: number;
