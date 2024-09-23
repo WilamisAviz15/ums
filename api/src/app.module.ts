@@ -12,6 +12,7 @@ import { MenuMealModule } from './modules/menus-meals/src/menus-meals.module';
 import { MenuGroupModule } from './modules/menus-group/src/menus-group.module';
 import { EnvironmentProviderModule } from './environment/environment.provider';
 import { UserRoleModule } from './modules/users-roles/src/users-roles.module';
+import { CommentModule } from './modules/comments/src/comments.module';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { UserRoleModule } from './modules/users-roles/src/users-roles.module';
     MealModule,
     ProfileModule,
     MenuMealModule,
-    // CommentsModule,
+    CommentModule,
   ],
   controllers: [],
   providers: [EnvironmentProviderModule],

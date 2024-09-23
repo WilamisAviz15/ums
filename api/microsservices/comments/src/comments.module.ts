@@ -6,9 +6,10 @@ import { CommentsController } from './comments.controller';
 import { CommentsService } from './comments.service';
 import { DatabaseProviderModule } from './providers/database.provider';
 import { EnvironmentProviderModule } from './environment/environment.provider';
+import { CommentEntity } from './entities/comment.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([]), DatabaseProviderModule, HttpModule],
+  imports: [TypeOrmModule.forFeature([CommentEntity]), DatabaseProviderModule, HttpModule],
   controllers: [CommentsController],
   providers: [EnvironmentProviderModule, CommentsService],
 })

@@ -14,7 +14,7 @@ export class CommentEntity {
   @Column()
   message: string;
 
-  @Column()
+  @Column({ name: 'menu_meal_id' })
   menuMealId: number;
 
   @CreateDateColumn({ name: 'created_at' })
