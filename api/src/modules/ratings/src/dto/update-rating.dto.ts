@@ -1,7 +1,7 @@
 import { Transform, TransformFnParams } from 'class-transformer';
 import { IsInt, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
-export class ActionUpdateDto {
+export class RatingUpdateDto {
   @IsNotEmpty({ message: 'O campo de ID do comentário é obrigátorio.' })
   @IsInt({ message: 'O campo de ID do comentário precisa ser um inteiro.' })
   id: number;

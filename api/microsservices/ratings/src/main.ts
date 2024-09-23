@@ -2,10 +2,10 @@ import { Transport } from '@nestjs/microservices';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
 
-import { CommentsModule } from './comments.module';
+import { RatingsModule } from './ratings.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(CommentsModule);
+  const app = await NestFactory.create(RatingsModule);
   app.connectMicroservice({
     transport: Transport.TCP,
     options: { port: 3010 },

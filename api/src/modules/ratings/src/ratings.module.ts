@@ -1,20 +1,21 @@
 import { Module } from '@nestjs/common/decorators';
 import { Transport } from '@nestjs/microservices/enums';
 import { ClientsModule } from '@nestjs/microservices/module';
-import { CommentController } from './comments.controller';
-import { CommentService } from './comments.service';
+
+import { RatingService } from './ratings.service';
+import { RatingController } from './ratings.controller';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: 'COMMENTS',
+        name: 'RATINGS',
         transport: Transport.TCP,
         options: { port: 3010 },
       },
     ]),
   ],
-  controllers: [CommentController],
-  providers: [CommentService],
+  controllers: [RatingController],
+  providers: [RatingService],
 })
-export class CommentModule {}
+export class RatingModule {}

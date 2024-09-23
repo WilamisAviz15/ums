@@ -22,7 +22,7 @@
     "seed:run": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d ./src/config/database/data-source.ts",
     "db:create": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js db:create -d ./src/config/database/data-source.ts && npm run seed:run",
     "db:drop": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js db:drop -d ./src/config/database/data-source.ts && npm run db:create",
-    "start:all": "concurrently \"npm run start:dev\" \"npm run start:users\" \"npm run start:roles\" \"npm run start:actions\" \"npm run start:menus\" \"npm run start:profile\" \"npm run start:auth\" \"npm run start:meals\" \"npm run start:schedules\" \"npm run start:users-roles\" \"npm run start:comments\"",
+    "start:all": "concurrently \"npm run start:dev\" \"npm run start:users\" \"npm run start:roles\" \"npm run start:actions\" \"npm run start:menus\" \"npm run start:profile\" \"npm run start:auth\" \"npm run start:meals\" \"npm run start:schedules\" \"npm run start:users-roles\" \"npm run start:ratings\"",
     "start:users": "cd ./microsservices/users && nest start --watch",
     "start:roles": "cd ./microsservices/roles && nest start --watch",
     "start:actions": "cd ./microsservices/actions && nest start --watch",
@@ -32,7 +32,7 @@
     "start:meals": "cd ./microsservices/meals && nest start --watch",
     "start:schedules": "cd ./microsservices/schedules && nest start --watch",
     "start:users-roles": "cd ./microsservices/users-roles && nest start --watch",
-    "start:comments": "cd ./microsservices/comments && nest start --watch"
+    "start:ratings": "cd ./microsservices/ratings && nest start --watch"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.8",

@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTableComments1683653810005 implements MigrationInterface {
-  private commentsTable = new Table({
-    name: 'comments',
+export class CreateTableRatings1683653810005 implements MigrationInterface {
+  private ratingTable = new Table({
+    name: 'ratings',
     columns: [
       {
         name: 'id',
@@ -49,10 +49,10 @@ export class CreateTableComments1683653810005 implements MigrationInterface {
   });
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.createTable(this.commentsTable);
+    await queryRunner.createTable(this.ratingTable);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable(this.commentsTable);
+    await queryRunner.dropTable(this.ratingTable);
   }
 }

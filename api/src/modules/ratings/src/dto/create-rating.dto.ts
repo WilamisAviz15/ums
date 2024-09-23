@@ -1,7 +1,7 @@
 import { Transform, TransformFnParams } from 'class-transformer';
 import { IsInt, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
-export class CommentCreateDto {
+export class RatingCreateDto {
   @IsString({ message: 'O campo de nome precisa ser uma string.' })
   @IsNotEmpty({ message: 'O campo de nome é obrigátorio.' })
   @MinLength(3, {

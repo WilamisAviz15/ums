@@ -12,7 +12,7 @@ import { MenuMealModule } from './modules/menus-meals/src/menus-meals.module';
 import { MenuGroupModule } from './modules/menus-group/src/menus-group.module';
 import { EnvironmentProviderModule } from './environment/environment.provider';
 import { UserRoleModule } from './modules/users-roles/src/users-roles.module';
-import { CommentModule } from './modules/comments/src/comments.module';
+import { RatingModule } from './modules/ratings/src/ratings.module';
 
 @Module({
   imports: [
@@ -27,7 +27,7 @@ import { CommentModule } from './modules/comments/src/comments.module';
     MealModule,
     ProfileModule,
     MenuMealModule,
-    CommentModule,
+    RatingModule,
   ],
   controllers: [],
   providers: [EnvironmentProviderModule],
