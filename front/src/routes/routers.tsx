@@ -25,6 +25,9 @@ import UsersList from "../pages/users/users-list";
 import UsersForm from "../pages/users/users-form";
 import ConfirmMeal from "../pages/confirm-meal";
 import ConfirmMealForm from "../pages/confirm-meal/confirm-meal-form";
+import Ratings from "../pages/ratings";
+import RatingsList from "../pages/ratings/ratings-list";
+import RatingsForm from "../pages/ratings/ratings-form";
 
 const routers = () => {
   const components = [
@@ -176,6 +179,20 @@ const routers = () => {
         {
           name: "",
           component: <ConfirmMealForm />,
+        },
+      ],
+    },
+    {
+      name: "avaliacoes",
+      component: <Ratings />,
+      child: [
+        {
+          name: "",
+          component: <RatingsList />,
+        },
+        {
+          name: "cadastrar",
+          component: <RatingsForm />,
         },
       ],
     },
