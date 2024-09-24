@@ -1,4 +1,4 @@
-import { Body, Controller, Param } from '@nestjs/common';
+import { Body, Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { MealsService } from './meals.service';
@@ -16,7 +16,7 @@ export class MealsController {
   }
 
   @MessagePattern('get_meals_by_id')
-  async findOne(@Param('id') id: number): Promise<MealInterface> {
+  async findOne(@Body() id: number): Promise<MealInterface> {
     return await this.service.findOne(id);
   }
 

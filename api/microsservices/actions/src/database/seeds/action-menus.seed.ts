@@ -62,6 +62,11 @@ export class ActionsMenuSeed implements Seeder {
       { actionId: 3, menuId: 11 },
       { actionId: 4, menuId: 11 },
       { actionId: 5, menuId: 11 },
+      { actionId: 1, menuId: 12 },
+      { actionId: 2, menuId: 12 },
+      { actionId: 3, menuId: 12 },
+      { actionId: 4, menuId: 12 },
+      { actionId: 5, menuId: 12 },
     ]);
   }
 }

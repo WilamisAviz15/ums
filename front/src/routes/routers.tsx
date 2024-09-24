@@ -28,6 +28,9 @@ import ConfirmMealForm from "../pages/confirm-meal/confirm-meal-form";
 import Ratings from "../pages/ratings";
 import RatingsList from "../pages/ratings/ratings-list";
 import RatingsForm from "../pages/ratings/ratings-form";
+import Meals from "../pages/meals";
+import MealsList from "../pages/meals/meals-list";
+import MealsForm from "../pages/meals/meals-form";
 
 const routers = () => {
   const components = [
@@ -194,6 +197,24 @@ const routers = () => {
         //   name: "cadastrar",
         //   component: <RatingsForm />,
         // },
+      ],
+    },
+    {
+      name: "refeicoes",
+      component: <Meals />,
+      child: [
+        {
+          name: "",
+          component: <MealsList />,
+        },
+        {
+          name: "cadastrar",
+          component: <MealsForm />,
+        },
+        {
+          name: "editar/:id",
+          component: <MealsForm />,
+        },
       ],
     },
   ];
