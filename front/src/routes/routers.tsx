@@ -188,12 +188,12 @@ const routers = () => {
       child: [
         {
           name: "",
-          component: <RatingsList />,
-        },
-        {
-          name: "cadastrar",
           component: <RatingsForm />,
         },
+        // {
+        //   name: "cadastrar",
+        //   component: <RatingsForm />,
+        // },
       ],
     },
   ];

@@ -67,6 +67,12 @@ export class MenusSeed implements Seeder {
         menuKey: 'confirm-meal',
         menuGroupId: 1,
       },
+      {
+        name: 'Avaliações',
+        route: 'avaliacoes',
+        menuKey: 'avaliacoes',
+        menuGroupId: 1,
+      },
     ]);
   }
 }
