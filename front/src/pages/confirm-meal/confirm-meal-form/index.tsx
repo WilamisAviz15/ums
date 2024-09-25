@@ -14,7 +14,6 @@ const ConfirmMealForm = () => {
   const search = async () => {
     try {
       const res = await confirmMealService.httpGet(form.cpf);
-      console.log(res);
       setUserMeal(res);
     } catch (error: any) {
       if (error instanceof AxiosError) {
@@ -38,13 +37,7 @@ const ConfirmMealForm = () => {
       </div>
       <form>
         <div>
-          <TextField
-            label="CPF"
-            variant="outlined"
-            name="cpf"
-            onChange={(v) => handleInputChange(v)}
-            value={form.cpf}
-          />
+          <TextField label="CPF" variant="outlined" name="cpf" onChange={(v) => handleInputChange(v)} value={form.cpf} />
           <Button variant="contained" color="primary" onClick={search}>
             Consultar
           </Button>

@@ -4,5 +4,5 @@ export interface MealInterface {
   id?: number;
   name: string;
   price: string;
-  submeal: SubMealInterface[];
+  submeals: SubMealInterface[];
 }

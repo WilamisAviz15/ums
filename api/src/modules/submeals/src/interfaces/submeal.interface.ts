@@ -1,6 +1,5 @@
 export interface SubMealInterface {
-  id?: number;
-  mealId?: number;
+  id: number;
   name: string;
   price: string;
 }

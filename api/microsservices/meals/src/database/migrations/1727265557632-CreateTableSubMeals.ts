@@ -1,8 +1,8 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
-export class CreateTableMeals1695839652634 implements MigrationInterface {
-  private mealsTable = new Table({
-    name: 'meals',
+export class CreateTableSubMeals1727265557632 implements MigrationInterface {
+  private submealsTable = new Table({
+    name: 'submeals',
     columns: [
       {
         name: 'id',
@@ -10,6 +10,10 @@ export class CreateTableMeals1695839652634 implements MigrationInterface {
         isPrimary: true,
         isGenerated: true,
         generationStrategy: 'increment',
+      },
+      {
+        name: 'meal_id',
+        type: 'integer',
       },
       {
         name: 'name',
@@ -39,11 +43,21 @@ export class CreateTableMeals1695839652634 implements MigrationInterface {
     ],
   });
 
+  private mealIdForeignKey = new TableForeignKey({
+    name: 'fk_submeal_meal_id',
+    columnNames: ['meal_id'],
+    referencedColumnNames: ['id'],
+    referencedTableName: 'meals',
+    onDelete: 'CASCADE',
+  });
+
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.createTable(this.mealsTable);
+    await queryRunner.createTable(this.submealsTable);
+    await queryRunner.createForeignKeys(this.submealsTable, [this.mealIdForeignKey]);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable(this.mealsTable);
+    await queryRunner.dropForeignKeys(this.submealsTable, [this.mealIdForeignKey]);
+    await queryRunner.dropTable(this.submealsTable);
   }
 }

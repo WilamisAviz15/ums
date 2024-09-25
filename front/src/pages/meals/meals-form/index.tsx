@@ -8,30 +8,61 @@ import styles from "./Meals.module.scss";
 import { MealInterface } from "../interfaces/meal.interface";
 import mealsService from "../meals.service";
 import SubMealForm from "./SubMealForm";
+import submealsService from "../submeals.service";
 
 const MealsForm = () => {
   const { id } = useParams();
   const [subMealCheck, setSubMealCheck] = React.useState(false);
 
   const navigate = useNavigate();
-  const [form, setForm] = useState<MealInterface>({ name: "", price: "", submeal: [] });
+  const [form, setForm] = useState<MealInterface>({ name: "", price: "", submeals: [] });
 
   useEffect(() => {
     const handleData = async () => {
       if (!id) return;
       const res = await mealsService.httpGetById(+id);
+      if (res) {
+        const submeals = await submealsService.httpGetByMealId(+id);
+        res.submeals = submeals;
+      }
       setForm(res);
+      if (res.submeals.length > 0) {
+        setSubMealCheck(true);
+      } else {
+        setSubMealCheck(false);
+      }
     };
 
     handleData();
-  }, []);
+  }, [id]);
 
-  const createMeal = async () => {
+  const createOrUpdateMeal = async () => {
     try {
+      if (!subMealCheck) {
+        form.submeals = [];
+      }
+
       if (id) {
         const res = await mealsService.httpPut(form);
+        if (res.meal) {
+          console.log(form.submeals);
+          form.submeals.forEach(async (submeals) => {
+            submeals.mealId = res.meal.id;
+            if (submeals.id) {
+              await submealsService.httpPut(submeals);
+            } else {
+              await submealsService.httpPost(submeals);
+            }
+          });
+        }
       } else {
         const res = await mealsService.httpPost(form);
+        if (res.meal) {
+          form.submeals.forEach(async (submeals) => {
+            submeals.mealId = res.meal.id;
+            await submealsService.httpPost(submeals);
+          });
+        }
       }
       navigate(-1);
     } catch (error: any) {
@@ -42,14 +73,14 @@ const MealsForm = () => {
   };
 
   const updateMealPrice = (updatedSubMeals: any) => {
-    const totalSubMealPrice = updatedSubMeals.reduce((total: number, submeal: any) => {
-      return total + parseFloat(submeal.price || "0");
+    const totalSubMealPrice = updatedSubMeals.reduce((total: number, submeals: any) => {
+      return total + parseFloat(submeals.price || "0");
     }, 0);
 
     setForm((prevForm) => ({
       ...prevForm,
       price: totalSubMealPrice.toFixed(2),
-      submeal: updatedSubMeals,
+      submeals: updatedSubMeals,
     }));
   };
 
@@ -63,7 +94,7 @@ const MealsForm = () => {
 
   const handleInputChangeSubMeal = (index: number, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-    const updatedSubMeals = [...form.submeal];
+    const updatedSubMeals = [...form.submeals];
     updatedSubMeals[index] = { ...updatedSubMeals[index], [name]: value };
     updateMealPrice(updatedSubMeals);
   };
@@ -72,25 +103,31 @@ const MealsForm = () => {
     const checked = event.target.checked;
     setSubMealCheck(checked);
 
-    if (!checked) {
-      updateMealPrice([]);
-    }
+    // if (!checked) {
+    //   updateMealPrice([]);
+    // }
 
-    if (checked && form.submeal.length === 0) {
+    if (checked && form.submeals.length === 0) {
       setForm((prevForm) => ({
         ...prevForm,
-        submeal: [{ name: "", price: "" }],
+        submeals: [{ name: "", price: "" }],
       }));
     }
   };
 
   const addSubMeal = () => {
-    const updatedSubMeals = [...form.submeal, { name: "", price: "" }];
+    const updatedSubMeals = [...form.submeals, { name: "", price: "" }];
     updateMealPrice(updatedSubMeals);
   };
 
-  const removeSubMeal = (index: number) => {
-    const updatedSubMeals = form.submeal?.filter((_, i) => i !== index);
+  const removeSubMeal = async (index: number) => {
+    const submeal = form.submeals[index];
+
+    if (submeal.id) {
+      await submealsService.httpDelete(submeal.id);
+    }
+
+    const updatedSubMeals = form.submeals?.filter((_, i) => i !== index);
     updateMealPrice(updatedSubMeals);
   };
 
@@ -111,8 +148,8 @@ const MealsForm = () => {
             <Switch checked={subMealCheck} onChange={handleChangeSwitch} />
           </div>
           {/* <pre>{JSON.stringify(form, null, 2)}</pre> */}
-          {subMealCheck && <SubMealForm submeals={form.submeal} handleInputChangeSubMeal={handleInputChangeSubMeal} addSubMeal={addSubMeal} removeSubMeal={removeSubMeal} />}
-          <Button variant="contained" color="primary" onClick={createMeal}>
+          {subMealCheck && <SubMealForm submeals={form.submeals} handleInputChangeSubMeal={handleInputChangeSubMeal} addSubMeal={addSubMeal} removeSubMeal={removeSubMeal} />}
+          <Button variant="contained" color="primary" onClick={createOrUpdateMeal}>
             {id ? "Atualizar" : "Criar"}
           </Button>
         </div>

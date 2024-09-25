@@ -7,17 +7,18 @@ import mealsService from "../meals.service";
 import styles from "../Meals.module.scss";
 import MealsRenderList from "./meals-list";
 import { MealInterface } from "../interfaces/meal.interface";
+import submealsService from "../submeals.service";
 
 const MealsList = () => {
   const [meals, setMeals] = useState<MealInterface[]>();
   const navigate = useNavigate();
   useEffect(() => {
-    const getMenus = async () => {
+    const getMeals = async () => {
       const res = await mealsService.httpGet();
       setMeals(res);
     };
-    getMenus();
-  }, []);
+    getMeals();
+  }, [meals]);
 
   const add = () => {
     navigate("cadastrar");

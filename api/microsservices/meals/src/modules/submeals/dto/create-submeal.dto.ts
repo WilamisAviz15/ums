@@ -1,12 +1,7 @@
 import { Transform, TransformFnParams } from 'class-transformer';
-import { IsNotEmpty, IsString, MaxLength, MinLength, Validate } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
-import { MealNameAlreadyExist } from '../validate/meal-name-already-exist.constraint';
-
-export class MealCreateDto {
-  @Validate(MealNameAlreadyExist, {
-    message: 'Já existe uma refeição com este nome.',
-  })
+export class SubMealCreateDto {
   @IsString({ message: 'O campo de nome precisa ser uma string.' })
   @IsNotEmpty({ message: 'O campo de nome é obrigátorio.' })
   @MinLength(3, {
@@ -17,4 +12,9 @@ export class MealCreateDto {
   })
   @Transform(({ value }: TransformFnParams) => value?.trim())
   name: string;
+
+  @IsString({ message: 'O campo de preço precisa ser uma string.' })
+  @IsNotEmpty({ message: 'O campo de preço é obrigátorio.' })
+  @Transform(({ value }: TransformFnParams) => value?.trim())
+  price: string;
 }

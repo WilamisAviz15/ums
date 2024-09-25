@@ -98,18 +98,10 @@ const SchedulesForm = () => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker className="picker" onChange={(v) => handleDateChange(v)} value={dayjs(form.date)} />
           </LocalizationProvider>
-          <TextField
-            id="mealId"
-            name="mealId"
-            value={id ? form.mealId : selectedMeal}
-            fullWidth
-            select
-            label="Tipo de refeição"
-            onChange={(v) => handleSelectChange(v)}
-          >
+          <TextField id="mealId" name="mealId" value={id ? form.mealId : selectedMeal} fullWidth select label="Tipo de refeição" onChange={(v) => handleSelectChange(v)}>
             {meals.map((option) => (
               <MenuItem key={option.id} value={option.id}>
-                {option.name}
+                {option.name + " - R$ " + option.price + " - " + (option.submeals?.map((submeal) => submeal.name).join(", ") || "")}
               </MenuItem>
             ))}
           </TextField>

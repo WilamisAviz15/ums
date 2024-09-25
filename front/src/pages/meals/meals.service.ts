@@ -12,12 +12,12 @@ class MealService {
     return (await http.get<any, any>(`meals/${id}`)).data;
   }
 
-  async httpPost(data: MealInterface): Promise<{ action: MealInterface; message: string }> {
+  async httpPost(data: MealInterface): Promise<{ meal: MealInterface; message: string }> {
     const response = await http.post<MealInterface, any>("meals", { data });
     return response.data;
   }
 
-  async httpPut(data: MealInterface): Promise<{ action: MealInterface; message: string }> {
+  async httpPut(data: MealInterface): Promise<{ meal: MealInterface; message: string }> {
     const response = await http.put<MealInterface, any>(`meals/${data.id}`, { data });
     return response.data;
   }

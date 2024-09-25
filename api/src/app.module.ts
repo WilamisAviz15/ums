@@ -13,6 +13,7 @@ import { MenuGroupModule } from './modules/menus-group/src/menus-group.module';
 import { EnvironmentProviderModule } from './environment/environment.provider';
 import { UserRoleModule } from './modules/users-roles/src/users-roles.module';
 import { RatingModule } from './modules/ratings/src/ratings.module';
+import { SubMealsModule } from './modules/submeals/src/submeals.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { RatingModule } from './modules/ratings/src/ratings.module';
     ProfileModule,
     MenuMealModule,
     RatingModule,
+    SubMealsModule,
   ],
   controllers: [],
   providers: [EnvironmentProviderModule],

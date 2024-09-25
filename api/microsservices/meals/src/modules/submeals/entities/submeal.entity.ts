@@ -1,16 +1,15 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-import { SubMealInterface } from '../../../modules/submeals/interfaces/submeal.inteface';
-
-@Entity({ name: 'meals' })
-export class MealEntity {
+@Entity({ name: 'submeals' })
+export class SubMealEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ name: 'meal_id' })
+  mealId: number;
+
   @Column()
   name: string;
-
-  submeals?: SubMealInterface[];
 
   @Column()
   price: string;
