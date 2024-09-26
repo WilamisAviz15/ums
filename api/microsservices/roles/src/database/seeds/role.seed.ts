@@ -16,7 +16,7 @@ export class RolesSeed implements Seeder {
       },
       {
         id: 3,
-        name: 'Aluno',
+        name: 'Aluno Graduação',
       },
     ]);
   }

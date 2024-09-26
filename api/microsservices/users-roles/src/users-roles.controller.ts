@@ -14,4 +14,19 @@ export class UsersRolesController {
   async findOne(userId: number): Promise<UserRoleInterface[]> {
     return await this.service.findOneByUserId(userId);
   }
+
+  @MessagePattern('create_users_roles')
+  async create(@Body() data: UsersRolesCreateDto[]): Promise<{ userRoles: UserRoleInterface[]; message: string }> {
+    return await this.service.create(data);
+  }
+
+  @MessagePattern('update_users_roles')
+  async update(@Body() { userId, data }: { userId: number; data: UsersRolesUpdateDto[] }) {
+    return await this.service.update(data, userId);
+  }
+
+  @MessagePattern('delete_users_roles')
+  async remove(@Body() id: string) {
+    return await this.service.delete(+id);
+  }
 }

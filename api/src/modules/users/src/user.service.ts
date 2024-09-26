@@ -27,7 +27,7 @@ export class UserService {
   }
 
   updateUser(id: number, data: UserUpdateDto, user: UserJwtInterface) {
-    return this.msUsers.send('update_user', { id, data, user });
+    return this.msUsers.send('update_user', { id, data });
   }
 
   deleteUser(id: number) {

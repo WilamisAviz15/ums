@@ -5,5 +5,11 @@ export class UserRolesDto {
   @IsInt({
     message: 'O campo de ID do Perfil de Acesso precisa ser um inteiro.',
   })
-  id: number;
+  userId: number;
+
+  @IsNotEmpty({ message: 'O campo de ID do Perfil de Acesso é obrigátorio.' })
+  @IsInt({
+    message: 'O campo de ID do Perfil de Acesso precisa ser um inteiro.',
+  })
+  roleId: number;
 }

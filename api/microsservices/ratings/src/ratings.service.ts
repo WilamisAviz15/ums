@@ -41,7 +41,6 @@ export class RatingsService {
 
   async delete(id: number): Promise<{ message: string }> {
     try {
-      console.log('ID', id);
       await this.ratingsRepository.delete({ id });
 
       return { message: 'Avaliação foi removida com sucesso.' };

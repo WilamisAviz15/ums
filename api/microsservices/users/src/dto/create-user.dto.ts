@@ -1,18 +1,6 @@
 import { IsCPF } from 'brazilian-class-validator';
 import { Transform, TransformFnParams, Type } from 'class-transformer';
-import {
-  IsString,
-  IsNotEmpty,
-  MinLength,
-  MaxLength,
-  IsOptional,
-  IsEmail,
-  Validate,
-  IsDefined,
-  IsArray,
-  ArrayMinSize,
-  ValidateNested,
-} from 'class-validator';
+import { IsString, IsNotEmpty, MinLength, MaxLength, IsOptional, IsEmail, Validate, IsDefined, IsArray, ArrayMinSize, ValidateNested } from 'class-validator';
 import { UserEmailAlreadyExist } from '../validate/users-email-already-exist.constraint';
 import { UserCpfAlreadyExist } from '../validate/users-cpf-already-exist.constraint';
 import { UserRolesDto } from './user-roles.dto';
@@ -73,8 +61,9 @@ export class UserCreateDto {
   @ValidateNested({ each: true })
   @Type(() => UserRolesDto)
   @Validate(RoleUserAlreadyExist, {
-    message:
-      'Não é possível associar o mesmo PERFIL a um usuário, por favor verifique os perfis selecionados.',
+    message: 'Não é possível associar o mesmo PERFIL a um usuário, por favor verifique os perfis selecionados.',
   })
   roles: UserRolesDto[];
+
+  userRoles: { userId: number | undefined; roleId: number }[];
 }

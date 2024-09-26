@@ -68,7 +68,6 @@ export class RolesService {
   ): Promise<{ role: RoleInterface; message: string }> {
     try {
       const entity = Object.assign(new RoleEntity(), data);
-      console.log(entity);
       await this.rolesRepository.update(id, entity);
 
       const role = await this.rolesRepository.findOne({ where: { id } });

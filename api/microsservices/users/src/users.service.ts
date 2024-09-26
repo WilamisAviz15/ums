@@ -11,6 +11,8 @@ import { createFilters } from './utils/typeorm/create-filters.utils';
 import { UserUpdateDto } from './dto/update-user.dto';
 import { HttpService } from '@nestjs/axios';
 import { environment } from './environment/environment';
+import { UserRolesDto } from './dto/user-roles.dto';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -24,15 +26,40 @@ export class UsersService {
   ) {}
 
   async create(data: UserCreateDto, currentUser: UserInterface): Promise<{ user: UserInterface; message: string }> {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
     try {
+      await queryRunner.startTransaction();
+
       const entity = Object.assign(new UserEntity(), data);
-      const user = await this.userRepository.save(entity);
+      const user = await queryRunner.manager.save(UserEntity, entity);
+
+      await this.saveUserRoles(user.id, data.userRoles);
+
+      await queryRunner.commitTransaction();
+
       return { user, message: 'O usuário foi criado com sucesso.' };
     } catch (error) {
+      await queryRunner.rollbackTransaction();
+
       if (error instanceof HttpException) {
         throw error;
       }
       throw new HttpException({ message: `Não foi possível criar o usuário. ${error}` }, HttpStatus.INTERNAL_SERVER_ERROR);
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  async saveUserRoles(userId: number, roles: UserRolesDto[]): Promise<any> {
+    roles = roles.map((role) => ({ ...role, userId }));
+
+    try {
+      const response = await lastValueFrom(this.http.put<{ data: any }>(`${environment.api}/users-roles/${userId}`, roles));
+
+      return response.data;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -99,12 +126,6 @@ export class UsersService {
 
       const entity = Object.assign(new UserEntity(), { ...data, id });
 
-      for (const entityRole of entity.roles) {
-        if (!entityRole.id) {
-          delete entityRole.id;
-        }
-      }
-
       await queryRunner.connect();
 
       await this.userRepository.save(entity);
@@ -113,7 +134,7 @@ export class UsersService {
           id,
         },
       });
-
+      await this.saveUserRoles(user.id, data.userRoles);
       await queryRunner.commitTransaction();
 
       await queryRunner.release();
@@ -184,7 +205,7 @@ export class UsersService {
   async findLoginByCpf(cpf: string): Promise<UserInterface> {
     try {
       const user = await this.userRepository.findOne({
-        select: ['id', 'name', 'email', 'cpf', 'password', 'createdAt'],
+        select: ['id', 'name', 'email', 'register', 'cpf', 'password', 'createdAt'],
         where: { cpf },
       });
       await this.getRolesByUserId(user.id).then((roles) => (user.roles = roles));

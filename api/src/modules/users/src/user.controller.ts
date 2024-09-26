@@ -42,7 +42,7 @@ export class UserController {
 
   @Put('users/:id')
   async updateUser(@Param('id', ParseIntPipe) id: number, @Body() data: UserUpdateDto, @AuthUser() user: UserJwtInterface) {
-    this.service.updateUser(id, data, user);
+    return this.service.updateUser(id, data, user);
   }
 
   @Delete('users/:id')

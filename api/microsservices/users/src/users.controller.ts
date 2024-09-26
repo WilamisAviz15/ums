@@ -1,31 +1,28 @@
 import { Body, Controller } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
+
 import { UsersService } from './users.service';
-import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { AuthUser } from './decorators/user.decorator';
 import { UserInterface } from './interfaces/user.interface';
 import { UserCreateDto } from './dto/create-user.dto';
 import { UserFilterInterface } from './interfaces/user-filter.interface';
 import { UserUpdateDto } from './dto/update-user.dto';
-import { UserJwtInterface } from './utils/utils';
 
 @Controller()
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
-  @EventPattern('create_user')
+  @MessagePattern('create_user')
   async create(@Body() data: UserCreateDto, @AuthUser() currentUser: UserInterface): Promise<{ user: UserInterface; message: string }> {
     return await this.service.create(data, currentUser);
   }
 
-  @EventPattern('update_user')
-  async update(
-    @Body()
-    { id, data, user }: { id: number; data: UserUpdateDto; user: UserJwtInterface },
-  ) {
+  @MessagePattern('update_user')
+  async update(@Body() { id, data }: { id: number; data: UserUpdateDto }) {
     return this.service.update(data, +id);
   }
 
-  @EventPattern('delete_user')
+  @MessagePattern('delete_user')
   async remove(@Body() id: string) {
     return this.service.delete(+id);
   }

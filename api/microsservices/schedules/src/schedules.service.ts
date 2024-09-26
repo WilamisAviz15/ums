@@ -48,7 +48,6 @@ export class SchedulesService {
 
   async findOne(id: number): Promise<ScheduleInterface> {
     try {
-      console.log(id);
       return await this.schedulesRepository.findOne({ where: { id } });
     } catch (error) {
       throw new HttpException({ message: 'Não foi possível encontrar o agendamento.' }, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -66,7 +65,6 @@ export class SchedulesService {
         schedules.map(async (schedule) => {
           const user = await this.findEntityByField<UserInterface>(schedule.userId, 'users', 'data', 'id');
           const meal = await this.findEntityByField<MealInterface>(schedule.mealId, 'meals', 'data', 'id');
-          console.log('u', user);
           schedule.user = user;
           schedule.meal = meal;
 

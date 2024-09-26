@@ -64,7 +64,7 @@ const MealsForm = () => {
           });
         }
       }
-      navigate(-1);
+      navigate("/refeicoes", { state: { updated: true } });
     } catch (error: any) {
       if (error instanceof AxiosError) {
         // handleOpenSnackbar(error.response?.data["message"], "error");

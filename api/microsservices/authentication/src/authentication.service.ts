@@ -28,9 +28,7 @@ export class AuthenticationService {
   async findByEmail(email: string, user?: UserInterface | { id: number }): Promise<UserInterface> {
     const userFound = await this.getFindByEmail(email);
     if (userFound) {
-      console.log('user: ', userFound);
     } else {
-      console.log('nada');
     }
     return userFound;
   }

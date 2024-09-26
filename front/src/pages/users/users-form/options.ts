@@ -7,4 +7,5 @@ export const initialForm: UserInterface = {
   email: "",
   register: "",
   roles: [],
+  userRoles: [],
 };

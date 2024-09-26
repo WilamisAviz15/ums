@@ -10,6 +10,7 @@ import { initialForm } from "./options";
 import { UserInterface } from "../interfaces/user.interface";
 import { RoleInterface } from "../../roles/interfaces/role.interface";
 import rolesService from "../../roles/roles.service";
+import authService from "../../auth/auth.service";
 
 const MenusForm = () => {
   const { id } = useParams();
@@ -41,11 +42,14 @@ const MenusForm = () => {
   };
 
   const createUser = async () => {
+    const userRoles = selectedRoles.map((role) => ({ userId: id ? +id : 0, roleId: role.id }));
     try {
       const formUser = {
         ...form,
-        roles: selectedRoles.map((role) => ({ id: role.id })),
+        userRoles,
       };
+
+      console.log(formUser);
 
       if (id) {
         const res = await usersService.httpPut(formUser);
