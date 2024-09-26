@@ -14,6 +14,7 @@ import { EnvironmentProviderModule } from './environment/environment.provider';
 import { UserRoleModule } from './modules/users-roles/src/users-roles.module';
 import { RatingModule } from './modules/ratings/src/ratings.module';
 import { SubMealsModule } from './modules/submeals/src/submeals.module';
+import { MealsUserRolesModule } from './modules/meals-user-roles/src/meals-user-roles.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { SubMealsModule } from './modules/submeals/src/submeals.module';
     MenuMealModule,
     RatingModule,
     SubMealsModule,
+    MealsUserRolesModule,
   ],
   controllers: [],
   providers: [EnvironmentProviderModule],
