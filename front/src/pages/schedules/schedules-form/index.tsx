@@ -60,7 +60,8 @@ const SchedulesForm = () => {
 
   const getMeals = async () => {
     const meals = await mealsService.httpGet();
-    setMeals(meals);
+    const filteredMeals = meals.filter((meal) => meal.mealUserRoles.some((role) => authService.getUser().rolesId.includes(role.roleId)));
+    setMeals(filteredMeals);
   };
 
   const handleDateChange = (value: unknown) => {

@@ -12,16 +12,17 @@ export class MealsUserRolesService {
     return this.msMeals.send('get_meals_users_roles', {});
   }
 
-  getMealsUserRolesById(id: number) {
-    return this.msMeals.send('get_meals_users_roles_by_id', id);
+  getMealsUserRolesByMealId(id: number) {
+    return this.msMeals.send('get_meals_users_roles_by_meal_id', id);
   }
 
   createMealUserRoles(data: MealUserRoleInterface) {
     return this.msMeals.send('create_meals_users_roles', data);
   }
 
-  updateMealUserRoles(data: MealUserRoleUpdateDto) {
-    return this.msMeals.send('update_meals_users_roles', data);
+  updateMealUserRoles(mealId: number, data: MealUserRoleUpdateDto) {
+    console.error('jkdfjkdfj<>>>>>>>>>>>>>>>>>>>');
+    return this.msMeals.send('update_meals_users_roles', { mealId, data });
   }
 
   removeMealUserRoles(id: number) {

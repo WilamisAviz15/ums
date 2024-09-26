@@ -1,4 +1,5 @@
 import http from "../../shared/services/axios";
+import { RoleInterface } from "../roles/interfaces/role.interface";
 import { MealInterface } from "./interfaces/meal.interface";
 
 class MealService {
@@ -10,6 +11,10 @@ class MealService {
 
   async httpGetById(id: number): Promise<MealInterface> {
     return (await http.get<any, any>(`meals/${id}`)).data;
+  }
+
+  async httpGetRolesById(id: number): Promise<RoleInterface> {
+    return (await http.get<any, any>(`roles/${id}`)).data;
   }
 
   async httpPost(data: MealInterface): Promise<{ meal: MealInterface; message: string }> {

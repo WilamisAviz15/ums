@@ -49,8 +49,6 @@ const MenusForm = () => {
         userRoles,
       };
 
-      console.log(formUser);
-
       if (id) {
         const res = await usersService.httpPut(formUser);
       } else {

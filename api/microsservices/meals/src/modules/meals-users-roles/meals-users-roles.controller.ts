@@ -15,8 +15,8 @@ export class MealUserRoleController {
     return await this.service.findAll();
   }
 
-  @MessagePattern('get_meals_users_roles_by_id')
-  async findOne(@Body() id: number): Promise<MealUserRoleInterface> {
+  @MessagePattern('get_meals_users_roles_by_meal_id')
+  async findOne(@Body() id: number): Promise<MealUserRoleInterface[]> {
     return await this.service.findOne(id);
   }
 

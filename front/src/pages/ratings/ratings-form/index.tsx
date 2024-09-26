@@ -63,7 +63,6 @@ const RatingsForm = () => {
                 name="simple-controlled"
                 value={rating.stars}
                 onChange={(event, newValue) => {
-                  console.log(newValue);
                   setRating({ stars: newValue ?? 1 });
                 }}
               />

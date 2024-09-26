@@ -1,3 +1,4 @@
+import { MealUserRoleInterface } from "./meal-user-role.interface";
 import { SubMealInterface } from "./submeal.interface";
 
 export interface MealInterface {
@@ -5,4 +6,5 @@ export interface MealInterface {
   name: string;
   price: string;
   submeals: SubMealInterface[];
+  mealUserRoles: MealUserRoleInterface[];
 }

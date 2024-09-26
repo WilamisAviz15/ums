@@ -22,9 +22,9 @@ export class MealUserRoleService {
     }
   }
 
-  async findOne(id: number): Promise<MealUserRoleInterface> {
+  async findOne(id: number): Promise<MealUserRoleInterface[]> {
     try {
-      return await this.MealsUserRolesRepository.findOne({ where: { id } });
+      return await this.MealsUserRolesRepository.find({ where: { mealId: id } });
     } catch (error) {
       throw new HttpException({ message: 'Não foi possível encontrar refeições por perfil de usuario.' }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -32,7 +32,7 @@ export class MealUserRoleService {
 
   async create(data: MealUserRoleCreateDto[]): Promise<{ mealUserRoles: MealUserRoleInterface[]; message: string }> {
     try {
-      const entities = data.map((dto) => Object.assign(new MealUserRoleEntity(), data));
+      const entities = data.map((dto) => Object.assign(new MealUserRoleEntity(), dto));
       const mealUserRoles = await this.MealsUserRolesRepository.save(entities);
 
       return { mealUserRoles, message: 'A refeição por perfil de usuario foi criada com sucesso.' };
@@ -44,7 +44,6 @@ export class MealUserRoleService {
   async update(mealId, data: MealUserRoleUpdateDto[]): Promise<{ mealUserRoles: MealUserRoleInterface[]; message: string }> {
     try {
       await this.MealsUserRolesRepository.delete({ mealId });
-
       const entities = data.map((dto) => {
         const entity = Object.assign(new MealUserRoleEntity(), dto);
         entity.mealId = mealId;

@@ -9,6 +9,7 @@ import { createFilters } from '../../utils/typeorm/create-filters.utils';
 import { MealCreateDto } from './dto/create-meal.dto';
 import { MealUpdateDto } from './dto/update-meal.dto';
 import { SubMealEntity } from '../submeals/entities/submeal.entity';
+import { MealUserRoleEntity } from '../meals-users-roles/entities/meals-users-roles.entity';
 
 @Injectable()
 export class MealsService {
@@ -17,6 +18,8 @@ export class MealsService {
     private readonly mealsRepository: Repository<MealEntity>,
     @InjectRepository(SubMealEntity)
     private readonly submealRepository: Repository<SubMealEntity>,
+    @InjectRepository(MealUserRoleEntity)
+    private readonly mealUserRoleRepository: Repository<MealUserRoleEntity>,
   ) {}
 
   async findAll(filters?: MealFilterInterface): Promise<MealInterface[]> {
@@ -26,7 +29,9 @@ export class MealsService {
       meals = await Promise.all(
         meals.map(async (meal) => {
           const submeals = await this.submealRepository.find({ where: { mealId: meal.id } });
+          const mealUserRoles = await this.mealUserRoleRepository.find({ where: { mealId: meal.id } });
           meal.submeals = submeals;
+          meal.mealUserRoles = mealUserRoles;
           return meal;
         }),
       );

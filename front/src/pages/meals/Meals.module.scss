@@ -1,6 +1,16 @@
 .meals {
   margin: 0 12rem;
-  height: calc(100vh - 3rem - 112px);
+  // height: calc(100vh - 3rem - 112px);
+
+  &__chips {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 2fr));
+
+    &__title {
+      font-size: 0.7rem;
+    }
+  }
 
   &__title {
     display: flex;
@@ -18,6 +28,10 @@
   @media (max-width: 767px) {
     margin: 0 1rem;
 
+    &__chips {
+      grid-template-columns: 1fr;
+    }
+
     &__wrapper {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -25,6 +39,10 @@
 
   @media (max-width: 405px) {
     margin: 0 1rem;
+
+    &__chips {
+      grid-template-columns: 1fr;
+    }
 
     &__wrapper {
       grid-template-columns: 1fr;

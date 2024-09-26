@@ -1,12 +1,4 @@
-import {
-  BeforeInsert,
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { BeforeInsert, Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 @Entity('users')
@@ -48,7 +40,6 @@ export class UserEntity {
     const salt = await bcrypt.genSalt();
     if (!/^\$2a\$\d+\$/.test(this.password)) {
       this.password = await bcrypt.hash(this.password, salt);
-      console.log(this.password);
     }
   }
 

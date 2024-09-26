@@ -1,5 +1,5 @@
 export interface MealUserRoleInterface {
-  id: number;
+  id?: number;
   mealId: number;
   roleId: number;
 }

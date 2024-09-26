@@ -15,8 +15,8 @@ export class MealsUserRolesController {
   }
 
   @Get(':id')
-  getMealsUserRolesById(@Param('id') id: string) {
-    return this.service.getMealsUserRolesById(+id);
+  getMealsUserRolesByMealId(@Param('id') id: string) {
+    return this.service.getMealsUserRolesByMealId(+id);
   }
 
   @Post()
@@ -26,8 +26,7 @@ export class MealsUserRolesController {
 
   @Put(':id')
   async updateMealUserRoles(@Body() data: MealUserRoleUpdateDto, @Param('id', ParseIntPipe) id: number) {
-    data.id = id;
-    return this.service.updateMealUserRoles(data);
+    return this.service.updateMealUserRoles(id, data);
   }
 
   @Delete(':id')

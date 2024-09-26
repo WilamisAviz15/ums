@@ -76,7 +76,6 @@ export class RolesService {
         message: 'O perfil de acesso foi atualizado com sucesso.',
       };
     } catch (error) {
-      console.log(error);
       throw new HttpException(
         { message: 'Não foi possível atualizar o perfil de acesso.' },
         HttpStatus.INTERNAL_SERVER_ERROR,

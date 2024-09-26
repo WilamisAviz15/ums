@@ -18,7 +18,6 @@ class UsersService {
   }
 
   async httpPut(data: UserInterface): Promise<{ user: UserInterface; message: string }> {
-    console.log(data);
     const response = await http.put<UserInterface, any>(`users/${data.id}`, { data });
     return response.data;
   }
