@@ -9,9 +9,6 @@ export class RatingEntity {
   username: string;
 
   @Column()
-  date: Date;
-
-  @Column()
   message: string;
 
   @Column()

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/internal/Observable';
 import { Inject, Injectable } from '@nestjs/common/decorators';
 import { ClientProxy } from '@nestjs/microservices/client';
 
@@ -11,7 +12,7 @@ export class RatingService {
     return this.msRatings.send('create_rating', data);
   }
 
-  findRatingByMenuMealId(menuMealId: number) {
+  findRatingByMenuMealId(menuMealId: number): Observable<any[]> {
     return this.msRatings.send('find_rating_by_menu_meal_id', menuMealId);
   }
 

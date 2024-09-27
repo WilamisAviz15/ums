@@ -1,8 +1,8 @@
 export interface RatingInterface {
-  id: number;
+  id?: number;
   username: string;
   message: string;
   stars: number;
   menuMealId: number;
-  createdAt?: Date;
+  createdAt: Date;
 }

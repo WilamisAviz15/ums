@@ -17,11 +17,6 @@ export class CreateTableRatings1683653810005 implements MigrationInterface {
         length: '255',
       },
       {
-        name: 'date',
-        type: 'timestamp',
-        default: 'now()',
-      },
-      {
         name: 'message',
         type: 'varchar',
         length: '255',

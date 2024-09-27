@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { MenuMealCreateDto } from './dto/create-menu-meal.dto';
@@ -16,9 +16,7 @@ export class MenuMealService {
     private readonly menuMealsRepository: Repository<MenuMealEntity>,
   ) {}
 
-  async findAll(
-    filters?: MenuMealFilterInterface,
-  ): Promise<MenuMealInterface[]> {
+  async findAll(filters?: MenuMealFilterInterface): Promise<MenuMealInterface[]> {
     try {
       const where = createFilters(filters);
       return await this.menuMealsRepository.find({
@@ -27,10 +25,7 @@ export class MenuMealService {
         relations: ['meal'],
       });
     } catch (error) {
-      throw new HttpException(
-        { message: 'Não foi possível encontrar os cardápios.' },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException({ message: 'Não foi possível encontrar os cardápios.' }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -38,32 +33,34 @@ export class MenuMealService {
     try {
       return await this.menuMealsRepository.findOne({ where: { id } });
     } catch (error) {
-      throw new HttpException(
-        { message: 'Não foi possível encontrar o cardápio.' },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException({ message: 'Não foi possível encontrar o cardápio.' }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async create(
-    data: MenuMealCreateDto,
-  ): Promise<{ menuMeal: MenuMealInterface; message: string }> {
+  async findByMealIdAndDate(mealId: number, date: string): Promise<MenuMealInterface> {
+    try {
+      return await this.menuMealsRepository
+        .createQueryBuilder('menu_meals')
+        .where('menu_meals.mealId = :mealId', { mealId })
+        .andWhere('DATE(menu_meals.date) = :date', { date: new Date(date).toISOString().split('T')[0] })
+        .getOne();
+    } catch (error) {
+      throw new HttpException({ message: 'Não foi possível encontrar o cardápio.' }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async create(data: MenuMealCreateDto): Promise<{ menuMeal: MenuMealInterface; message: string }> {
     try {
       const entity = Object.assign(new MenuMealEntity(), data);
       const menuMeal = await this.menuMealsRepository.save(entity);
 
       return { menuMeal, message: 'O cardápio foi criado com sucesso.' };
     } catch (error) {
-      throw new HttpException(
-        { message: `Não foi possível criar o cardápio. ${error}` },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException({ message: `Não foi possível criar o cardápio. ${error}` }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async update(
-    data: MenuMealUpdateDto,
-  ): Promise<{ menuMeal: MenuMealInterface; message: string }> {
+  async update(data: MenuMealUpdateDto): Promise<{ menuMeal: MenuMealInterface; message: string }> {
     try {
       const entity = Object.assign(new MenuMealEntity(), data);
       await this.menuMealsRepository.save(entity);
@@ -73,10 +70,7 @@ export class MenuMealService {
       });
       return { menuMeal, message: 'O cardápio foi atualizado com sucesso.' };
     } catch (error) {
-      throw new HttpException(
-        { message: 'Não foi possível atualizar o cardápio.' },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException({ message: 'Não foi possível atualizar o cardápio.' }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -86,10 +80,7 @@ export class MenuMealService {
 
       return { message: 'o cardápio foi removido com sucesso.' };
     } catch (error) {
-      throw new HttpException(
-        { message: 'Não foi possível excluir o cardápio.' },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException({ message: 'Não foi possível excluir o cardápio.' }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

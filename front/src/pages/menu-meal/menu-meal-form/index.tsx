@@ -91,25 +91,11 @@ const SchedulesForm = () => {
       <form>
         <div>
           <TextField name="name" value={form.name} fullWidth label="Nome" onChange={(v) => handleInputChange(v)} />
-          <TextField
-            name="description"
-            value={form.description}
-            fullWidth
-            label="Descrição"
-            onChange={(v) => handleInputChange(v)}
-          />
-          <TextField
-            id="mealId"
-            name="mealId"
-            value={id ? form.mealId : selectedMeal}
-            fullWidth
-            select
-            label="Tipo de refeição"
-            onChange={(v) => handleSelectChange(v)}
-          >
+          <TextField name="description" value={form.description} fullWidth label="Descrição" onChange={(v) => handleInputChange(v)} />
+          <TextField id="mealId" name="mealId" value={id ? form.mealId : selectedMeal} fullWidth select label="Tipo de refeição" onChange={(v) => handleSelectChange(v)}>
             {meals.map((option) => (
               <MenuItem key={option.id} value={option.id}>
-                {option.name}
+                {option.name + " - R$ " + option.price + " - " + (option.submeals?.map((submeal) => submeal.name).join(", ") || "")}
               </MenuItem>
             ))}
           </TextField>

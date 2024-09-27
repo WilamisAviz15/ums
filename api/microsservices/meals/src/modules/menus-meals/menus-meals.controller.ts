@@ -11,9 +11,7 @@ export class MenuMealController {
   constructor(private readonly service: MenuMealService) {}
 
   @MessagePattern('create_menu_meal')
-  create(
-    @Body() data: MenuMealCreateDto,
-  ): Promise<{ menuMeal: MenuMealInterface; message: string }> {
+  create(@Body() data: MenuMealCreateDto): Promise<{ menuMeal: MenuMealInterface; message: string }> {
     return this.service.create(data);
   }
 
@@ -27,10 +25,13 @@ export class MenuMealController {
     return this.service.findOne(id);
   }
 
+  @MessagePattern('get_menus_meals_by_meal_id_and_date')
+  findByMealIdAndDate({ mealId, date }: { mealId: number; date: string }): Promise<MenuMealInterface> {
+    return this.service.findByMealIdAndDate(mealId, date);
+  }
+
   @MessagePattern('update_menu_meal')
-  update(
-    @Body() data: MenuMealUpdateDto,
-  ): Promise<{ menuMeal: MenuMealInterface; message: string }> {
+  update(@Body() data: MenuMealUpdateDto): Promise<{ menuMeal: MenuMealInterface; message: string }> {
     return this.service.update(data);
   }
 

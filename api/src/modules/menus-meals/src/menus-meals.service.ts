@@ -16,6 +16,10 @@ export class MenuMealService {
     return this.msMeals.send('get_menus_meals_by_id', id);
   }
 
+  getByMealIdAndDate(mealId: number, date: string) {
+    return this.msMeals.send('get_menus_meals_by_meal_id_and_date', { mealId, date });
+  }
+
   createMenuMeal(data: MenuMealCreateDto) {
     return this.msMeals.send('create_menu_meal', data);
   }

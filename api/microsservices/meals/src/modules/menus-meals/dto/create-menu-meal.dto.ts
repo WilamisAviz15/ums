@@ -26,7 +26,7 @@ export class MenuMealCreateDto {
 
   @IsNotEmpty({ message: 'O campo de data é obrigátorio.' })
   @Transform(({ value }: TransformFnParams) => value?.trim())
-  date: string;
+  date: Date;
 
   @IsNotEmpty({ message: 'O campo id da refeição é obrigátorio.' })
   mealId: number;

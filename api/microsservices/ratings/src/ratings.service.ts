@@ -32,7 +32,7 @@ export class RatingsService {
     try {
       return await this.ratingsRepository.find({
         where: { menuMealId },
-        order: { date: 'ASC' },
+        order: { createdAt: 'DESC' },
       });
     } catch (error) {
       throw new HttpException({ message: 'Não foi possível encontrar as avaliações.' }, HttpStatus.INTERNAL_SERVER_ERROR);

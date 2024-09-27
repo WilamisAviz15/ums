@@ -10,11 +10,6 @@ export class RatingCreateDto {
   @Transform(({ value }: TransformFnParams) => value?.trim())
   username: string;
 
-  @IsString({ message: 'O campo de data precisa ser uma string.' })
-  @IsNotEmpty({ message: 'O campo de data é obrigátorio.' })
-  @Transform(({ value }: TransformFnParams) => value?.trim())
-  date: string;
-
   @IsString({ message: 'O campo de mensagem precisa ser uma string.' })
   @IsNotEmpty({ message: 'O campo de mensagem é obrigátorio.' })
   @MaxLength(255, {

@@ -12,6 +12,10 @@ class MenuMealService {
     return (await http.get<any, any>(`menu-meals/${id}`)).data;
   }
 
+  async httpGetByMenuIdAndDate(mealId: number, date: string): Promise<MenuMealInterface | null> {
+    return (await http.get<any, any>(`menu-meals/${mealId}/${date}`)).data;
+  }
+
   async httpPost(data: MenuMealInterface): Promise<{ action: MenuMealInterface; message: string }> {
     const response = await http.post<MenuMealInterface, any>("menu-meals", { data });
     return response.data;

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common/decorators';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common/decorators';
 
 import { RatingInterface } from './interfaces/rating.interface';
 import { RatingService } from './ratings.service';
