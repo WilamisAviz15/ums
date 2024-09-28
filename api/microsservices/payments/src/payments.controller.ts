@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
 
 import { PaymentsService } from './payments.service';
 import { GeneratePixPaymentDto } from './dto/generate-pix-payment.dto';
@@ -7,7 +8,7 @@ import { GeneratePixPaymentDto } from './dto/generate-pix-payment.dto';
 export class PaymentsController {
   constructor(private readonly service: PaymentsService) {}
 
-  @Post('token')
+  @MessagePattern('get_token_efipay')
   async getTokenEfiAPI() {
     try {
       return await this.service.getTokenEfiAPI();
@@ -16,7 +17,7 @@ export class PaymentsController {
     }
   }
 
-  @Post('generate')
+  @MessagePattern('generate_payment_pix')
   async createPixPayment(@Body() payerInfo: GeneratePixPaymentDto) {
     try {
       return await this.service.createPixPayment(payerInfo);

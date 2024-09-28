@@ -15,6 +15,7 @@ import { UserRoleModule } from './modules/users-roles/src/users-roles.module';
 import { RatingModule } from './modules/ratings/src/ratings.module';
 import { SubMealsModule } from './modules/submeals/src/submeals.module';
 import { MealsUserRolesModule } from './modules/meals-user-roles/src/meals-user-roles.module';
+import { PaymentsModule } from './modules/payments/src/payments.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { MealsUserRolesModule } from './modules/meals-user-roles/src/meals-user-
     RatingModule,
     SubMealsModule,
     MealsUserRolesModule,
+    PaymentsModule,
   ],
   controllers: [],
   providers: [EnvironmentProviderModule],
