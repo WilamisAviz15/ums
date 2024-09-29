@@ -1,6 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common/decorators';
 import { ClientProxy } from '@nestjs/microservices/client';
 
+import { GeneratePixPayment } from './interfaces/generate-pix-payment';
+
 @Injectable()
 export class PaymentService {
   constructor(@Inject('PAYMENTS') private readonly msPayments: ClientProxy) {}
