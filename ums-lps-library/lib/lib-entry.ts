@@ -1,0 +1,13 @@
+export { AuthenticationModule } from './src/modules/authentication/src/authentication.module';
+export { RoleModule } from './src/modules/roles/src/roles.module';
+export { UserModule } from './src/modules/users/src/user.module';
+export { UserRoleModule } from './src/modules/users-roles/src/users-roles.module';
+export { ScheduleModule } from './src/modules/schedules/src/schedules.module';
+export { ActionModule } from './src/modules/actions/src/action.module';
+export { MenuModule } from './src/modules/menus/src/menu.module';
+export { MenuGroupModule } from './src/modules/menus-group/src/menus-group.module';
+export { MealModule } from './src/modules/meals/src/meals.module';
+export { RatingModule } from './src/modules/ratings/src/ratings.module';
+export { SubMealsModule } from './src/modules/submeals/src/submeals.module';
+export { MealsUserRolesModule } from './src/modules/meals-user-roles/src/meals-user-roles.module';
+export { PaymentsModule } from './src/modules/payments/src/payments.module';
