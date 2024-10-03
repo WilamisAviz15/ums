@@ -10,4 +10,20 @@
     width: 70%;
     align-self: center;
   }
+
+  @media (max-width: 767px) {
+    margin: 0 1rem;
+
+    &__wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 405px) {
+    margin: 0 1rem;
+
+    &__wrapper {
+      grid-template-columns: 1fr;
+    }
+  }
 }

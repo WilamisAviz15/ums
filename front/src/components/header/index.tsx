@@ -8,6 +8,7 @@ import authService from "../../pages/auth/auth.service";
 
 const Header = ({ menus, children }: { menus: any[]; children: JSX.Element }) => {
   const [isLogged, setIsLogged] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
@@ -22,18 +23,31 @@ const Header = ({ menus, children }: { menus: any[]; children: JSX.Element }) =>
     }
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleMenuClick = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <>
       <header className={styles.header}>
         <img className={styles.img} src={logo} alt="logo do RU" onClick={() => navigate("/inicio")} />
-        <ul>
+        <button className={styles.hamburger} onClick={toggleMenu}>
+          <span className={styles.bar}></span>
+          <span className={styles.bar}></span>
+          <span className={styles.bar}></span>
+        </button>
+        <ul className={`${styles.menu} ${isMenuOpen ? styles.menuOpen : ""}`}>
           {menus.map((menu, index) => (
-            <Link key={index} to={`/${menu.route}`}>
+            <Link key={index} to={`/${menu.route}`} onClick={handleMenuClick}>
               {menu.menu}
             </Link>
           ))}
           <li>
-            <Link to="/auth/login">
+            <Link to="/auth/login" onClick={handleMenuClick}>
               <Button
                 text={isLogged ? "Sair" : "Login"}
                 customStyles={{
@@ -41,7 +55,7 @@ const Header = ({ menus, children }: { menus: any[]; children: JSX.Element }) =>
                   borderStyle: "none",
                   borderRadius: "3px",
                   color: "#212121",
-                  width: "100%",
+                  // width: "100%",
                 }}
                 onClick={handleButton}
               />

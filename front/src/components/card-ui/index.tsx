@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CardUIInterface } from "./interfaces/card-ui.interface";
 import authService from "../../pages/auth/auth.service";
@@ -20,6 +10,8 @@ const CardUI = ({
   extraText,
   customStyles,
   isDeletable = true,
+  iconButton = true,
+  isCardHeaderEnabled = true,
   onIsManager,
   onEditClick,
   onDeleteClick,
@@ -41,50 +33,54 @@ const CardUI = ({
 
   return (
     <Card sx={{ maxWidth: 345 }} style={customStyles}>
-      <CardHeader
-        titleTypographyProps={{ variant: "h6" }}
-        action={
-          <>
-            <IconButton aria-label="settings" aria-controls="menu" aria-haspopup="true" onClick={handleClick}>
-              <MoreVertIcon />
-            </IconButton>
-            <Menu id="menu" anchorEl={openDropdown} open={Boolean(openDropdown)} onClose={handleClose}>
-              {isAdminOrManager() && !onIsManager && (
-                <MenuItem
-                  onClick={() => {
-                    onEditClick();
-                    handleClose();
-                  }}
-                >
-                  Editar
-                </MenuItem>
+      {isCardHeaderEnabled && (
+        <CardHeader
+          titleTypographyProps={{ variant: "h6" }}
+          action={
+            <>
+              {iconButton && (
+                <IconButton aria-label="settings" aria-controls="menu" aria-haspopup="true" onClick={handleClick}>
+                  <MoreVertIcon />
+                </IconButton>
               )}
-              {isDeletable ? (
-                <MenuItem
-                  onClick={() => {
-                    onDeleteClick();
-                    handleClose();
-                  }}
-                >
-                  Excluir
-                </MenuItem>
-              ) : (
-                <MenuItem
-                  onClick={() => {
-                    onDeleteClick();
-                    handleClose();
-                  }}
-                  disabled
-                >
-                  Excluir
-                </MenuItem>
-              )}
-            </Menu>
-          </>
-        }
-        title={title}
-        subheader={subTitle}
-      />
+              <Menu id="menu" anchorEl={openDropdown} open={Boolean(openDropdown)} onClose={handleClose}>
+                {isAdminOrManager() && !onIsManager && (
+                  <MenuItem
+                    onClick={() => {
+                      onEditClick();
+                      handleClose();
+                    }}
+                  >
+                    Editar
+                  </MenuItem>
+                )}
+                {isDeletable ? (
+                  <MenuItem
+                    onClick={() => {
+                      onDeleteClick();
+                      handleClose();
+                    }}
+                  >
+                    Excluir
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    onClick={() => {
+                      onDeleteClick();
+                      handleClose();
+                    }}
+                    disabled
+                  >
+                    Excluir
+                  </MenuItem>
+                )}
+              </Menu>
+            </>
+          }
+          title={title}
+          subheader={subTitle}
+        />
+      )}
       {extraText && (
         <CardContent>
           <Typography variant="body2" color="text.primary">

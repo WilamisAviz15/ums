@@ -10,6 +10,7 @@ import { initialForm } from "./options";
 import { UserInterface } from "../interfaces/user.interface";
 import { RoleInterface } from "../../roles/interfaces/role.interface";
 import rolesService from "../../roles/roles.service";
+import authService from "../../auth/auth.service";
 
 const MenusForm = () => {
   const { id } = useParams();
@@ -41,10 +42,11 @@ const MenusForm = () => {
   };
 
   const createUser = async () => {
+    const userRoles = selectedRoles.map((role) => ({ userId: id ? +id : 0, roleId: role.id }));
     try {
       const formUser = {
         ...form,
-        roles: selectedRoles.map((role) => ({ id: role.id })),
+        userRoles,
       };
 
       if (id) {
@@ -112,44 +114,13 @@ const MenusForm = () => {
       </div>
       <form>
         <div>
-          <TextField
-            label="Nome"
-            variant="outlined"
-            name="name"
-            onChange={(v) => handleInputChange(v)}
-            value={form.name}
-          />
-          <TextField
-            label="Email"
-            variant="outlined"
-            name="email"
-            onChange={(v) => handleInputChange(v)}
-            value={form.email}
-          />
-          <TextField
-            label="CPF"
-            variant="outlined"
-            name="cpf"
-            onChange={(v) => handleInputChange(v)}
-            value={form.cpf}
-          />
-          <TextField
-            label="Matrícula"
-            variant="outlined"
-            name="register"
-            onChange={(v) => handleInputChange(v)}
-            value={form.register}
-          />
+          <TextField label="Nome" variant="outlined" name="name" onChange={(v) => handleInputChange(v)} value={form.name} />
+          <TextField label="Email" variant="outlined" name="email" onChange={(v) => handleInputChange(v)} value={form.email} />
+          <TextField label="CPF" variant="outlined" name="cpf" onChange={(v) => handleInputChange(v)} value={form.cpf} />
+          <TextField label="Matrícula" variant="outlined" name="register" onChange={(v) => handleInputChange(v)} value={form.register} />
           {!id && (
             <div className={styles.password}>
-              <TextField
-                type="password"
-                name="password"
-                value={form.password}
-                fullWidth
-                label="Senha"
-                onChange={handlePasswordChange}
-              />
+              <TextField type="password" name="password" value={form.password} fullWidth label="Senha" onChange={handlePasswordChange} />
               <TextField
                 type="password"
                 name="confirmPassword"

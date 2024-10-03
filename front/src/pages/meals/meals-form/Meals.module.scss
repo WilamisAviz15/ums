@@ -1,0 +1,30 @@
+.title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+form > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.submeal-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  .input-wrapper {
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

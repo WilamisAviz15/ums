@@ -7,10 +7,14 @@ import authService from "../../auth/auth.service";
 import { initialForm } from "./options";
 import { ProfileInterface } from "../interfaces/profile.interface";
 import profileService from "./profile.service";
+import CardUI from "../../../components/card-ui";
+import { Link } from "react-router-dom";
+import ModalPayment from "../../../components/modal-payment";
 
 const ProfileForm = () => {
   const [form, setForm] = useState<ProfileInterface>(initialForm);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [openPaymentModal, setOpenPaymentModal] = useState(false);
 
   useEffect(() => {
     const user = authService.getUser();
@@ -63,22 +67,8 @@ const ProfileForm = () => {
           <TextField name="name" value={form.name} fullWidth label="Nome" onChange={(v) => handleInputChange(v)} />
           <TextField name="email" value={form.email} disabled={true} fullWidth label="Email" />
           <TextField name="register" value={form.register} disabled={true} fullWidth label="Matrícula" />
-          <TextField
-            type="password"
-            name="password"
-            value={form.password}
-            fullWidth
-            label="Senha atual"
-            onChange={(v) => handleInputChange(v)}
-          />
-          <TextField
-            type="password"
-            name="newPassword"
-            value={form.newPassword}
-            fullWidth
-            label="Nova senha"
-            onChange={handlePasswordChange}
-          />
+          <TextField type="password" name="password" value={form.password} fullWidth label="Senha atual" onChange={(v) => handleInputChange(v)} />
+          <TextField type="password" name="newPassword" value={form.newPassword} fullWidth label="Nova senha" onChange={handlePasswordChange} />
           <TextField
             type="password"
             name="confirmPassword"
@@ -94,6 +84,37 @@ const ProfileForm = () => {
           </Button>
         </div>
       </form>
+      <div className={styles.title}>
+        <h1>Minha Carteira Digital</h1>
+      </div>
+      <div>
+        <CardUI
+          key={1}
+          title={""}
+          isCardHeaderEnabled={false}
+          customStyles={{
+            width: "30%",
+            backgroundColor: "#3f51b5",
+            borderRadius: "25px",
+          }}
+          extraText={
+            <div className={styles.wallet}>
+              <h2>Saldo</h2>
+              <h1>R$0,00</h1>
+              <div className={styles.actions}>
+                <Button variant="outlined" style={{ backgroundColor: "#fff" }} onClick={() => setOpenPaymentModal(true)}>
+                  Adicionar Saldo
+                </Button>
+              </div>
+              <Link to="">Meu histórico de transações</Link>
+            </div>
+          }
+          iconButton={false}
+          onEditClick={() => {}}
+          onDeleteClick={() => {}}
+        />
+        <ModalPayment openModal={openPaymentModal} setOpenModal={setOpenPaymentModal} />
+      </div>
     </div>
   );
 };

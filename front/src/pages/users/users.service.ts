@@ -12,12 +12,12 @@ class UsersService {
     return (await http.get<any, any>(`users/${id}`)).data;
   }
 
-  async httpPost(data: UserInterface): Promise<{ action: UserInterface; message: string }> {
+  async httpPost(data: UserInterface): Promise<{ user: UserInterface; message: string }> {
     const response = await http.post<UserInterface, any>("users", { data });
     return response.data;
   }
 
-  async httpPut(data: UserInterface): Promise<{ action: UserInterface; message: string }> {
+  async httpPut(data: UserInterface): Promise<{ user: UserInterface; message: string }> {
     const response = await http.put<UserInterface, any>(`users/${data.id}`, { data });
     return response.data;
   }

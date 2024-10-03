@@ -14,4 +14,20 @@
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 16px;
   }
+
+  @media (max-width: 767px) {
+    margin: 0 1rem;
+
+    &__wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 405px) {
+    margin: 0 1rem;
+
+    &__wrapper {
+      grid-template-columns: 1fr;
+    }
+  }
 }

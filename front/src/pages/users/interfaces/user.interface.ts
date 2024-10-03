@@ -7,6 +7,7 @@ export interface UserInterface {
   cpf: string;
   register: string;
   roles?: RoleInterface[];
+  userRoles: { userId: number | undefined; roleId: number }[];
   password?: string;
   confirmPassword?: string;
   lastAccess?: Date;
