@@ -38,7 +38,6 @@ export class PaymentsService {
     const axiosConfig = {
       headers,
       httpsAgent,
-      timeout: 5000,
     };
 
     try {
