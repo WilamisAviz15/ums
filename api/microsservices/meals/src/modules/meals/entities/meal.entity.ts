@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-import { SubMealInterface } from '../../../modules/submeals/interfaces/submeal.inteface';
-import { MealUserRoleInterface } from '../../../modules/meals-users-roles/interfaces/meal-user-role.interface';
+import { SubMealInterface } from '../../submeals/interfaces/submeal.inteface';
+import { MealUserRoleInterface } from '../../meals-users-roles/interfaces/meal-user-role.interface';
 
 @Entity({ name: 'meals' })
 export class MealEntity {

@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 import { UserInterface } from '../interfaces/user.interface';
-import { RoleInterface } from 'src/interfaces/role.interface';
+import { RoleInterface } from '../interfaces/role.interface';
 
 @Entity('users_roles')
 export class UserRoleEntity {

@@ -1,4 +1,4 @@
-import { MealEntity } from '../../../modules/meals/entities/meal.entity';
+import { MealEntity } from '../../meals/entities/meal.entity';
 
 export interface MenuMealInterface {
   id: number;

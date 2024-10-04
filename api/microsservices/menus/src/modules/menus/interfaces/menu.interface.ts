@@ -1,4 +1,4 @@
-import { MenusGroupInterface } from '../../../modules/menus-groups/interfaces/menus-group.interface';
+import { MenusGroupInterface } from '../../menus-groups/interfaces/menus-group.interface';
 
 export interface MenuInterface {
   id?: number;

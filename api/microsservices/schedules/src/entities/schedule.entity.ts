@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-import { MealInterface } from 'src/interfaces/meal.interface';
+import { MealInterface } from '../interfaces/meal.interface';
 import { UserInterface } from '../interfaces/user.interface';
 
 @Entity({ name: 'schedules' })

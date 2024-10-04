@@ -1,4 +1,4 @@
-import { ActionsMenuInterface } from '../interfaces/actions-menu.interface';
+import { ActionsMenuInterface } from './actions-menu.interface';
 
 export interface MenuFilterInterface {
   id?: number;

@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { MealEntity } from '../../../modules/meals/entities/meal.entity';
+import { MealEntity } from '../../meals/entities/meal.entity';
 
 @Entity({ name: 'menu_meal' })
 export class MenuMealEntity {
