@@ -1,0 +1,17 @@
+{
+  "AuthenticationModule": true,
+  "RoleModule": true,
+  "UserModule": true,
+  "UserRoleModule": true,
+  "ScheduleModule": true,
+  "ActionModule": true,
+  "MenuModule": true,
+  "MenuGroupModule": true,
+  "MealModule": true,
+  "ProfileModule": true,
+  "MenuMealModule": true,
+  "RatingModule": true,
+  "SubMealsModule": true,
+  "MealsUserRolesModule": true,
+  "PaymentsModule": true
+}
