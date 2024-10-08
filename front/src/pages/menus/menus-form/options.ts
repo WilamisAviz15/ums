@@ -10,4 +10,5 @@ export const initialForm: MenuInterface = {
   menuKey: "",
   roleId: 0,
   route: "",
+  module: "",
 };

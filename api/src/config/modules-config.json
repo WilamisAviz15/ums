@@ -10,7 +10,7 @@
   "MealModule": true,
   "ProfileModule": true,
   "MenuMealModule": true,
-  "RatingModule": true,
+  "RatingModule": false,
   "SubMealsModule": true,
   "MealsUserRolesModule": true,
   "PaymentsModule": true

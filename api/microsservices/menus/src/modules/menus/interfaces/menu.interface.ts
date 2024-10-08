@@ -12,4 +12,5 @@ export interface MenuInterface {
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date;
+  module: string;
 }
