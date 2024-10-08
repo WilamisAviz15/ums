@@ -56,13 +56,7 @@ const ActionsForm = () => {
       </div>
       <form>
         <div>
-          <TextField
-            label="Nome"
-            variant="outlined"
-            name="name"
-            onChange={(v) => handleInputChange(v)}
-            value={form.name}
-          />
+          <TextField label="Nome" variant="outlined" name="name" onChange={(v) => handleInputChange(v)} value={form.name} />
           <Button variant="contained" color="primary" onClick={createAction}>
             {id ? "Atualizar" : "Criar"}
           </Button>

@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import * as path from 'path';
+import * as fs from 'fs';
 
 import { AuthenticationModule } from './modules/authentication/src/authentication.module';
 import { RoleModule } from './modules/roles/src/roles.module';
@@ -16,27 +18,35 @@ import { SubMealsModule } from './modules/submeals/src/submeals.module';
 import { MealsUserRolesModule } from './modules/meals-user-roles/src/meals-user-roles.module';
 import { PaymentsModule } from './modules/payments/src/payments.module';
 import { EnvironmentProviderModule } from './environment/environment.provider';
+import { ConfigModule } from './config/config.module';
 
+const configPath = path.join(__dirname,'..', 'src', 'config', 'modules-config.json');
 
+if (!fs.existsSync(configPath)) {
+  throw new Error('Arquivo de configuração "modules-config.json" não encontrado.');
+}
+
+const moduleConfig = require(configPath);
 
 @Module({
   imports: [
-    AuthenticationModule,
-    RoleModule,
-    UserModule,
-    UserRoleModule,
-    ScheduleModule,
-    ActionModule,
-    MenuModule,
-    MenuGroupModule,
-    MealModule,
-    ProfileModule,
-    MenuMealModule,
-    RatingModule,
-    SubMealsModule,
-    MealsUserRolesModule,
-    PaymentsModule,
-  ],
+    moduleConfig.AuthenticationModule ? AuthenticationModule : undefined,
+    moduleConfig.RoleModule ? RoleModule : undefined,
+    moduleConfig.UserModule ? UserModule : undefined,
+    moduleConfig.UserRoleModule ? UserRoleModule : undefined,
+    moduleConfig.ScheduleModule ? ScheduleModule : undefined,
+    moduleConfig.ActionModule ? ActionModule : undefined,
+    moduleConfig.MenuModule ? MenuModule : undefined,
+    moduleConfig.MenuGroupModule ? MenuGroupModule : undefined,
+    moduleConfig.MealModule ? MealModule : undefined,
+    moduleConfig.ProfileModule ? ProfileModule : undefined,
+    moduleConfig.MenuMealModule ? MenuMealModule : undefined,
+    moduleConfig.RatingModule ? RatingModule : undefined,
+    moduleConfig.SubMealsModule ? SubMealsModule : undefined,
+    moduleConfig.MealsUserRolesModule ? MealsUserRolesModule : undefined,
+    moduleConfig.PaymentsModule ? PaymentsModule : undefined,
+    ConfigModule
+  ].filter(module => module !== undefined),
   controllers: [],
   providers: [EnvironmentProviderModule],
 })

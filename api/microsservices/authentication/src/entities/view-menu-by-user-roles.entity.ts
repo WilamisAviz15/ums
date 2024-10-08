@@ -21,4 +21,7 @@ export class ViewMenuByUserRolesEntity {
 
   @ViewColumn({ name: 'menu_key' })
   menuKey: string;
+
+  @ViewColumn()
+  module: string;
 }

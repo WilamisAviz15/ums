@@ -122,6 +122,11 @@ export class PrivilegesSeed implements Seeder {
       { roleId: 3, actionMenuId: 53 },
       { roleId: 3, actionMenuId: 54 },
       { roleId: 3, actionMenuId: 55 },
+      { roleId: 1, actionMenuId: 61 },
+      { roleId: 1, actionMenuId: 62 },
+      { roleId: 1, actionMenuId: 63 },
+      { roleId: 1, actionMenuId: 64 },
+      { roleId: 1, actionMenuId: 65 },
     ]);
   }
 }

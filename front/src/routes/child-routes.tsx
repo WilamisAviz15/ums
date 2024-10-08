@@ -8,9 +8,10 @@ export const getChildRoutes = (menu: Partial<MenuInterface>) => {
   const currentRoute = routes.filter((item) => item.name === menu.menuKey)[0];
   return (
     <>
-      {currentRoute.child.map((item, key) => (
-        <Route key={key} path={item.name} element={item.component} />
-      ))}
+      {currentRoute != undefined &&
+        currentRoute.child?.map((item, key) => {
+          return <Route key={key} path={item.name} element={item.component} />;
+        })}
     </>
   );
 };

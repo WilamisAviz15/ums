@@ -71,8 +71,6 @@ const RatingsForm = () => {
       menuMealId: menuMealId!,
     };
 
-    console.log(updatedRating);
-
     const res = await ratingsService.httpPost(updatedRating);
     if (res) {
       clearForm();
