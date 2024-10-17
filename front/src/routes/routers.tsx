@@ -46,13 +46,13 @@ const routers = () => {
     {
       name: "inicio",
       component: <Home />,
-      active: config["AuthenticationModule"],
+      active: config["AuthenticationModule"].active,
       child: [],
     },
     {
       name: "actions",
       component: <Actions />,
-      active: config["ActionModule"],
+      active: config["ActionModule"].active,
       child: [
         {
           name: "cadastrar",
@@ -71,7 +71,7 @@ const routers = () => {
     {
       name: "menus-group",
       component: <MenusGroup />,
-      active: config["MenuGroupModule"],
+      active: config["MenuGroupModule"].active,
       child: [
         {
           name: "",
@@ -90,7 +90,7 @@ const routers = () => {
     {
       name: "menus",
       component: <Menus />,
-      active: config["MenuModule"],
+      active: config["MenuModule"].active,
       child: [
         {
           name: "",
@@ -109,7 +109,7 @@ const routers = () => {
     {
       name: "access-profile",
       component: <Roles />,
-      active: config["RoleModule"],
+      active: config["RoleModule"].active,
       child: [
         {
           name: "",
@@ -128,7 +128,7 @@ const routers = () => {
     {
       name: "users",
       component: <Users />,
-      active: config["UserModule"],
+      active: config["UserModule"].active,
       child: [
         {
           name: "",
@@ -153,7 +153,7 @@ const routers = () => {
     {
       name: "schedules",
       component: <Schedules />,
-      active: config["ScheduleModule"],
+      active: config["ScheduleModule"].active,
       child: [
         {
           name: "cadastrar",
@@ -172,13 +172,13 @@ const routers = () => {
     {
       name: "profile",
       component: <Profile />,
-      active: config["ProfileModule"],
+      active: config["ProfileModule"].active,
       child: [],
     },
     {
       name: "menu",
       component: <MenuMeal />,
-      active: config["MenuMealModule"],
+      active: config["MenuMealModule"].active,
       child: [
         {
           name: "",
@@ -197,7 +197,7 @@ const routers = () => {
     {
       name: "confirm-meal",
       component: <ConfirmMeal />,
-      active: config["ScheduleModule"],
+      active: config["ScheduleModule"].active,
       child: [
         {
           name: "",
@@ -208,7 +208,7 @@ const routers = () => {
     {
       name: "avaliacoes",
       component: <Ratings />,
-      active: config["RatingModule"],
+      active: config["RatingModule"].active,
       child: [
         {
           name: "",
@@ -223,7 +223,7 @@ const routers = () => {
     {
       name: "refeicoes",
       component: <Meals />,
-      active: config["MealModule"],
+      active: config["MealModule"].active,
       child: [
         {
           name: "",

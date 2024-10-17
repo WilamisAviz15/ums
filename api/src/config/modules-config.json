@@ -1,17 +1,82 @@
 {
-  "AuthenticationModule": true,
-  "RoleModule": true,
-  "UserModule": true,
-  "UserRoleModule": true,
-  "ScheduleModule": true,
-  "ActionModule": true,
-  "MenuModule": true,
-  "MenuGroupModule": true,
-  "MealModule": true,
-  "ProfileModule": true,
-  "MenuMealModule": true,
-  "RatingModule": false,
-  "SubMealsModule": true,
-  "MealsUserRolesModule": true,
-  "PaymentsModule": true
+  "AuthenticationModule": {
+    "active": true,
+    "options": {
+      "LocalDB": true,
+      "GoogleAPI": true
+    }
+  },
+  "RoleModule": {
+    "active": true,
+    "options": {
+      "administrador": true,
+      "graduacao": true,
+      "posGraduacao": true,
+      "gestor": true,
+      "servidor": true,
+      "terceirizado": true,
+      "visitante": true,
+      "residente": true
+    }
+  },
+  "UserModule": {
+    "active": true,
+    "options": {}
+  },
+  "UserRoleModule": {
+    "active": true,
+    "options": {}
+  },
+  "ScheduleModule": {
+    "active": true,
+    "options": {
+      "diario": true,
+      "semanal": true
+    }
+  },
+  "ActionModule": {
+    "active": true,
+    "options": {}
+  },
+  "MenuModule": {
+    "active": true,
+    "options": {}
+  },
+  "MenuGroupModule": {
+    "active": true,
+    "options": {}
+  },
+  "MealModule": {
+    "active": true,
+    "options": {
+      "simples": true,
+      "multiplo": true
+    }
+  },
+  "ProfileModule": {
+    "active": true,
+    "options": {}
+  },
+  "MenuMealModule": {
+    "active": true,
+    "options": {}
+  },
+  "RatingModule": {
+    "active": true,
+    "options": {
+      "forum": true,
+      "form": true
+    }
+  },
+  "MealsUserRolesModule": {
+    "active": true,
+    "options": {}
+  },
+  "PaymentsModule": {
+    "active": true,
+    "options": {
+      "PIX": true,
+      "boleto": true
+    }
+  }
 }
