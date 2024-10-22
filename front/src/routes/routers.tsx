@@ -34,6 +34,8 @@ import MealsForm from "../pages/meals/meals-form";
 import Config from "../pages/config";
 import ConfigForm from "../pages/config/config-form";
 import configService from "../pages/config/config.service";
+import Wizard from "../pages/wizard";
+import WizardForm from "../pages/wizard/wizard-form";
 
 const routers = () => {
   const config = configService.getConfig();

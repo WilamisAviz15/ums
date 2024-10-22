@@ -10,6 +10,8 @@ import { getChildRoutes } from "./routes/child-routes";
 import { MenuInterface } from "./pages/menus/interfaces/menu.interface";
 import configService from "./pages/config/config.service";
 import { ConfigInterface } from "./pages/config/interfaces/config.interface";
+import Wizard from "./pages/wizard";
+import WizardForm from "./pages/wizard/wizard-form";
 
 function App() {
   const [menus, setMenus] = useState<Partial<MenuInterface>[]>([]);
@@ -64,6 +66,9 @@ function App() {
       <Route path="/auth" element={<Auth />}>
         <Route path="login" element={<AuthLogin />} />
         {/* <Route path="register" element={<AuthRegister />} /> */}
+      </Route>
+      <Route path="/wizard" element={<Wizard />}>
+        <Route path="" element={<WizardForm />} />
       </Route>
     </Routes>
   );

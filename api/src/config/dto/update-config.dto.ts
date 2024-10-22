@@ -1,63 +1,101 @@
-import { IsBoolean, IsOptional } from 'class-validator';
+import {
+  IsBoolean,
+  IsObject,
+  IsOptional,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+
+class ModuleOptionsDto {
+  @IsOptional()
+  @IsObject()
+  options: { [key: string]: boolean };
+}
+
+class ModuleConfigDto {
+  @IsBoolean()
+  @IsOptional()
+  active?: boolean;
+
+  @ValidateNested()
+  @Type(() => ModuleOptionsDto)
+  @IsOptional()
+  options?: ModuleOptionsDto;
+}
 
 export class UpdateConfigDto {
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  AuthenticationModule?: boolean;
+  AuthenticationModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  RoleModule?: boolean;
+  RoleModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  UserModule?: boolean;
+  UserModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  UserRoleModule?: boolean;
+  UserRoleModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  ScheduleModule?: boolean;
+  ScheduleModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  ActionModule?: boolean;
+  ActionModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  MenuModule?: boolean;
+  MenuModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  MenuGroupModule?: boolean;
+  MenuGroupModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  MealModule?: boolean;
+  MealModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  ProfileModule?: boolean;
+  ProfileModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  MenuMealModule?: boolean;
+  MenuMealModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  RatingModule?: boolean;
+  RatingModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  SubMealsModule?: boolean;
+  SubMealsModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  MealsUserRolesModule?: boolean;
+  MealsUserRolesModule?: ModuleConfigDto;
 
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => ModuleConfigDto)
   @IsOptional()
-  PaymentsModule?: boolean;
+  PaymentsModule?: ModuleConfigDto;
 }

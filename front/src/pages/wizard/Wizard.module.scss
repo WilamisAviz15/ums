@@ -1,0 +1,33 @@
+.wizard {
+  margin: 0 12rem;
+  height: calc(100vh - 3rem - 112px);
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 16px;
+  }
+
+  @media (max-width: 767px) {
+    margin: 0 1rem;
+
+    &__wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 405px) {
+    margin: 0 1rem;
+
+    &__wrapper {
+      grid-template-columns: 1fr;
+    }
+  }
+}
