@@ -18,6 +18,9 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
+  Card,
+  CardContent,
+  Divider,
 } from "@mui/material";
 import wizardService from "../wizard.service";
 
@@ -164,19 +167,22 @@ function Wizard() {
               }
 
               return (
-                <FormGroup key={module}>
-                  <Typography variant="h6">{moduleKey}</Typography>
-                  <Grid container spacing={2}>
-                    {Object.keys(moduleData.options).map((optionKey) => (
-                      <Grid item xs={6} sm={4} md={3} key={optionKey}>
-                        <FormControlLabel
-                          control={<Checkbox checked={moduleData.options[optionKey]} onChange={() => handleCheckboxChange(module, optionKey)} />}
-                          label={optionKey}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                </FormGroup>
+                <div key={module}>
+                  <FormGroup key={module}>
+                    <Typography variant="h6">{moduleKey}</Typography>
+                    <Grid container spacing={2}>
+                      {Object.keys(moduleData.options).map((optionKey) => (
+                        <Grid item xs={6} sm={4} md={3} key={optionKey}>
+                          <FormControlLabel
+                            control={<Checkbox checked={moduleData.options[optionKey]} onChange={() => handleCheckboxChange(module, optionKey)} />}
+                            label={optionKey}
+                          />
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </FormGroup>
+                  <Divider style={{ backgroundColor: "#f3f3f3" }} />
+                </div>
               );
             })}
           </Container>
@@ -188,47 +194,51 @@ function Wizard() {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="100vh">
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, index) => (
-          <Step key={index}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <Box width="50%" mt={4}>
-        {activeStep === steps.length ? (
-          <div>
-            {loading ? (
-              <CircularProgress size={60} style={{ margin: "20px", color: "blue" }} />
-            ) : (
-              <>
-                {error ? (
-                  <Typography color="error">{error}</Typography>
+      <Card style={{ margin: "30px" }}>
+        <CardContent>
+          <Stepper activeStep={activeStep} alternativeLabel>
+            {steps.map((label, index) => (
+              <Step key={index}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <Box mt={4}>
+            {activeStep === steps.length ? (
+              <div>
+                {loading ? (
+                  <CircularProgress size={60} style={{ margin: "20px", color: "blue" }} />
                 ) : (
                   <>
-                    <Typography variant="h6" gutterBottom>
-                      Projeto Criado com Sucesso!
-                    </Typography>
-                    <Button onClick={handleSubmit}>Finalizar</Button>
+                    {error ? (
+                      <Typography color="error">{error}</Typography>
+                    ) : (
+                      <>
+                        <Typography variant="h6" gutterBottom>
+                          Projeto Criado com Sucesso!
+                        </Typography>
+                        <Button onClick={handleSubmit}>Finalizar</Button>
+                      </>
+                    )}
                   </>
                 )}
-              </>
+              </div>
+            ) : (
+              <div>
+                {renderStepContent(activeStep)}
+                <Box mt={2} style={{ display: "flex", justifyContent: "space-between" }}>
+                  <Button disabled={activeStep === 0} onClick={handleBack}>
+                    Voltar
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}>
+                    {activeStep === steps.length - 1 ? "Concluir" : "Próximo"}
+                  </Button>
+                </Box>
+              </div>
             )}
-          </div>
-        ) : (
-          <div>
-            {renderStepContent(activeStep)}
-            <Box mt={2}>
-              <Button disabled={activeStep === 0} onClick={handleBack}>
-                Voltar
-              </Button>
-              <Button variant="contained" color="primary" onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}>
-                {activeStep === steps.length - 1 ? "Concluir" : "Próximo"}
-              </Button>
-            </Box>
-          </div>
-        )}
-      </Box>
+          </Box>
+        </CardContent>
+      </Card>
     </Box>
   );
 }

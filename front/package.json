@@ -33,7 +33,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "BROWSER=none react-scripts start",
+    "start": "cross-env BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -57,6 +57,7 @@
     ]
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0"
+    "@types/axios": "^0.14.0",
+    "cross-env": "^7.0.3"
   }
 }
