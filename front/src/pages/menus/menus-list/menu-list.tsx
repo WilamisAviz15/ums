@@ -5,13 +5,7 @@ import CardUI from "../../../components/card-ui";
 import menusService from "../menus.service";
 import { MenuInterface } from "../interfaces/menu.interface";
 
-const MenusRenderList = ({
-  data,
-  setMenus,
-}: {
-  data: MenuInterface[] | undefined;
-  setMenus: React.Dispatch<React.SetStateAction<MenuInterface[] | undefined>>;
-}) => {
+const MenusRenderList = ({ data, setMenus }: { data: MenuInterface[] | undefined; setMenus: React.Dispatch<React.SetStateAction<MenuInterface[] | undefined>> }) => {
   const navigate = useNavigate();
   const editMenus = (id: number | undefined) => {
     if (!id) return;
@@ -30,6 +24,7 @@ const MenusRenderList = ({
         <CardUI
           key={item.id}
           title={item.name}
+          customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)" }}
           onEditClick={() => editMenus(item.id)}
           onDeleteClick={() => deleteMenus(item.id)}
         />

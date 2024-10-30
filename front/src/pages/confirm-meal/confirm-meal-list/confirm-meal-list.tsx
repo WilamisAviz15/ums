@@ -39,7 +39,7 @@ const ConfirmMealRenderList = ({ data, setUserMeal }: { data: ScheduleInterface[
               key={item.id}
               title={item.meal.name}
               subTitle={formatDate(item.date)}
-              customStyles={{ opacity: "0.5" }}
+              customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)", opacity: "0.5" }}
               isDeletable={false}
               extraText={
                 <span className={styles.extraText}>
@@ -57,6 +57,7 @@ const ConfirmMealRenderList = ({ data, setUserMeal }: { data: ScheduleInterface[
               key={item.id}
               title={item.meal.name}
               subTitle={formatDate(item.date)}
+              customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)" }}
               extraText={
                 <span className={styles.extraText}>
                   <span>Usuário: {item.user.name}</span>

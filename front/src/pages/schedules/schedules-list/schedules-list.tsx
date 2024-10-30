@@ -84,6 +84,7 @@ const ScheduleRenderList = ({
         key={item.id}
         title={item.meal.name}
         subTitle={formatDate(item.date)}
+        customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)" }}
         extraText={
           <span className={styles.extraText}>
             {/* <span>Usuário: {item.user.name}</span>

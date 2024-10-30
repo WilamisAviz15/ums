@@ -52,7 +52,7 @@ const MealsRenderList = ({ data, setMeals }: { data: MealInterface[] | undefined
         <CardUI
           key={item.id}
           title={item.name + " R$ " + item.price}
-          customStyles={{ borderTop: "10px solid rgba(21, 101, 192, 0.9)" }}
+          customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)" }}
           extraText={
             <span>
               {item.submeals?.length > 0 && (

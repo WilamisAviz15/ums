@@ -30,6 +30,7 @@ const MenuGroupsRenderList = ({
         <CardUI
           key={item.id}
           title={item.name}
+          customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)" }}
           onEditClick={() => editMenusGroups(item.id)}
           onDeleteClick={() => deleteAction(item.id)}
         />

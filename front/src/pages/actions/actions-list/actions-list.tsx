@@ -5,13 +5,7 @@ import CardUI from "../../../components/card-ui";
 import { ActionInterface } from "../interfaces/action.interface";
 import actionsService from "../actions.service";
 
-const ActionsRenderList = ({
-  data,
-  setActions,
-}: {
-  data: ActionInterface[] | undefined;
-  setActions: React.Dispatch<React.SetStateAction<ActionInterface[] | undefined>>;
-}) => {
+const ActionsRenderList = ({ data, setActions }: { data: ActionInterface[] | undefined; setActions: React.Dispatch<React.SetStateAction<ActionInterface[] | undefined>> }) => {
   const navigate = useNavigate();
   const editAction = (id: number | undefined) => {
     if (!id) return;
@@ -30,6 +24,7 @@ const ActionsRenderList = ({
         <CardUI
           key={item.id}
           title={item.name}
+          customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)" }}
           onEditClick={() => editAction(item.id)}
           onDeleteClick={() => deleteAction(item.id)}
         />

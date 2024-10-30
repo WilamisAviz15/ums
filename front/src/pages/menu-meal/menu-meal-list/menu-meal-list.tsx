@@ -38,6 +38,7 @@ const MenuMealRenderList = ({
           key={item.id}
           title={item.name}
           subTitle={formatDate(item.date)}
+          customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)" }}
           extraText={
             <span className={styles.extraText}>
               <span> {item.description}</span>
