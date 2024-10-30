@@ -12,6 +12,7 @@ import RatingsList from "../ratings-list";
 import { RatingInterface } from "../interfaces/rating.interface";
 import { UserInterface } from "../../users/interfaces/user.interface";
 import menuMealService from "../../menu-meal/menu-meal.service";
+import configService from "../../config/config.service";
 
 const RatingsForm = () => {
   const [usedUserMeals, setUsedUserMeals] = useState<ScheduleInterface[]>([]);
@@ -19,10 +20,28 @@ const RatingsForm = () => {
   const [user, setUser] = useState<any | null>(null);
   const [rating, setRating] = useState<RatingInterface>({ id: 0, createdAt: new Date(), menuMealId: 0, message: "", stars: 0, username: "" });
   const [renderRatingsList, setRenderRatingsList] = useState(false);
+  const [activeOptions, setActiveOptions] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
+  const verifyVariabilityActive = (module: string) => {
+    const moduleConfig = configService.getConfig()![module];
+
+    if (moduleConfig.active) {
+      const options = Object.entries(moduleConfig.options)
+        .filter(([_, value]) => value)
+        .map(([key]) => key);
+
+      return options;
+    }
+
+    return [];
+  };
+
   useEffect(() => {
+    const options = verifyVariabilityActive("RatingModule");
+    setActiveOptions(options);
+
     const subscription = authService.getUser$().subscribe((user: any) => {
       setUser(user);
       if (user?.cpf) {
@@ -98,29 +117,61 @@ const RatingsForm = () => {
         <h1>Avaliações de refeição</h1>
       </div>
       <form>
-        <TextField select label="Selecione a refeição" variant="outlined" fullWidth onChange={handleSelectedMeal}>
-          {usedUserMeals.map((meals) => (
-            <MenuItem key={meals.id} value={meals.id}>
-              {meals.meal.name} - {formatDate(meals.date)}
-            </MenuItem>
-          ))}
-        </TextField>
+        {activeOptions.includes("forum") && (
+          <>
+            <TextField select label="Selecione a refeição" variant="outlined" fullWidth onChange={handleSelectedMeal}>
+              {usedUserMeals.map((meals) => (
+                <MenuItem key={meals.id} value={meals.id}>
+                  {meals.meal.name} - {formatDate(meals.date)}
+                </MenuItem>
+              ))}
+            </TextField>
 
-        {selectedMeal && (
-          <section className={styles.rating}>
-            <article className={styles.rating__stars}>
-              <h3>Nota:</h3>
-              <Rating
-                name="simple-controlled"
-                value={rating?.stars}
-                onChange={(event, newValue) => {
-                  setRating((oldRating) => ({
-                    ...oldRating,
-                    stars: newValue ?? 1,
-                  }));
-                }}
-              />
-            </article>
+            {selectedMeal && (
+              <section className={styles.rating}>
+                <article className={styles.rating__stars}>
+                  <h3>Nota:</h3>
+                  <Rating
+                    name="simple-controlled"
+                    value={rating?.stars}
+                    onChange={(event, newValue) => {
+                      setRating((oldRating) => ({
+                        ...oldRating,
+                        stars: newValue ?? 1,
+                      }));
+                    }}
+                  />
+                </article>
+                <TextareaAutosize
+                  className={styles.textarea}
+                  value={rating.message}
+                  onChange={(e) =>
+                    setRating((oldRating) => ({
+                      ...oldRating,
+                      message: e.target.value,
+                    }))
+                  }
+                  minRows={4}
+                  aria-label="maximum height"
+                  placeholder="Escreva um comentário."
+                />
+                <Button variant="contained" color="primary" onClick={saveComment}>
+                  Salvar comentário
+                </Button>
+                <RatingsList renderRatingsList={renderRatingsList} setRenderRatingsList={setRenderRatingsList} mealId={selectedMeal.mealId} date={selectedMeal.date} />
+              </section>
+            )}
+          </>
+        )}
+        {activeOptions.includes("form") && (
+          <div>
+            <TextField select label="Selecione a refeição" variant="outlined" fullWidth onChange={handleSelectedMeal}>
+              {usedUserMeals.map((meals) => (
+                <MenuItem key={meals.id} value={meals.id}>
+                  {meals.meal.name} - {formatDate(meals.date)}
+                </MenuItem>
+              ))}
+            </TextField>
             <TextareaAutosize
               className={styles.textarea}
               value={rating.message}
@@ -135,10 +186,9 @@ const RatingsForm = () => {
               placeholder="Escreva um comentário."
             />
             <Button variant="contained" color="primary" onClick={saveComment}>
-              Salvar comentário
+              Enviar avaliação
             </Button>
-            <RatingsList renderRatingsList={renderRatingsList} setRenderRatingsList={setRenderRatingsList} mealId={selectedMeal.mealId} date={selectedMeal.date} />
-          </section>
+          </div>
         )}
       </form>
     </>

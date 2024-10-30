@@ -65,7 +65,7 @@
     "active": true,
     "options": {
       "forum": true,
-      "form": true
+      "form": false
     }
   },
   "MealsUserRolesModule": {
