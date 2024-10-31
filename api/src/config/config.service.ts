@@ -207,8 +207,6 @@ export class ConfigService {
       `);
     }
 
-    // Se houver outros usuários a serem adicionados, você pode continuar com a lógica aqui.
-
     const seedContent = `
       import { Seeder } from 'typeorm-extension';
       import { DataSource } from 'typeorm';

@@ -12,6 +12,7 @@ import submealsService from "../submeals.service";
 import rolesService from "../../roles/roles.service";
 import { RoleInterface } from "../../roles/interfaces/role.interface";
 import mealsUserRolesService from "../meals-user-roles.service";
+import { verifyVariabilityActive } from "../../../shared/utils/utils";
 
 type TMealsUserRoles = "save" | "update";
 
@@ -21,8 +22,14 @@ const MealsForm = () => {
   const [roles, setRoles] = useState<RoleInterface[]>([]);
   const [selectedRoles, setSelectedRoles] = useState<{ id: number }[]>([]);
   const [form, setForm] = useState<MealInterface>({ name: "", price: "", submeals: [], mealUserRoles: [] });
+  const [activeOptions, setActiveOptions] = useState<string[]>([]);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const options = verifyVariabilityActive("MealModule");
+    setActiveOptions(options);
+  }, []);
 
   useEffect(() => {
     const handleData = async () => {
@@ -208,12 +215,16 @@ const MealsForm = () => {
               </MenuItem>
             ))}
           </TextField>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <h3>SubRefeição:</h3>
-            <Switch checked={subMealCheck} onChange={handleChangeSwitch} />
-          </div>
-          {/* <pre>{JSON.stringify(form, null, 2)}</pre> */}
-          {subMealCheck && <SubMealForm submeals={form.submeals} handleInputChangeSubMeal={handleInputChangeSubMeal} addSubMeal={addSubMeal} removeSubMeal={removeSubMeal} />}
+          {activeOptions.includes("multiplo") && (
+            <>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <h3>SubRefeição:</h3>
+                <Switch checked={subMealCheck} onChange={handleChangeSwitch} />
+              </div>
+              {/* <pre>{JSON.stringify(form, null, 2)}</pre> */}
+              {subMealCheck && <SubMealForm submeals={form.submeals} handleInputChangeSubMeal={handleInputChangeSubMeal} addSubMeal={addSubMeal} removeSubMeal={removeSubMeal} />}
+            </>
+          )}
           <Button variant="contained" color="primary" onClick={createOrUpdateMeal}>
             {id ? "Atualizar" : "Criar"}
           </Button>

@@ -9,3 +9,10 @@ form > div:first-child {
   flex-direction: column;
   gap: 15px;
 }
+
+.date-range {
+  display: flex;
+  & > div {
+    width: 50%;
+  }
+}

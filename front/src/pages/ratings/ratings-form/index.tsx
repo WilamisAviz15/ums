@@ -12,7 +12,7 @@ import RatingsList from "../ratings-list";
 import { RatingInterface } from "../interfaces/rating.interface";
 import { UserInterface } from "../../users/interfaces/user.interface";
 import menuMealService from "../../menu-meal/menu-meal.service";
-import configService from "../../config/config.service";
+import { verifyVariabilityActive } from "../../../shared/utils/utils";
 
 const RatingsForm = () => {
   const [usedUserMeals, setUsedUserMeals] = useState<ScheduleInterface[]>([]);
@@ -20,23 +20,9 @@ const RatingsForm = () => {
   const [user, setUser] = useState<any | null>(null);
   const [rating, setRating] = useState<RatingInterface>({ id: 0, createdAt: new Date(), menuMealId: 0, message: "", stars: 0, username: "" });
   const [renderRatingsList, setRenderRatingsList] = useState(false);
-  const [activeOptions, setActiveOptions] = useState<string[]>([]);
-
   const navigate = useNavigate();
 
-  const verifyVariabilityActive = (module: string) => {
-    const moduleConfig = configService.getConfig()![module];
-
-    if (moduleConfig.active) {
-      const options = Object.entries(moduleConfig.options)
-        .filter(([_, value]) => value)
-        .map(([key]) => key);
-
-      return options;
-    }
-
-    return [];
-  };
+  const [activeOptions, setActiveOptions] = useState<string[]>([]);
 
   useEffect(() => {
     const options = verifyVariabilityActive("RatingModule");

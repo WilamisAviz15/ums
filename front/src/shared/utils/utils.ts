@@ -2,6 +2,7 @@ import { format } from "date-fns-tz";
 import { ptBR } from "date-fns/locale";
 
 import { FormErrors } from "../../pages/auth/interfaces/auth-register.interface";
+import configService from "../../pages/config/config.service";
 
 export const isFormErrors = (obj: FormErrors | { error: string }): obj is FormErrors => {
   return !("error" in obj);
@@ -28,3 +29,23 @@ export const dayOfWeek = (date: Date) =>
     timeZone: "America/Sao_Paulo",
     locale: ptBR,
   });
+
+export const verifyVariabilityActive = (module: string) => {
+  console.log(configService.getConfig());
+  if (module === "AuthenticationModule") {
+    return ["GoogleAPI", "LocalDB"];
+  }
+
+  if (configService.getConfig() != null) {
+    const moduleConfig = configService.getConfig()![module];
+    if (moduleConfig.active) {
+      const options = Object.entries(moduleConfig.options)
+        .filter(([_, value]) => value)
+        .map(([key]) => key);
+
+      return options;
+    }
+  }
+
+  return [];
+};

@@ -2,7 +2,7 @@
   "AuthenticationModule": {
     "active": true,
     "options": {
-      "LocalDB": true,
+      "LocalDB": false,
       "GoogleAPI": true
     }
   },
@@ -76,7 +76,7 @@
     "active": true,
     "options": {
       "PIX": true,
-      "boleto": true
+      "boleto": false
     }
   }
 }
