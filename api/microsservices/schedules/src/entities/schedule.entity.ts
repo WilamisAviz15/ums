@@ -24,6 +24,9 @@ export class ScheduleEntity {
   @Column()
   used: boolean;
 
+  @Column()
+  paid: boolean;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt?: Date;
 

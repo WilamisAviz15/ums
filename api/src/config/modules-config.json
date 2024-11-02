@@ -78,5 +78,12 @@
       "PIX": true,
       "boleto": false
     }
+  },
+  "MetricsModule": {
+    "active": true,
+    "options": {
+      "cards": true,
+      "chart": true
+    }
   }
 }

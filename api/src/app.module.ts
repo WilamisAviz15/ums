@@ -17,21 +17,14 @@ import { RatingModule } from './modules/ratings/src/ratings.module';
 import { SubMealsModule } from './modules/submeals/src/submeals.module';
 import { MealsUserRolesModule } from './modules/meals-user-roles/src/meals-user-roles.module';
 import { PaymentsModule } from './modules/payments/src/payments.module';
+import { MetricsModule } from './modules/metrics/src/metrics.module';
 import { EnvironmentProviderModule } from './environment/environment.provider';
 import { ConfigModule } from './config/config.module';
 
-const configPath = path.join(
-  __dirname,
-  '..',
-  'src',
-  'config',
-  'modules-config.json',
-);
+const configPath = path.join(__dirname, '..', 'src', 'config', 'modules-config.json');
 
 if (!fs.existsSync(configPath)) {
-  throw new Error(
-    'Arquivo de configuração "modules-config.json" não encontrado.',
-  );
+  throw new Error('Arquivo de configuração "modules-config.json" não encontrado.');
 }
 
 const moduleConfig = require(configPath);
@@ -50,9 +43,10 @@ const moduleConfig = require(configPath);
     moduleConfig.ProfileModule.active ? ProfileModule : undefined,
     moduleConfig.MenuMealModule.active ? MenuMealModule : undefined,
     moduleConfig.RatingModule.active ? RatingModule : undefined,
-    moduleConfig.MealModule.options.multiple ? SubMealsModule : undefined,
+    moduleConfig.MealModule.options.multiplo ? SubMealsModule : undefined,
     moduleConfig.MealsUserRolesModule.active ? MealsUserRolesModule : undefined,
     moduleConfig.PaymentsModule.active ? PaymentsModule : undefined,
+    moduleConfig.MetricsModule.active ? MetricsModule : undefined,
     ConfigModule,
   ].filter((module) => module !== undefined),
   controllers: [],

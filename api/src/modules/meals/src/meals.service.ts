@@ -27,4 +27,8 @@ export class MealService {
   deleteMeal(id: number) {
     return this.msMeals.send('delete_meal', id);
   }
+
+  countAllByName(mealId: string) {
+    return this.msMeals.send('count_all_by_name', mealId);
+  }
 }

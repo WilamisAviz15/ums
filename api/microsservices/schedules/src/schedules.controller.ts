@@ -2,7 +2,7 @@ import { Body, Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { SchedulesService } from './schedules.service';
-import { ScheduleInterface } from './interfaces/schedule.interface';
+import { ScheduleInterface, ScheduleMetric } from './interfaces/schedule.interface';
 import { ScheduleUpdateDto } from './dto/update-schedule.dto';
 import { ScheduleCreateDto } from './dto/create-schedule.dto';
 
@@ -46,5 +46,15 @@ export class SchedulesController {
   @MessagePattern('delete_schedules')
   async delete(id: number): Promise<{ message: string }> {
     return this.service.delete(id);
+  }
+
+  @MessagePattern('get_schedules_metrics')
+  async getScheduleMetrics(): Promise<ScheduleMetric> {
+    return this.service.getScheduleMetrics();
+  }
+
+  @MessagePattern('get_schedules_by_date')
+  async findAllByDate(@Body() date: string) {
+    return this.service.findAllByDate(date);
   }
 }

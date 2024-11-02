@@ -50,6 +50,29 @@ export class MealsService {
     }
   }
 
+  async countAllByName(id: number): Promise<{ almoco: number; jantar: number }> {
+    try {
+      const almocoCount = await this.mealsRepository
+        .createQueryBuilder('meal')
+        .where('meal.id = :id', { id })
+        .andWhere('meal.name LIKE :almoco', { almoco: '%almoço%' })
+        .getCount();
+
+      const jantarCount = await this.mealsRepository
+        .createQueryBuilder('meal')
+        .where('meal.id = :id', { id })
+        .andWhere('meal.name LIKE :jantar', { jantar: '%jantar%' })
+        .getCount();
+
+      return {
+        almoco: almocoCount,
+        jantar: jantarCount,
+      };
+    } catch (error) {
+      throw new HttpException({ message: 'Não foi possível encontrar a refeição.' }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   async create(data: MealCreateDto): Promise<{ meal: MealInterface; message: string }> {
     try {
       const entity = Object.assign(new MealEntity(), data);

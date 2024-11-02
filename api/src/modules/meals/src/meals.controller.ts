@@ -34,4 +34,9 @@ export class MealController {
   removeMeal(@Param('id') id: string) {
     return this.service.deleteMeal(+id);
   }
+
+  @Get('meals/count/:mealId')
+  countAllByName(@Param('mealId') mealId: string) {
+    return this.service.countAllByName(mealId);
+  }
 }

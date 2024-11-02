@@ -5,8 +5,7 @@ import { HttpService } from '@nestjs/axios';
 
 import { ScheduleEntity } from './entities/schedule.entity';
 import { ScheduleFilterInterface } from './interfaces/schedule-filter.interface';
-import { ScheduleInterface } from './interfaces/schedule.interface';
-import { createFilters } from './utils/typeorm/create-filters.utils';
+import { ScheduleInterface, ScheduleMetric } from './interfaces/schedule.interface';
 import { ScheduleCreateDto } from './dto/create-schedule.dto';
 import { ScheduleUpdateDto } from './dto/update-schedule.dto';
 import { environment } from './environment/environment';
@@ -181,5 +180,47 @@ export class SchedulesService {
     } catch (error) {
       throw new HttpException({ message: 'Não foi possível excluir o agendamento.' }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  async getScheduleMetrics(): Promise<ScheduleMetric> {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const total = await this.schedulesRepository.count();
+
+    const totalToday = await this.schedulesRepository.count({
+      where: { date: today },
+    });
+
+    const totalTodayPaid = await this.schedulesRepository.count({
+      where: { date: today, paid: true },
+    });
+
+    const totalTodayUnpaid = await this.schedulesRepository.count({
+      where: { date: today, paid: false },
+    });
+
+    const totalPaid = await this.schedulesRepository.count({
+      where: { paid: true },
+    });
+
+    const totalNotPaid = await this.schedulesRepository.count({
+      where: { paid: false },
+    });
+
+    return {
+      total,
+      totalToday,
+      totalTodayPaid,
+      totalTodayUnpaid,
+      totalPaid,
+      totalNotPaid,
+    };
+  }
+
+  async findAllByDate(date: string) {
+    const newDate = new Date(date);
+    newDate.setHours(0, 0, 0, 0);
+    return await this.schedulesRepository.createQueryBuilder('schedule').where('schedule.date = :date', { date: newDate }).getMany();
   }
 }

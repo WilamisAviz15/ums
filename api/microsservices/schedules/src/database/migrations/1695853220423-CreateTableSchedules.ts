@@ -1,9 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
 export class CreateTableSchedules1695853220423 implements MigrationInterface {
   private scheduleTable = new Table({
@@ -30,6 +25,11 @@ export class CreateTableSchedules1695853220423 implements MigrationInterface {
       },
       {
         name: 'used',
+        type: 'TINYINT',
+        default: 0,
+      },
+      {
+        name: 'paid',
         type: 'TINYINT',
         default: 0,
       },

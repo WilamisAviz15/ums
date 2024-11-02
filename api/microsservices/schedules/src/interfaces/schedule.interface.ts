@@ -10,3 +10,12 @@ export interface ScheduleInterface {
   date: Date;
   used: boolean;
 }
+
+export interface ScheduleMetric {
+  total: number;
+  totalToday: number;
+  totalTodayPaid: number;
+  totalTodayUnpaid: number;
+  totalPaid: number;
+  totalNotPaid: number;
+}

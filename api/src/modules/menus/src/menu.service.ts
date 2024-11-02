@@ -7,7 +7,6 @@ import { ActionsMenuInterface } from '../../../modules/actions/src/interfaces/ac
 @Injectable()
 export class MenuService {
   constructor(@Inject('MENUS') private readonly msMenus: ClientProxy) {}
-
   getMenus() {
     return this.msMenus.send('get_menus', {});
   }

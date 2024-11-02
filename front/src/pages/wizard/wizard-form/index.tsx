@@ -60,6 +60,7 @@ const initialConfig: ConfigInterface = {
   MealModule: { active: true, name: "meals", options: { simples: true, multiplo: false } },
   PaymentsModule: { active: true, name: "payments", options: { PIX: true, boleto: false } },
   RatingsModule: { active: true, name: "ratings", options: { form: true, forum: false } },
+  MetricsModule: { active: true, name: "metrics", options: { cards: true, chart: true } },
 };
 
 const steps = ["Informações do Projeto", "Seleção de Features"];
@@ -99,9 +100,8 @@ function Wizard() {
         },
       };
 
-      // Verificar se todas as opções estão false
       const allOptionsFalse = Object.values(updatedModule.options).every((option) => option === false);
-      updatedModule.active = !allOptionsFalse; // Se todas as opções forem false, desativa o módulo
+      updatedModule.active = !allOptionsFalse;
 
       return {
         ...prevModules,
