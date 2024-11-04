@@ -36,6 +36,7 @@ import ConfigForm from "../pages/config/config-form";
 import configService from "../pages/config/config.service";
 import Wizard from "../pages/wizard";
 import WizardForm from "../pages/wizard/wizard-form";
+import Payments from "../pages/payments";
 
 const routers = () => {
   const config = configService.getConfig();
@@ -249,6 +250,17 @@ const routers = () => {
         {
           name: "",
           component: <ConfigForm />,
+        },
+      ],
+    },
+    {
+      name: "pagamentos",
+      component: <Payments />,
+      active: config["PaymentsModule"].active,
+      child: [
+        {
+          name: "",
+          component: <Payments />,
         },
       ],
     },

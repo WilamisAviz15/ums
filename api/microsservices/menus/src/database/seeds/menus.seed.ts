@@ -98,6 +98,13 @@ export class MenusSeed implements Seeder {
         menuGroupId: 2,
         module: 'ConfigModule',
       },
+      {
+        name: 'Pagamentos',
+        route: 'pagamentos',
+        menuKey: 'pagamentos',
+        menuGroupId: 1,
+        module: 'PaymentsModule',
+      },
     ]);
   }
 }

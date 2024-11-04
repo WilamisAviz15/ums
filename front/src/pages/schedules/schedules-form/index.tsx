@@ -67,7 +67,7 @@ const SchedulesForm = () => {
         } else {
           const { startDate, endDate } = dateRange;
           let currentDate = startDate;
-          endDate.setDate(endDate.getDate() + 1);
+          endDate.setDate(endDate.getDate());
 
           while (currentDate <= endDate) {
             const formData = { ...form, date: currentDate };

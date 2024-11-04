@@ -1,0 +1,14 @@
+.wallet {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  a {
+    margin-top: 15px;
+  }
+}

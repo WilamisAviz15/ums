@@ -14,4 +14,12 @@ export class PaymentService {
   generatePaymentPix(data: GeneratePixPayment) {
     return this.msPayments.send('generate_payment_pix', data);
   }
+
+  getTransactionsByCpf(cpf: string) {
+    return this.msPayments.send('get_transactions_by_cpf', cpf);
+  }
+
+  getBalanceByCpf(cpf: string) {
+    return this.msPayments.send('get_balance_by_cpf', cpf);
+  }
 }
