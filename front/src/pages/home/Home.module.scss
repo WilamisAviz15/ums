@@ -7,6 +7,11 @@
   // height: calc(100vh - 3rem - 112px);
   font-family: "Helvetica";
 
+  &__university,
+  &__user {
+    font-size: 1.1rem;
+  }
+
   & > h1 {
     font-weight: 500;
   }
