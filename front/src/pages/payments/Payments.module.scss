@@ -1,5 +1,5 @@
 .payments {
-  margin: 0 12rem;
+  margin: 0 16rem;
   // height: calc(100vh - 3rem - 112px);
 
   &__title {
@@ -7,6 +7,10 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+
+    & > h1 {
+      font-weight: 300;
+    }
   }
 
   &__wrapper {

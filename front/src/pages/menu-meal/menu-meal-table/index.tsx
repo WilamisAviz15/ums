@@ -11,15 +11,29 @@ import menuMealService from "../menu-meal.service";
 import { MenuMealInterface } from "../interfaces/menu-meal.interface";
 import { dayOfWeek } from "../../../shared/utils/utils";
 import { AxiosError } from "axios";
+import { endOfWeek, startOfWeek } from "date-fns";
 
 const MenuMealTable = () => {
   const [menuMeal, setMenuMeal] = useState<MenuMealInterface[]>([]);
 
   useEffect(() => {
     const handleData = async () => {
+      const currentDate = new Date();
+      const startDate = startOfWeek(currentDate, { weekStartsOn: 1 });
+      const endDate = endOfWeek(currentDate, { weekStartsOn: 1 });
+
       try {
         const res = await menuMealService.httpGet();
-        setMenuMeal(res);
+        const filteredMenuMeals = res.filter((meal: MenuMealInterface) => {
+          const mealDate = new Date(meal.date);
+          return mealDate >= startDate && mealDate <= endDate;
+        });
+
+        const sortedMenuMeal = filteredMenuMeals.sort((a, b) => {
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
+
+        setMenuMeal(sortedMenuMeal);
       } catch (error: any) {
         if (error instanceof AxiosError) {
           console.error(error);
