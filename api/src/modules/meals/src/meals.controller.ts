@@ -19,6 +19,11 @@ export class MealController {
     return this.service.getMealsById(+id);
   }
 
+  @Get('meals/date/:date')
+  getMealsByDate(@Param('date') date: string) {
+    return this.service.getMealsByDate(date);
+  }
+
   @Post('meals')
   createMeal(@Body() data: MealInterface) {
     return this.service.createMeal(data);

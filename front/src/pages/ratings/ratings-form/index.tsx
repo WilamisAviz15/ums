@@ -69,6 +69,7 @@ const RatingsForm = () => {
     }
 
     const menuMealId = await getMenuMealId();
+    console.log(">>>>", menuMealId);
 
     const updatedRating: RatingInterface = {
       ...rating,

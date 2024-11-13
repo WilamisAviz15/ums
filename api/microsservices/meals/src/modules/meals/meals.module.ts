@@ -9,9 +9,11 @@ import { HttpModule } from '@nestjs/axios';
 import { EnvironmentProviderModule } from '../../environment/environment.provider';
 import { SubMealEntity } from '../submeals/entities/submeal.entity';
 import { MealUserRoleEntity } from '../meals-users-roles/entities/meals-users-roles.entity';
+import { MenuMealModule } from '../menus-meals/menus-meals.module';
+import { MenuMealEntity } from '../menus-meals/entities/menu-meal.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MealEntity, SubMealEntity, MealUserRoleEntity]), DatabaseProviderModule, HttpModule],
+  imports: [TypeOrmModule.forFeature([MealEntity, SubMealEntity, MealUserRoleEntity, MenuMealEntity]), DatabaseProviderModule, HttpModule],
   controllers: [MealsController],
   providers: [EnvironmentProviderModule, MealsService],
 })

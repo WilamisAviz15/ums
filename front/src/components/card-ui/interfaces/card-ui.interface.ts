@@ -12,7 +12,9 @@ export interface CardUIInterface {
   isDeletable?: boolean;
   isCardHeaderEnabled?: boolean;
   iconButton?: boolean;
+  isPaymentCard?: boolean;
   onIsManager?: () => void;
   onEditClick: () => void;
   onDeleteClick: () => void;
+  onOpenPaymentModal?: () => void;
 }

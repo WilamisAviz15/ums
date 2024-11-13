@@ -10,12 +10,15 @@ import { MealCreateDto } from './dto/create-meal.dto';
 import { MealUpdateDto } from './dto/update-meal.dto';
 import { SubMealEntity } from '../submeals/entities/submeal.entity';
 import { MealUserRoleEntity } from '../meals-users-roles/entities/meals-users-roles.entity';
+import { MenuMealEntity } from '../menus-meals/entities/menu-meal.entity';
 
 @Injectable()
 export class MealsService {
   constructor(
     @InjectRepository(MealEntity)
     private readonly mealsRepository: Repository<MealEntity>,
+    @InjectRepository(MenuMealEntity)
+    private readonly menuMealsRepository: Repository<MenuMealEntity>,
     @InjectRepository(SubMealEntity)
     private readonly submealRepository: Repository<SubMealEntity>,
     @InjectRepository(MealUserRoleEntity)
@@ -125,6 +128,19 @@ export class MealsService {
       });
     } catch (error) {
       throw new HttpException({ message: 'Não foi possível encontrar a ação.' }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getMealsByDate(date: string) {
+    try {
+      const meals = await this.mealsRepository.find();
+      const menuMeals = await this.menuMealsRepository.find();
+
+      const mealsByDate = meals.filter((meal) => menuMeals.some((menuMeal) => menuMeal.mealId === meal.id));
+
+      return mealsByDate;
+    } catch (error) {
+      throw new HttpException({ message: 'Não foi possível encontrar as refeições.' }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

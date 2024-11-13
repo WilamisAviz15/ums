@@ -51,16 +51,16 @@ const MenuMealTable = () => {
         <Table sx={{ minWidth: 650 }} aria-label="menu table">
           <TableHead>
             <TableRow>
-              <TableCell align="center" style={{ backgroundColor: "#b22222", color: "#fff", fontWeight: "bold" }}>
+              <TableCell align="center" style={{ backgroundColor: "#f0f0f0", color: "#000", fontWeight: "bold" }}>
                 Data
               </TableCell>
-              <TableCell align="center" style={{ backgroundColor: "#b22222", color: "#fff", fontWeight: "bold" }}>
+              <TableCell align="center" style={{ backgroundColor: "#f0f0f0", color: "#000", fontWeight: "bold" }}>
                 Refeição
               </TableCell>
-              <TableCell align="center" style={{ backgroundColor: "#b22222", color: "#fff", fontWeight: "bold" }}>
+              <TableCell align="center" style={{ backgroundColor: "#f0f0f0", color: "#000", fontWeight: "bold" }}>
                 Nome
               </TableCell>
-              <TableCell align="center" style={{ backgroundColor: "#b22222", color: "#fff", fontWeight: "bold" }}>
+              <TableCell align="center" style={{ backgroundColor: "#f0f0f0", color: "#000", fontWeight: "bold" }}>
                 Descrição
               </TableCell>
             </TableRow>

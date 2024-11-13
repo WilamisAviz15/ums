@@ -6,4 +6,5 @@ export interface ScheduleInterface {
   meal?: any;
   date: Date;
   used: boolean;
+  paid: boolean;
 }

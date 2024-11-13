@@ -30,6 +30,11 @@ export class MenuMealController {
     return this.service.findByMealIdAndDate(mealId, date);
   }
 
+  @MessagePattern('get_menus_meals_by_date')
+  findByDate({ date }: { date: string }): Promise<MenuMealInterface[]> {
+    return this.service.findByDate(date);
+  }
+
   @MessagePattern('update_menu_meal')
   update(@Body() data: MenuMealUpdateDto): Promise<{ menuMeal: MenuMealInterface; message: string }> {
     return this.service.update(data);

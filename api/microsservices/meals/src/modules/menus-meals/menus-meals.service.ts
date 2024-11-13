@@ -49,6 +49,17 @@ export class MenuMealService {
     }
   }
 
+  async findByDate(date: string): Promise<MenuMealInterface[]> {
+    try {
+      return await this.menuMealsRepository
+        .createQueryBuilder('menu_meals')
+        .where('DATE(menu_meals.date) = :date', { date: new Date(date).toISOString().split('T')[0] })
+        .getMany();
+    } catch (error) {
+      throw new HttpException({ message: 'Não foi possível encontrar o cardápio.' }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   async create(data: MenuMealCreateDto): Promise<{ menuMeal: MenuMealInterface; message: string }> {
     try {
       const entity = Object.assign(new MenuMealEntity(), data);

@@ -20,6 +20,11 @@ export class MealsController {
     return await this.service.findOne(id);
   }
 
+  @MessagePattern('get_meals_by_date')
+  async getMealsByDate(date: string) {
+    return await this.service.getMealsByDate(date);
+  }
+
   @MessagePattern('count_all_by_name')
   async countAllByName(@Body() id: number): Promise<{ almoco: number; jantar: number }> {
     return await this.service.countAllByName(id);

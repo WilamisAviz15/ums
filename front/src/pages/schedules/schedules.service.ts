@@ -14,6 +14,10 @@ class SchedulesService {
     return (await http.get<ScheduleInterface, any>(`schedules/user/${this.user.id}`)).data;
   }
 
+  async httpGetAllMenuMeal(): Promise<any[]> {
+    return (await http.get<any, any>(`menu-meals/`)).data;
+  }
+
   async httpGetById(id: number): Promise<ScheduleInterface> {
     return (await http.get<any, any>(`schedules/${id}`)).data;
   }

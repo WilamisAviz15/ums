@@ -30,12 +30,15 @@ const SchedulesForm = () => {
   const [activeOptions, setActiveOptions] = useState<string[]>([]);
   const [selectedScheduleType, setSelectedScheduleType] = useState<number>(-1);
   const [dateRange, setDateRange] = useState({ startDate: new Date(), endDate: new Date() });
+  const [dateAllowed, setDateAllowed] = useState<{ date: string }[]>([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const options = verifyVariabilityActive("ScheduleModule");
     setActiveOptions(options);
+
+    getDateWithMenuMeals();
 
     if (id) {
       setActiveOptions(["diario"]);
@@ -55,6 +58,18 @@ const SchedulesForm = () => {
     handleData();
     getMeals();
   }, []);
+
+  const getDateWithMenuMeals = async () => {
+    const res = await schedulesService.httpGetAllMenuMeal();
+
+    if (res) {
+      setDateAllowed(res);
+    }
+  };
+
+  const isDateAllowed = (date: any) => {
+    return dateAllowed.some((obj: any) => dayjs(obj.date).isSame(date, "day"));
+  };
 
   const createSchedule = async () => {
     try {
@@ -168,7 +183,7 @@ const SchedulesForm = () => {
           {activeOptions.includes("diario") && selectedScheduleType == ScheduleType.DIARIO && (
             <>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker className="picker" onChange={(v) => handleDateChange(v)} value={dayjs(form.date)} />
+                <DatePicker className="picker" onChange={(v) => handleDateChange(v)} value={dayjs(form.date)} shouldDisableDate={(date) => !isDateAllowed(date)} />
               </LocalizationProvider>
               <TextField id="mealId" name="mealId" value={id ? form.mealId : selectedMeal} fullWidth select label="Tipo de refeição" onChange={(v) => handleSelectChange(v)}>
                 {meals.map((option) => (
@@ -183,10 +198,22 @@ const SchedulesForm = () => {
             <>
               <div className={styles["date-range"]}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker label="Data Inicio" className="picker" onChange={(v) => handleDateRangeChange(v, "startDate")} value={dayjs(dateRange.startDate)} />
+                  <DatePicker
+                    label="Data Inicio"
+                    className="picker"
+                    onChange={(v) => handleDateRangeChange(v, "startDate")}
+                    value={dayjs(dateRange.startDate)}
+                    shouldDisableDate={(date) => !isDateAllowed(date)}
+                  />
                 </LocalizationProvider>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker label="Data Fim" className="picker" onChange={(v) => handleDateRangeChange(v, "endDate")} value={dayjs(dateRange.endDate)} />
+                  <DatePicker
+                    label="Data Fim"
+                    className="picker"
+                    onChange={(v) => handleDateRangeChange(v, "endDate")}
+                    value={dayjs(dateRange.endDate)}
+                    shouldDisableDate={(date) => !isDateAllowed(date)}
+                  />
                 </LocalizationProvider>
               </div>
               <TextField id="mealId" name="mealId" value={id ? form.mealId : selectedMeal} fullWidth select label="Tipo de refeição" onChange={(v) => handleSelectChange(v)}>
