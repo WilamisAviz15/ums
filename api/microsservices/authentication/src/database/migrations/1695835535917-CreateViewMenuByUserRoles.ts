@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreateViewMenuByUserRoles1683830300678
-  implements MigrationInterface
-{
+export class CreateViewMenuByUserRoles1683830300678 implements MigrationInterface {
   private viewName = 'view_menu_by_user_roles';
   private query = `
       SELECT m.id       AS "id",
@@ -11,6 +9,7 @@ export class CreateViewMenuByUserRoles1683830300678
       m.route    AS "route",
       m.menu_key AS "menu_key",
       m.icon     AS "icon",
+      m.module   AS "module",
       p.role_id  AS "role_id"
     FROM ums_menus.privileges p
         INNER JOIN ums_actions.actions_menus am ON am.id = p.action_menu_id AND am.action_id = 5

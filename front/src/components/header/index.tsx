@@ -51,7 +51,7 @@ const Header = ({ menus, children }: { menus: any[]; children: JSX.Element }) =>
               <Button
                 text={isLogged ? "Sair" : "Login"}
                 customStyles={{
-                  backgroundColor: "#FFEB3B",
+                  backgroundColor: "#FFEB00",
                   borderStyle: "none",
                   borderRadius: "3px",
                   color: "#212121",

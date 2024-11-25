@@ -31,17 +31,31 @@ import RatingsForm from "../pages/ratings/ratings-form";
 import Meals from "../pages/meals";
 import MealsList from "../pages/meals/meals-list";
 import MealsForm from "../pages/meals/meals-form";
+import Config from "../pages/config";
+import ConfigForm from "../pages/config/config-form";
+import configService from "../pages/config/config.service";
+import Wizard from "../pages/wizard";
+import WizardForm from "../pages/wizard/wizard-form";
+import Payments from "../pages/payments";
 
 const routers = () => {
+  const config = configService.getConfig();
+
+  if (!config) {
+    return [];
+  }
+
   const components = [
     {
       name: "inicio",
       component: <Home />,
+      active: config["AuthenticationModule"].active,
       child: [],
     },
     {
       name: "actions",
       component: <Actions />,
+      active: config["ActionModule"].active,
       child: [
         {
           name: "cadastrar",
@@ -60,6 +74,7 @@ const routers = () => {
     {
       name: "menus-group",
       component: <MenusGroup />,
+      active: config["MenuGroupModule"].active,
       child: [
         {
           name: "",
@@ -78,6 +93,7 @@ const routers = () => {
     {
       name: "menus",
       component: <Menus />,
+      active: config["MenuModule"].active,
       child: [
         {
           name: "",
@@ -96,6 +112,7 @@ const routers = () => {
     {
       name: "access-profile",
       component: <Roles />,
+      active: config["RoleModule"].active,
       child: [
         {
           name: "",
@@ -114,6 +131,7 @@ const routers = () => {
     {
       name: "users",
       component: <Users />,
+      active: config["UserModule"].active,
       child: [
         {
           name: "",
@@ -132,11 +150,13 @@ const routers = () => {
     {
       name: "parameters",
       component: <></>,
+      active: true,
       child: [],
     },
     {
       name: "schedules",
       component: <Schedules />,
+      active: config["ScheduleModule"].active,
       child: [
         {
           name: "cadastrar",
@@ -155,11 +175,13 @@ const routers = () => {
     {
       name: "profile",
       component: <Profile />,
+      active: config["ProfileModule"].active,
       child: [],
     },
     {
       name: "menu",
       component: <MenuMeal />,
+      active: config["MenuMealModule"].active,
       child: [
         {
           name: "",
@@ -178,6 +200,7 @@ const routers = () => {
     {
       name: "confirm-meal",
       component: <ConfirmMeal />,
+      active: config["ScheduleModule"].active,
       child: [
         {
           name: "",
@@ -188,6 +211,7 @@ const routers = () => {
     {
       name: "avaliacoes",
       component: <Ratings />,
+      active: config["RatingModule"].active,
       child: [
         {
           name: "",
@@ -202,6 +226,7 @@ const routers = () => {
     {
       name: "refeicoes",
       component: <Meals />,
+      active: config["MealModule"].active,
       child: [
         {
           name: "",
@@ -217,8 +242,30 @@ const routers = () => {
         },
       ],
     },
+    {
+      name: "configuracoes",
+      component: <Config />,
+      active: true,
+      child: [
+        {
+          name: "",
+          component: <ConfigForm />,
+        },
+      ],
+    },
+    {
+      name: "pagamentos",
+      component: <Payments />,
+      active: config["PaymentsModule"].active,
+      child: [
+        {
+          name: "",
+          component: <Payments />,
+        },
+      ],
+    },
   ];
-  return components;
+  return components.filter((component) => component.active === true);
 };
 
 export default routers;

@@ -9,4 +9,5 @@ export interface MenuInterface {
   group?: any;
   menuGroup: string;
   menuGroupId: number;
+  module: string;
 }

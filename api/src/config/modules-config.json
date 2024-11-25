@@ -1,0 +1,89 @@
+{
+  "AuthenticationModule": {
+    "active": true,
+    "options": {
+      "LocalDB": false,
+      "GoogleAPI": true
+    }
+  },
+  "RoleModule": {
+    "active": true,
+    "options": {
+      "administrador": true,
+      "graduacao": true,
+      "posGraduacao": true,
+      "gestor": true,
+      "servidor": true,
+      "terceirizado": true,
+      "visitante": true,
+      "residente": true
+    }
+  },
+  "UserModule": {
+    "active": true,
+    "options": {}
+  },
+  "UserRoleModule": {
+    "active": true,
+    "options": {}
+  },
+  "ScheduleModule": {
+    "active": true,
+    "options": {
+      "diario": true,
+      "semanal": true
+    }
+  },
+  "ActionModule": {
+    "active": true,
+    "options": {}
+  },
+  "MenuModule": {
+    "active": true,
+    "options": {}
+  },
+  "MenuGroupModule": {
+    "active": true,
+    "options": {}
+  },
+  "MealModule": {
+    "active": true,
+    "options": {
+      "simples": true,
+      "multiplo": true
+    }
+  },
+  "ProfileModule": {
+    "active": true,
+    "options": {}
+  },
+  "MenuMealModule": {
+    "active": true,
+    "options": {}
+  },
+  "RatingModule": {
+    "active": true,
+    "options": {
+      "forum": true,
+      "form": false
+    }
+  },
+  "MealsUserRolesModule": {
+    "active": true,
+    "options": {}
+  },
+  "PaymentsModule": {
+    "active": true,
+    "options": {
+      "PIX": true,
+      "boleto": false
+    }
+  },
+  "MetricsModule": {
+    "active": true,
+    "options": {
+      "cards": true,
+      "chart": true
+    }
+  }
+}

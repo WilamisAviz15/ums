@@ -16,6 +16,10 @@ export class MealService {
     return this.msMeals.send('get_meals_by_id', id);
   }
 
+  getMealsByDate(date: string) {
+    return this.msMeals.send('get_meals_by_date', date);
+  }
+
   createMeal(data: MealInterface) {
     return this.msMeals.send('create_meal', data);
   }
@@ -26,5 +30,9 @@ export class MealService {
 
   deleteMeal(id: number) {
     return this.msMeals.send('delete_meal', id);
+  }
+
+  countAllByName(mealId: string) {
+    return this.msMeals.send('count_all_by_name', mealId);
   }
 }

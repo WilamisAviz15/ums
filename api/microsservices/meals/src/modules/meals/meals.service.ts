@@ -10,12 +10,15 @@ import { MealCreateDto } from './dto/create-meal.dto';
 import { MealUpdateDto } from './dto/update-meal.dto';
 import { SubMealEntity } from '../submeals/entities/submeal.entity';
 import { MealUserRoleEntity } from '../meals-users-roles/entities/meals-users-roles.entity';
+import { MenuMealEntity } from '../menus-meals/entities/menu-meal.entity';
 
 @Injectable()
 export class MealsService {
   constructor(
     @InjectRepository(MealEntity)
     private readonly mealsRepository: Repository<MealEntity>,
+    @InjectRepository(MenuMealEntity)
+    private readonly menuMealsRepository: Repository<MenuMealEntity>,
     @InjectRepository(SubMealEntity)
     private readonly submealRepository: Repository<SubMealEntity>,
     @InjectRepository(MealUserRoleEntity)
@@ -45,6 +48,29 @@ export class MealsService {
   async findOne(id: number): Promise<MealInterface> {
     try {
       return await this.mealsRepository.findOne({ where: { id } });
+    } catch (error) {
+      throw new HttpException({ message: 'Não foi possível encontrar a refeição.' }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async countAllByName(id: number): Promise<{ almoco: number; jantar: number }> {
+    try {
+      const almocoCount = await this.mealsRepository
+        .createQueryBuilder('meal')
+        .where('meal.id = :id', { id })
+        .andWhere('meal.name LIKE :almoco', { almoco: '%almoço%' })
+        .getCount();
+
+      const jantarCount = await this.mealsRepository
+        .createQueryBuilder('meal')
+        .where('meal.id = :id', { id })
+        .andWhere('meal.name LIKE :jantar', { jantar: '%jantar%' })
+        .getCount();
+
+      return {
+        almoco: almocoCount,
+        jantar: jantarCount,
+      };
     } catch (error) {
       throw new HttpException({ message: 'Não foi possível encontrar a refeição.' }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -102,6 +128,19 @@ export class MealsService {
       });
     } catch (error) {
       throw new HttpException({ message: 'Não foi possível encontrar a ação.' }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getMealsByDate(date: string) {
+    try {
+      const meals = await this.mealsRepository.find();
+      const menuMeals = await this.menuMealsRepository.find();
+
+      const mealsByDate = meals.filter((meal) => menuMeals.some((menuMeal) => menuMeal.mealId === meal.id));
+
+      return mealsByDate;
+    } catch (error) {
+      throw new HttpException({ message: 'Não foi possível encontrar as refeições.' }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

@@ -2,6 +2,8 @@ import React from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
+import { MealMetricsData } from "../../pages/metrics/interfaces/meals-metrics.interface";
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const options = {
@@ -17,29 +19,8 @@ const options = {
   },
 };
 
-const labels = ["1", "2", "3", "4", "5", "6", "7"];
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset vermelho",
-      data: labels.map(() => Math.floor(Math.random() * 100)),
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-      borderColor: "red",
-      borderWidth: 1,
-    },
-    {
-      label: "Dataset azul",
-      data: labels.map(() => Math.floor(Math.random() * 100)),
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-      borderColor: "blue",
-      borderWidth: 1,
-    },
-  ],
-};
-
-const ChartBar = () => {
-  return <Bar options={options} data={data} />;
+const ChartBar = ({ mealData }: { mealData: MealMetricsData }) => {
+  return <Bar options={options} data={mealData} />;
 };
 
 export default ChartBar;

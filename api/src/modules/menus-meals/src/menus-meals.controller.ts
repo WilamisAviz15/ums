@@ -24,6 +24,11 @@ export class MenuMealController {
     return this.service.getByMealIdAndDate(+mealId, date);
   }
 
+  @Get('menu-meals/date/:date')
+  getByDate(@Param('date') date: string) {
+    return this.service.getByDate(date);
+  }
+
   @Post('menu-meals')
   createMenuMeals(@Body() data: MenuMealCreateDto) {
     return this.service.createMenuMeal(data);

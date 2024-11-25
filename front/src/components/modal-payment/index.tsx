@@ -3,6 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, 
 import CloseIcon from "@mui/icons-material/Close";
 import authService from "../../pages/auth/auth.service";
 import modalPaymentService from "./modal-payment.service";
+import { verifyVariabilityActive } from "../../shared/utils/utils";
 
 export default function ModalPayment({ openModal, setOpenModal }: { openModal: boolean; setOpenModal: React.Dispatch<React.SetStateAction<boolean>> }) {
   const initializeForm = () => {
@@ -15,6 +16,12 @@ export default function ModalPayment({ openModal, setOpenModal }: { openModal: b
 
   const [form, setForm] = useState<{ name: string; cpf: string; price: number }>(initializeForm());
   const [qrCodePix, setQrCodePix] = useState<{ imagemQrcode: string; qrcode: string }>();
+  const [activeOptions, setActiveOptions] = useState<string[]>([]);
+
+  useEffect(() => {
+    const options = verifyVariabilityActive("PaymentsModule");
+    setActiveOptions(options);
+  }, []);
 
   useEffect(() => {
     if (!openModal) {
@@ -48,6 +55,10 @@ export default function ModalPayment({ openModal, setOpenModal }: { openModal: b
     if (response) {
       setQrCodePix({ imagemQrcode, qrcode });
     }
+  };
+
+  const handleGenerateGRU = async (event?: React.FormEvent<HTMLFormElement>) => {
+    if (event) event.preventDefault();
   };
 
   return (
@@ -115,9 +126,16 @@ export default function ModalPayment({ openModal, setOpenModal }: { openModal: b
           <Button onClick={handleClose} color="primary">
             Cancelar
           </Button>
-          <Button onClick={() => handleGenerateQRCode()} color="primary" variant="contained">
-            Gerar pagamento Pix
-          </Button>
+          {activeOptions.includes("boleto") && (
+            <Button onClick={() => handleGenerateGRU()} color="primary" variant="contained">
+              Gerar pagamento GRU
+            </Button>
+          )}
+          {activeOptions.includes("PIX") && (
+            <Button onClick={() => handleGenerateQRCode()} color="primary" variant="contained">
+              Gerar pagamento Pix
+            </Button>
+          )}
         </DialogActions>
       )}
     </Dialog>

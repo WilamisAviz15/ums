@@ -20,17 +20,23 @@ export class MealsController {
     return await this.service.findOne(id);
   }
 
+  @MessagePattern('get_meals_by_date')
+  async getMealsByDate(date: string) {
+    return await this.service.getMealsByDate(date);
+  }
+
+  @MessagePattern('count_all_by_name')
+  async countAllByName(@Body() id: number): Promise<{ almoco: number; jantar: number }> {
+    return await this.service.countAllByName(id);
+  }
+
   @MessagePattern('create_meal')
-  async create(
-    @Body() data: MealCreateDto,
-  ): Promise<{ meal: MealInterface; message: string }> {
+  async create(@Body() data: MealCreateDto): Promise<{ meal: MealInterface; message: string }> {
     return await this.service.create(data);
   }
 
   @MessagePattern('update_meal')
-  async update(
-    @Body() data: MealUpdateDto,
-  ): Promise<{ meal: MealInterface; message: string }> {
+  async update(@Body() data: MealUpdateDto): Promise<{ meal: MealInterface; message: string }> {
     return await this.service.update(data);
   }
 

@@ -19,6 +19,11 @@ export class MealController {
     return this.service.getMealsById(+id);
   }
 
+  @Get('meals/date/:date')
+  getMealsByDate(@Param('date') date: string) {
+    return this.service.getMealsByDate(date);
+  }
+
   @Post('meals')
   createMeal(@Body() data: MealInterface) {
     return this.service.createMeal(data);
@@ -33,5 +38,10 @@ export class MealController {
   @Delete('meals/:id')
   removeMeal(@Param('id') id: string) {
     return this.service.deleteMeal(+id);
+  }
+
+  @Get('meals/count/:mealId')
+  countAllByName(@Param('mealId') mealId: string) {
+    return this.service.countAllByName(mealId);
   }
 }

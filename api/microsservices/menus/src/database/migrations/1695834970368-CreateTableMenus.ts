@@ -42,6 +42,10 @@ export class CreateTableMenus1683653830584 implements MigrationInterface {
         type: 'integer',
       },
       {
+        name: 'module',
+        type: 'string',
+      },
+      {
         name: 'created_at',
         type: 'timestamp',
         default: 'now()',

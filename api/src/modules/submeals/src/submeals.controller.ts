@@ -21,6 +21,7 @@ export class SubMealController {
 
   @Get('byMealId/:id')
   getSubMealsByMealId(@Param('id') id: string) {
+    console.log(id);
     return this.service.getSubMealsByMealId(+id);
   }
 

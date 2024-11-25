@@ -19,6 +19,16 @@ export class ScheduleController {
     return this.service.getSchedulesById(+id);
   }
 
+  @Get('schedules/metrics/all')
+  getSchedulesMetrics() {
+    return this.service.getSchedulesMetrics();
+  }
+
+  @Get('schedules/date/:date')
+  getSchedulesByDate(@Param('date') date: string) {
+    return this.service.getSchedulesByDate(date);
+  }
+
   @Patch('schedules/confirm-meal')
   confirmSchedules(@Body() data: ScheduleCreateDto) {
     return this.service.confirmSchedule(data);

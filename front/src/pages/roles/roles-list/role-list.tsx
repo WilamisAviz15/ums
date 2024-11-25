@@ -5,13 +5,7 @@ import CardUI from "../../../components/card-ui";
 import rolesService from "../roles.service";
 import { RoleInterface } from "../interfaces/role.interface";
 
-const RolesRenderList = ({
-  data,
-  setRoles,
-}: {
-  data: RoleInterface[] | undefined;
-  setRoles: React.Dispatch<React.SetStateAction<RoleInterface[] | undefined>>;
-}) => {
+const RolesRenderList = ({ data, setRoles }: { data: RoleInterface[] | undefined; setRoles: React.Dispatch<React.SetStateAction<RoleInterface[] | undefined>> }) => {
   const navigate = useNavigate();
   const editRoles = (id: number | undefined) => {
     if (!id) return;
@@ -30,6 +24,7 @@ const RolesRenderList = ({
         <CardUI
           key={item.id}
           title={item.name!}
+          customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)" }}
           onEditClick={() => editRoles(item.id)}
           onDeleteClick={() => deleteRoles(item.id)}
         />

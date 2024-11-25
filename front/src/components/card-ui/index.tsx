@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Card, CardActions, CardContent, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+
 import { CardUIInterface } from "./interfaces/card-ui.interface";
 import authService from "../../pages/auth/auth.service";
 
@@ -12,9 +14,11 @@ const CardUI = ({
   isDeletable = true,
   iconButton = true,
   isCardHeaderEnabled = true,
+  isPaymentCard = false,
   onIsManager,
   onEditClick,
   onDeleteClick,
+  onOpenPaymentModal,
 }: CardUIInterface) => {
   const [openDropdown, setOpenDropdown] = useState<null | HTMLElement>(null);
 
@@ -88,11 +92,30 @@ const CardUI = ({
           </Typography>
         </CardContent>
       )}
-      {isAdminOrManager() && onIsManager && (
-        <CardActions>
-          <Button size="small" onClick={onIsManager}>
-            Confirmar
-          </Button>
+      {isPaymentCard && (
+        <CardActions
+          style={{
+            display: "flex",
+            gap: "8px",
+            width: "100%",
+          }}
+        >
+          {isAdminOrManager() && onIsManager && (
+            <Button size="small" onClick={onIsManager}>
+              Confirmar
+            </Button>
+          )}
+          {isPaymentCard && (
+            <Button
+              size="small"
+              onClick={onOpenPaymentModal}
+              style={{
+                flex: isAdminOrManager() && onIsManager ? "unset" : 1,
+              }}
+            >
+              Pagamento
+            </Button>
+          )}
         </CardActions>
       )}
     </Card>

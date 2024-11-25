@@ -33,7 +33,15 @@ export class ScheduleService {
     return this.msSchedules.send('confirm_schedules', data);
   }
 
+  getSchedulesMetrics() {
+    return this.msSchedules.send('get_schedules_metrics', {});
+  }
+
   findByUserCPF(cpf: string) {
     return this.msSchedules.send('get_schedules_by_user_cpf', cpf);
+  }
+
+  getSchedulesByDate(date: string) {
+    return this.msSchedules.send('get_schedules_by_date', date);
   }
 }

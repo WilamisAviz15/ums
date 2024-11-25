@@ -4,3 +4,9 @@
     font-size: 1rem;
   }
 }
+
+.confirm_meal__title {
+  & > h1 {
+    font-weight: 300;
+  }
+}

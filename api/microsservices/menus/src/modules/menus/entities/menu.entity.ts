@@ -37,6 +37,9 @@ export class MenuEntity {
 
   actionsMenus: number[];
 
+  @Column()
+  module: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt?: Date;
 

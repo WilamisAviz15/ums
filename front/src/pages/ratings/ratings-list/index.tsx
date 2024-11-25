@@ -17,16 +17,18 @@ const RatingsList = ({ renderRatingsList, setRenderRatingsList, mealId, date }: 
     const res = await menuMealService.httpGetByMenuIdAndDate(mealId, formattedDate);
     if (res) {
       await getRatingByMealId(res.id);
+      return;
     }
+    setRatings([]);
   };
 
   const getRatingByMealId = async (menuMealId: number) => {
     const res = await ratingsService.httpGetRatingByMenuMealId(menuMealId);
     if (res) {
       setRatings(res);
-    } else {
-      setRatings([]);
+      return;
     }
+    setRatings([]);
   };
 
   useEffect(() => {

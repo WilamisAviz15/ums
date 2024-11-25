@@ -3,6 +3,10 @@
   align-items: center;
   gap: 15px;
   padding-bottom: 10px;
+
+  & > h1 {
+    font-weight: 300;
+  }
 }
 
 form > div:first-child {
