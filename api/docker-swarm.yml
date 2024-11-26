@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - '5672:5672' # Porta para comunicação entre microsserviços
+      - '15672:15672' # Porta para a interface de administração
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+      restart_policy:
+        condition: on-failure
+    networks:
+      - app-network
+
+  ms-actions:
+    image: itswillmica/ums:action # Use a imagem já criada
+    # ports:
+    #   - '3003:3000' # Mapeie a porta local para o container
+    #   - '4003:3003' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 512M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  gateway:
+    image: itswillmica/ums:gateway
+    ports:
+      - '3333:3000'
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: overlay

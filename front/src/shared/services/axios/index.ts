@@ -11,8 +11,12 @@ export class HttpClient extends Singleton<HttpClient> {
   }
 
   @Get()
-  async get<T = any, D = AxiosResponse<T, any>>(path: string, args?: ArgsInterface<T, D>) {
-    return (async () => await axios.get<D>(`${environment.api}/${path}`, args?.config))();
+  async get<T = any, D = AxiosResponse<T, any>>(path: string, args?: ArgsInterface<T, D>, withCredentials = true) {
+    return (async () =>
+      await axios.get<D>(`/api/${path}`, {
+        ...args?.config, // Configurações passadas (se houver)
+        withCredentials,
+      }))();
   }
 
   @Post()

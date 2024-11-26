@@ -1,4 +1,4 @@
-import { Body, Controller } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { MealsService } from './meals.service';
@@ -6,42 +6,42 @@ import { MealInterface } from './interfaces/meal.interface';
 import { MealCreateDto } from './dto/create-meal.dto';
 import { MealUpdateDto } from './dto/update-meal.dto';
 
-@Controller()
+@Controller('meals')
 export class MealsController {
   constructor(private readonly service: MealsService) {}
 
-  @MessagePattern('get_meals')
+  @Get()
   async findAll(): Promise<MealInterface[]> {
     return await this.service.findAll();
   }
 
-  @MessagePattern('get_meals_by_id')
-  async findOne(@Body() id: number): Promise<MealInterface> {
-    return await this.service.findOne(id);
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<MealInterface> {
+    return await this.service.findOne(+id);
   }
 
-  @MessagePattern('get_meals_by_date')
-  async getMealsByDate(date: string) {
+  @Get('date/:date')
+  async getMealsByDate(@Param('date') date: string) {
     return await this.service.getMealsByDate(date);
   }
 
-  @MessagePattern('count_all_by_name')
-  async countAllByName(@Body() id: number): Promise<{ almoco: number; jantar: number }> {
-    return await this.service.countAllByName(id);
+  @Get('count/:mealId')
+  async countAllByName(@Param('mealId') mealId: string): Promise<{ almoco: number; jantar: number }> {
+    return await this.service.countAllByName(+mealId);
   }
 
-  @MessagePattern('create_meal')
+  @Post()
   async create(@Body() data: MealCreateDto): Promise<{ meal: MealInterface; message: string }> {
     return await this.service.create(data);
   }
 
-  @MessagePattern('update_meal')
-  async update(@Body() data: MealUpdateDto): Promise<{ meal: MealInterface; message: string }> {
+  @Put(':id')
+  async update(@Body() data: MealUpdateDto, @Param('id', ParseIntPipe) id: number): Promise<{ meal: MealInterface; message: string }> {
     return await this.service.update(data);
   }
 
-  @MessagePattern('delete_meal')
-  async delete(id: number): Promise<{ message: string }> {
-    return this.service.delete(id);
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<{ message: string }> {
+    return this.service.delete(+id);
   }
 }

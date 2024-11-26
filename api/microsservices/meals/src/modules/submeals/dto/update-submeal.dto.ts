@@ -1,11 +1,5 @@
 import { Transform, TransformFnParams } from 'class-transformer';
-import {
-  IsInt,
-  IsNotEmpty,
-  IsString,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+import { IsInt, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class SubMealUpdateDto {
   @IsNotEmpty({ message: 'O campo de ID da subrefeição é obrigátorio.' })
@@ -27,4 +21,7 @@ export class SubMealUpdateDto {
   @IsNotEmpty({ message: 'O campo de preço é obrigátorio.' })
   @Transform(({ value }: TransformFnParams) => value?.trim())
   price: string;
+
+  @IsNotEmpty({ message: 'O campo id da refeição é obrigátorio.' })
+  mealId: number;
 }

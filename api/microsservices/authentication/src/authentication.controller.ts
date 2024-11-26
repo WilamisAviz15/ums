@@ -1,18 +1,15 @@
-import { Body, Controller } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { Body, Controller, Post } from '@nestjs/common';
 
 import { AuthenticationService } from './authentication.service';
 import { LoginDto } from './dtos/login.dto';
 import { UserJwtInterface } from './interfaces/user-jwt.interface';
 
-@Controller()
+@Controller('auth')
 export class AuthenticationController {
   constructor(private readonly service: AuthenticationService) {}
 
-  @MessagePattern('login')
-  login(
-    @Body() @Body() data: LoginDto,
-  ): Promise<{ user: UserJwtInterface; accessToken: string }> {
+  @Post('/login')
+  login(@Body() @Body() data: LoginDto): Promise<{ user: UserJwtInterface; accessToken: string }> {
     return this.service.login(data);
   }
 }

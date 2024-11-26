@@ -1,15 +1,13 @@
-import { Body, Controller } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 import { PaymentsService } from './payments.service';
 import { GeneratePixPaymentDto } from './dto/generate-pix-payment.dto';
-import { PaymentInterface } from './interfaces/payment.interface';
 
 @Controller('payments')
 export class PaymentsController {
   constructor(private readonly service: PaymentsService) {}
 
-  @MessagePattern('get_token_efipay')
+  @Post('token')
   async getTokenEfiAPI() {
     try {
       return await this.service.getTokenEfiAPI();
@@ -18,7 +16,7 @@ export class PaymentsController {
     }
   }
 
-  @MessagePattern('generate_payment_pix')
+  @Post('generate')
   async createPixPayment(@Body() payerInfo: GeneratePixPaymentDto) {
     try {
       const res = await this.service.createPixPayment(payerInfo);
@@ -32,17 +30,18 @@ export class PaymentsController {
     }
   }
 
-  @MessagePattern('create_payment')
-  async createPayment(@Body() data: PaymentInterface) {
-    return await this.service.create(data);
-  }
+  // @MessagePattern('create_payment')
+  // async createPayment(@Body() data: PaymentInterface) {
+  //   return await this.service.create(data);
+  // }
 
-  @MessagePattern('get_transactions_by_cpf')
-  async getTransactionsByCpf(@Body() cpf: string) {
+  @Get('transactions/:cpf')
+  async getTransactionsByCpf(@Param('cpf') cpf: string) {
     return await this.service.getTransactionsByCpf(cpf);
   }
-  @MessagePattern('get_balance_by_cpf')
-  async getBalanceByCpf(@Body() cpf: string) {
+
+  @Get('transactions/balance/:cpf')
+  async getBalanceByCpf(@Param('cpf') cpf: string) {
     return await this.service.getBalanceByCpf(cpf);
   }
 }

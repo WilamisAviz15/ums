@@ -209,6 +209,7 @@ export class UsersService {
         where: { cpf },
       });
       await this.getRolesByUserId(user.id).then((roles) => (user.roles = roles));
+      console.log('u', user);
       return user;
     } catch (error) {
       throw new HttpException({ message: `Não foi possível encontrar o usuário. ${error}` }, HttpStatus.NOT_FOUND);

@@ -1,4 +1,4 @@
-import { Body, Controller } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { UsersService } from './users.service';
@@ -8,42 +8,42 @@ import { UserCreateDto } from './dto/create-user.dto';
 import { UserFilterInterface } from './interfaces/user-filter.interface';
 import { UserUpdateDto } from './dto/update-user.dto';
 
-@Controller()
+@Controller('users')
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
-  @MessagePattern('create_user')
+  @Post()
   async create(@Body() data: UserCreateDto, @AuthUser() currentUser: UserInterface): Promise<{ user: UserInterface; message: string }> {
     return await this.service.create(data, currentUser);
   }
 
-  @MessagePattern('update_user')
-  async update(@Body() { id, data }: { id: number; data: UserUpdateDto }) {
+  @Put(':id')
+  async update(@Param('id', ParseIntPipe) id: number, @Body() data: UserUpdateDto) {
     return this.service.update(data, +id);
   }
 
-  @MessagePattern('delete_user')
-  async remove(@Body() id: string) {
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
     return this.service.delete(+id);
   }
 
-  @MessagePattern({ cmd: 'get_users' })
+  @Get()
   async findAll(@Body() filters: UserFilterInterface): Promise<UserInterface[]> {
     return await this.service.findAll(filters);
   }
 
-  @MessagePattern('find_user_by_email')
-  async findByEmail(@Body() data: { username: string; user?: UserInterface }): Promise<UserInterface> {
-    return await this.service.findByEmail(data.username, data.user);
+  @Post('findUserByEmail')
+  async findByEmail(@Body() email: string): Promise<UserInterface> {
+    return await this.service.findByEmail(email);
   }
 
-  @MessagePattern('find_user_by_cpf')
+  @Post('findUserByCpf')
   async findByCPF(@Body() data: { cpf: string }): Promise<UserInterface> {
     return await this.service.findLoginByCpf(data.cpf);
   }
 
-  @MessagePattern('find_user_by_id')
-  async findById(@Body() id: string): Promise<UserInterface> {
+  @Get(':id')
+  async findById(@Param('id') id: string): Promise<UserInterface> {
     return await this.service.findOne(+id);
   }
 }

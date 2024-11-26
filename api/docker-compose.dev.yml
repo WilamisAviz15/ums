@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  actions:
+    build:
+      context: ./microsservices/actions
+    image: api-actions
+    ports:
+      - '3003:3003'
+    networks:
+      - api-network
+    environment:
+      - NODE_ENV=development
+      # - SERVICE_PORT=3001
+
+  # authentication:
+  #   build:
+  #     context: ./microsservices/authentication
+  #   image: api-authentication
+  #   ports:
+  #     - '3006:3006'
+  #   networks:
+  #     - api-network
+  #   environment:
+  #     - NODE_ENV=development
+  #     # - SERVICE_PORT=3006
+
+  # meals:
+  #   build:
+  #     context: ./microsservices/meals
+  #   image: api-meals
+  #   ports:
+  #     - '3007:3007'
+  #   networks:
+  #     - api-network
+  #   environment:
+  #     - NODE_ENV=development
+  #     # - SERVICE_PORT=3003
+
+  # Repita a configuração para os outros microsserviços...
+
+networks:
+  api-network:
+    driver: overlay
+    attachable: true

@@ -1,19 +1,17 @@
-import { Body, Controller } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
 import { MetricsService } from './metrics.service';
-import { MetricFilterInterface } from './interfaces/metric-filter.interface';
 
-@Controller()
+@Controller('metrics')
 export class MetricsController {
   constructor(private readonly service: MetricsService) {}
 
-  @MessagePattern('get_metrics')
+  @Get()
   async getMetrics(): Promise<any[]> {
     return await this.service.getMetrics();
   }
 
-  @MessagePattern('get_meals_metrics')
+  @Post()
   async getMealsMetrics(@Body() dates: string[]) {
     return await this.service.getMealsMetrics(dates);
   }

@@ -1,5 +1,13 @@
 import { MessagePattern } from '@nestjs/microservices';
-import { Body, Controller } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 
 import { MenusService } from './menus.service';
 import { MenuInterface } from './interfaces/menu.interface';
@@ -11,31 +19,31 @@ import { ActionsMenuInterface } from './interfaces/actions-menu.interface';
 export class MenusController {
   constructor(private service: MenusService) {}
 
-  @MessagePattern('get_menus')
+  @Get()
   async findAll(
     @Body() filters: MenuFilterInterface,
   ): Promise<MenuInterface[]> {
     return await this.service.findAll(filters);
   }
 
-  @MessagePattern('get_menus_by_id')
-  async findOne(@Body() id: number): Promise<MenuInterface> {
-    return await this.service.findOne(id);
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<MenuInterface> {
+    return await this.service.findOne(+id);
   }
 
-  @MessagePattern('create_menu')
+  @Post()
   async create(
     @Body() data: MenuCreateDto,
   ): Promise<{ menu: MenuInterface; message: string }> {
     return await this.service.create(data);
   }
 
-  @MessagePattern('delete_menu')
-  async delete(@Body() id: string): Promise<{ message: string }> {
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<{ message: string }> {
     return this.service.delete(+id);
   }
 
-  @MessagePattern('remove_privileges')
+  @Patch('remove-privileges')
   removePrivileges(@Body() actionsMenu: ActionsMenuInterface[]) {
     return this.service.removePrivileges(actionsMenu);
   }

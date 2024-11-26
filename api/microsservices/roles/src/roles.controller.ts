@@ -1,5 +1,4 @@
-import { Body, Controller } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 
 import { RolesService } from './roles.service';
 import { RoleCreateDto } from './dto/create-role.dto';
@@ -7,39 +6,32 @@ import { RoleInterface } from './interfaces/role.interface';
 import { RoleUpdateDto } from './dto/update-role.dto';
 import { RoleFilterInterface } from './interfaces/role-filter.interface';
 
-@Controller()
+@Controller('roles')
 export class RolesController {
   constructor(private readonly service: RolesService) {}
 
-  @MessagePattern('create_role')
-  async create(
-    @Body() data: RoleCreateDto,
-  ): Promise<{ role: RoleInterface; message: string }> {
+  @Post()
+  async create(@Body() data: RoleCreateDto): Promise<{ role: RoleInterface; message: string }> {
     return await this.service.create(data);
   }
 
-  @MessagePattern('update_role')
-  async update(
-    @Body()
-    { id, data }: { id: number; data: RoleUpdateDto },
-  ): Promise<{ role: RoleInterface; message: string }> {
+  @Put(':id')
+  async update(@Body() data: RoleUpdateDto, @Param('id', ParseIntPipe) id: number): Promise<{ role: RoleInterface; message: string }> {
     return await this.service.update(data, id);
   }
 
-  @MessagePattern({ cmd: 'get_roles' })
-  async findAll(
-    @Body() filters: RoleFilterInterface,
-  ): Promise<RoleInterface[]> {
+  @Get()
+  async findAll(@Body() filters: RoleFilterInterface): Promise<RoleInterface[]> {
     return await this.service.findAll(filters);
   }
 
-  @MessagePattern({ cmd: 'get_roles_by_id' })
-  async findOne(@Body() id: number): Promise<RoleInterface> {
-    return await this.service.findOne(id);
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<RoleInterface> {
+    return await this.service.findOne(+id);
   }
 
-  @MessagePattern('delete_role')
-  async delete(@Body() id: string): Promise<{ message: string }> {
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<{ message: string }> {
     return this.service.delete(+id);
   }
 }

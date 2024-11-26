@@ -1,4 +1,4 @@
-import { Body, Controller } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { SchedulesService } from './schedules.service';
@@ -6,36 +6,37 @@ import { ScheduleInterface, ScheduleMetric } from './interfaces/schedule.interfa
 import { ScheduleUpdateDto } from './dto/update-schedule.dto';
 import { ScheduleCreateDto } from './dto/create-schedule.dto';
 
-@Controller()
+@Controller('schedules')
 export class SchedulesController {
   constructor(private readonly service: SchedulesService) {}
 
-  @MessagePattern('get_schedules')
-  async findAll(userId?: number): Promise<ScheduleInterface[]> {
+  @Get('user/:userId')
+  async findAll(@Param('userId') userId: number): Promise<ScheduleInterface[]> {
     return await this.service.findAll(userId);
   }
 
-  @MessagePattern('get_schedules_by_user_cpf')
-  async findByUserCPF(cpf?: string): Promise<ScheduleInterface[]> {
+  @Get('cpf/:cpf')
+  async findByUserCPF(@Param('cpf') cpf?: string): Promise<ScheduleInterface[]> {
     return await this.service.findAllByUserCPF(cpf);
   }
 
-  @MessagePattern('get_schedules_by_id')
-  async findOne(id: number): Promise<ScheduleInterface> {
-    return await this.service.findOne(id);
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<ScheduleInterface> {
+    return await this.service.findOne(+id);
   }
 
-  @MessagePattern('create_schedules')
+  @Post()
   async create(@Body() data: ScheduleCreateDto): Promise<{ schedule: ScheduleInterface; message: string }> {
     return await this.service.create(data);
   }
 
-  @MessagePattern('update_schedules')
-  async update(@Body() data: ScheduleUpdateDto): Promise<{ schedule: ScheduleInterface; message: string }> {
+  @Put(':id')
+  async update(@Body() data: ScheduleUpdateDto, @Param('id', ParseIntPipe) id: number): Promise<{ schedule: ScheduleInterface; message: string }> {
+    data.id = id;
     return await this.service.update(data);
   }
 
-  @MessagePattern('confirm_schedules')
+  @Patch('confirm-meal')
   async confirm(@Body() data: ScheduleCreateDto): Promise<{
     id: number;
     message: string;
@@ -43,18 +44,18 @@ export class SchedulesController {
     return await this.service.confirmSchedule(data);
   }
 
-  @MessagePattern('delete_schedules')
-  async delete(id: number): Promise<{ message: string }> {
-    return this.service.delete(id);
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<{ message: string }> {
+    return this.service.delete(+id);
   }
 
-  @MessagePattern('get_schedules_metrics')
+  @Get('metrics/all')
   async getScheduleMetrics(): Promise<ScheduleMetric> {
     return this.service.getScheduleMetrics();
   }
 
-  @MessagePattern('get_schedules_by_date')
-  async findAllByDate(@Body() date: string) {
+  @Get('date/:date')
+  async findAllByDate(@Param('date') date: string) {
     return this.service.findAllByDate(date);
   }
 }

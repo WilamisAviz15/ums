@@ -17,4 +17,7 @@ export class SubMealCreateDto {
   @IsNotEmpty({ message: 'O campo de preço é obrigátorio.' })
   @Transform(({ value }: TransformFnParams) => value?.trim())
   price: string;
+
+  @IsNotEmpty({ message: 'O campo id da refeição é obrigátorio.' })
+  mealId: number;
 }

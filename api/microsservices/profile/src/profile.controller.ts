@@ -1,15 +1,15 @@
-import { Body, Controller } from '@nestjs/common';
+import { Body, Controller, Patch } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { ProfileService } from './profile.service';
 import { EditPersonalDataDto } from './dto/edit-profile.dto';
 import { UserJwtInterface } from './interfaces/user-jwt.interface';
 
-@Controller()
+@Controller('profile')
 export class ProfileController {
   constructor(private readonly service: ProfileService) {}
 
-  @MessagePattern('update_profile')
+  @Patch()
   // async update(@Body() body: EditPersonalDataDto): Promise<{
   //   user: UserJwtInterface;
   //   accessToken: string;
