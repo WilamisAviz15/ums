@@ -37,7 +37,7 @@ const ConfirmMealRenderList = ({ data, setUserMeal }: { data: ScheduleInterface[
           item.used ? (
             <CardUI
               key={item.id}
-              title={item.meal.name}
+              title={item.meal?.name}
               subTitle={formatDate(item.date)}
               isPaymentCard={true}
               customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)", opacity: "0.5" }}
@@ -56,7 +56,7 @@ const ConfirmMealRenderList = ({ data, setUserMeal }: { data: ScheduleInterface[
           ) : (
             <CardUI
               key={item.id}
-              title={item.meal.name}
+              title={item.meal?.name}
               subTitle={formatDate(item.date)}
               isPaymentCard={true}
               customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)" }}

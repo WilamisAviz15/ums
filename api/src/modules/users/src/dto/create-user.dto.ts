@@ -1,4 +1,3 @@
-import { IsCPF } from 'brazilian-class-validator';
 import { Transform, TransformFnParams, Type } from 'class-transformer';
 import { IsString, IsNotEmpty, MinLength, MaxLength, IsOptional, IsEmail, Validate, IsDefined, IsArray, ArrayMinSize, ValidateNested } from 'class-validator';
 
@@ -33,7 +32,6 @@ export class UserCreateDto {
   @MaxLength(11, {
     message: 'O campo CPF precisa ter pelo menos 11 caracteres.',
   })
-  @IsCPF({ message: 'O campo CPF precisa ser válido.' })
   cpf: string;
 
   @IsDefined({ message: 'O campo senha deve ser válido!' })

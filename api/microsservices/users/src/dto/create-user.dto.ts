@@ -1,6 +1,6 @@
-import { IsCPF } from 'brazilian-class-validator';
 import { Transform, TransformFnParams, Type } from 'class-transformer';
 import { IsString, IsNotEmpty, MinLength, MaxLength, IsOptional, IsEmail, Validate, IsDefined, IsArray, ArrayMinSize, ValidateNested } from 'class-validator';
+
 import { UserEmailAlreadyExist } from '../validate/users-email-already-exist.constraint';
 import { UserCpfAlreadyExist } from '../validate/users-cpf-already-exist.constraint';
 import { UserRolesDto } from './user-roles.dto';
@@ -38,7 +38,6 @@ export class UserCreateDto {
   @MaxLength(11, {
     message: 'O campo CPF precisa ter pelo menos 11 caracteres.',
   })
-  @IsCPF({ message: 'O campo CPF precisa ser válido.' })
   @Validate(UserCpfAlreadyExist, {
     message: 'O CPF já está sendo utilizado por outro usuário.',
   })

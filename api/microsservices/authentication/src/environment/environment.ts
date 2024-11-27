@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   preview: false,
-  api: 'http://localhost:3333/api',
+  api: 'http://host.docker.internal:3333/api',
 };

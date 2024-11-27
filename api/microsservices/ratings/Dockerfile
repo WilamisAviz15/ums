@@ -31,7 +31,7 @@ COPY package*.json ./
 RUN npm install --only=production
 
 # Expor a porta que o serviço usa
-EXPOSE 3007
+EXPOSE 3010
 
 # Comando para rodar a aplicação em produção
 CMD ["node", "dist/main"]

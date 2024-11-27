@@ -11,7 +11,7 @@ import { MealsUserRolesService } from './meals-user-roles.service';
       {
         name: 'MEALS',
         transport: Transport.TCP,
-        options: { port: 3007 },
+        options: { port: 4007 },
       },
     ]),
   ],

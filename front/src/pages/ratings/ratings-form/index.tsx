@@ -109,7 +109,7 @@ const RatingsForm = () => {
             <TextField select label="Selecione a refeição" variant="outlined" fullWidth onChange={handleSelectedMeal}>
               {usedUserMeals.map((meals) => (
                 <MenuItem key={meals.id} value={meals.id}>
-                  {meals.meal.name} - {formatDate(meals.date)}
+                  {meals.meal?.name} - {formatDate(meals.date)}
                 </MenuItem>
               ))}
             </TextField>
@@ -155,7 +155,7 @@ const RatingsForm = () => {
             <TextField select label="Selecione a refeição" variant="outlined" fullWidth onChange={handleSelectedMeal}>
               {usedUserMeals.map((meals) => (
                 <MenuItem key={meals.id} value={meals.id}>
-                  {meals.meal.name} - {formatDate(meals.date)}
+                  {meals.meal?.name} - {formatDate(meals.date)}
                 </MenuItem>
               ))}
             </TextField>

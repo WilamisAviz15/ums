@@ -9,10 +9,8 @@ async function bootstrap() {
 
   app.setGlobalPrefix(GLOBAL_API_PREFIX);
   app.enableCors();
-  await app.listen(process.env.APP_PORT, () => {
-    Logger.log(
-      `Listening at http://localhost:${process.env.APP_PORT}/${GLOBAL_API_PREFIX}`,
-    );
+  await app.listen(3333, '0.0.0.0', () => {
+    Logger.log(`Listening at http://localhost:3333/${GLOBAL_API_PREFIX}`);
   });
 }
 

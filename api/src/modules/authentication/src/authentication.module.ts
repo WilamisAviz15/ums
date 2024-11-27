@@ -11,7 +11,7 @@ import { AuthenticationController } from './authentication.controller';
       {
         name: 'AUTHENTICATION',
         transport: Transport.TCP,
-        options: { port: 3006 },
+        options: { port: 4006 },
       },
     ]),
   ],

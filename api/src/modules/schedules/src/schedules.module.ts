@@ -11,7 +11,7 @@ import { ScheduleService } from './schedules.service';
       {
         name: 'SCHEDULES',
         transport: Transport.TCP,
-        options: { port: 3008 },
+        options: { port: 4008 },
       },
     ]),
   ],

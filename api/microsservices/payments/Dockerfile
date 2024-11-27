@@ -26,12 +26,13 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/.env ./
 COPY package*.json ./
+COPY --from=builder /app/src/certificates ./dist/certificates
 
 # Instalar apenas dependências de produção
 RUN npm install --only=production
 
 # Expor a porta que o serviço usa
-EXPOSE 3007
+EXPOSE 3011
 
 # Comando para rodar a aplicação em produção
 CMD ["node", "dist/main"]

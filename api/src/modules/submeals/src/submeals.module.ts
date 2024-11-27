@@ -11,7 +11,7 @@ import { SubMealService } from './submeals.service';
       {
         name: 'MEALS',
         transport: Transport.TCP,
-        options: { port: 3007 },
+        options: { port: 4007 },
       },
     ]),
   ],

@@ -11,7 +11,7 @@ import { PaymentService } from './payments.service';
       {
         name: 'PAYMENTS',
         transport: Transport.TCP,
-        options: { port: 3011 },
+        options: { port: 4011 },
       },
     ]),
   ],

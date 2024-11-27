@@ -7,7 +7,9 @@ import { ConfigInterface, SelectedModules } from './config.interface';
 
 @Injectable()
 export class ConfigService {
-  private configFilePath = path.join(__dirname, '..', '..', 'src', 'config', 'modules-config.json');
+  // private configFilePath = path.join(__dirname, '..', '..', 'src', 'config', 'modules-config.json');
+  // private configFilePath = path.join(__dirname, 'config', 'modules-config.json');
+  private configFilePath = path.join(__dirname, 'modules-config.json');
   getConfig() {
     try {
       const config = fs.readFileSync(this.configFilePath, 'utf-8');

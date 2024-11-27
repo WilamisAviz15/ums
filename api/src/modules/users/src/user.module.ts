@@ -11,7 +11,7 @@ import { UserService } from './user.service';
       {
         name: 'USERS',
         transport: Transport.TCP,
-        options: { port: 3001 },
+        options: { port: 4001 },
       },
     ]),
   ],
