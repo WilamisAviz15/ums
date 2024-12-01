@@ -21,7 +21,8 @@ import { MetricsModule } from './modules/metrics/src/metrics.module';
 import { EnvironmentProviderModule } from './environment/environment.provider';
 import { ConfigModule } from './config/config.module';
 
-const configPath = path.join(__dirname, '..', 'src', 'config', 'modules-config.json');
+// const configPath = path.join(__dirname, '..', 'src', 'config', 'modules-config.json');
+const configPath = path.join(__dirname, 'config', 'modules-config.json');
 
 if (!fs.existsSync(configPath)) {
   throw new Error('Arquivo de configuração "modules-config.json" não encontrado.');

@@ -1,4 +1,4 @@
-import { format } from "date-fns-tz";
+import { format, utcToZonedTime } from "date-fns-tz";
 import { ptBR } from "date-fns/locale";
 
 import { FormErrors } from "../../pages/auth/interfaces/auth-register.interface";
@@ -31,7 +31,6 @@ export const dayOfWeek = (date: Date) =>
   });
 
 export const verifyVariabilityActive = (module: string) => {
-  console.log(configService.getConfig());
   if (module === "AuthenticationModule") {
     return ["GoogleAPI", "LocalDB"];
   }

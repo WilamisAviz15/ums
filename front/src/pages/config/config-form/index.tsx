@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IconButton, TextField, FormControlLabel, Checkbox, Button, Grid, Container, Typography } from "@mui/material";
+import { IconButton, Button, Container } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
@@ -49,10 +49,10 @@ const initialConfig: ConfigInterface = {
 const ConfigForm = () => {
   const navigate = useNavigate();
   const [systemName, setSystemName] = useState<string>("");
-  const [modules, setModules] = useState<ConfigInterface>();
+  const [features, setFeatures] = useState<ConfigInterface>();
 
   const handleCheckboxChange = (moduleKey: string, optionKey?: string) => {
-    setModules((prevConfig) => {
+    setFeatures((prevConfig) => {
       const newConfig = { ...prevConfig };
 
       if (optionKey) {
@@ -74,7 +74,7 @@ const ConfigForm = () => {
       try {
         const config = await configService.httpGet();
         console.log(config);
-        setModules(config);
+        setFeatures(config);
       } catch (error) {
         console.error("Erro ao carregar configurações:", error);
       }
@@ -89,10 +89,9 @@ const ConfigForm = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (modules) {
-      configService.httpPut(modules).then((res) => {
+    if (features) {
+      configService.httpPut(features).then((res) => {
         if (res) {
-          authService.logout();
           navigate("/auth/login");
           window.location.reload();
           return;
@@ -101,7 +100,7 @@ const ConfigForm = () => {
     }
   };
 
-  if (!modules) {
+  if (!features) {
     return <div>Carregando...</div>;
   }
 
@@ -117,9 +116,9 @@ const ConfigForm = () => {
         {/* <TextField label="Nome do Sistema" variant="outlined" fullWidth value={systemName} onChange={handleSystemNameChange} margin="normal" /> */}
         <h3>Selecionar Features</h3>
         <Container>
-          {Object.keys(modules).map((module) => {
+          {Object.keys(features).map((module) => {
             const moduleKey = module.replace("Module", "");
-            const moduleData = modules[module as keyof ConfigInterface];
+            const moduleData = features[module as keyof ConfigInterface];
 
             if (!moduleData.options || Object.keys(moduleData.options).length === 0) {
               return null;

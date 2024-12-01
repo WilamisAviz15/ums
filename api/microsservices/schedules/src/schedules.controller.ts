@@ -1,5 +1,6 @@
-import { Body, Controller } from '@nestjs/common';
+import { Body, Controller, Res } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
+import { Response } from 'express';
 
 import { SchedulesService } from './schedules.service';
 import { ScheduleInterface, ScheduleMetric } from './interfaces/schedule.interface';
@@ -56,5 +57,10 @@ export class SchedulesController {
   @MessagePattern('get_schedules_by_date')
   async findAllByDate(@Body() date: string) {
     return this.service.findAllByDate(date);
+  }
+
+  @MessagePattern('get_schedules_all_reports')
+  async getAllSchedules() {
+    return await this.service.getAllSchedules();
   }
 }

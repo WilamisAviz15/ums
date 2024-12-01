@@ -11,7 +11,7 @@ import { MetricService } from './metrics.service';
       {
         name: 'METRICS',
         transport: Transport.TCP,
-        options: { port: 3013 },
+        options: { port: 4013 },
       },
     ]),
   ],

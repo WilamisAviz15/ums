@@ -11,7 +11,7 @@ import { RatingController } from './ratings.controller';
       {
         name: 'RATINGS',
         transport: Transport.TCP,
-        options: { port: 3010 },
+        options: { port: 4010 },
       },
     ]),
   ],

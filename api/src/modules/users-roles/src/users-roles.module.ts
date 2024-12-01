@@ -11,7 +11,7 @@ import { UserRoleService } from './users-roles.service';
       {
         name: 'USERS_ROLES',
         transport: Transport.TCP,
-        options: { port: 3009 },
+        options: { port: 4009 },
       },
     ]),
   ],

@@ -11,7 +11,7 @@ import { ProfileService } from './profile.service';
       {
         name: 'PROFILE',
         transport: Transport.TCP,
-        options: { port: 3005 },
+        options: { port: 4005 },
       },
     ]),
   ],

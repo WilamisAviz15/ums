@@ -18,9 +18,7 @@ import { entities } from '../config/database/database-entities';
         database: configService.get<string>('DB_NAME'),
         entities,
         logging: configService.get<string>('APP_MODE') !== 'prod',
-        migrations: [
-          path.join(__dirname, '../../database/migrations/*{.ts,.js}'),
-        ],
+        migrations: [path.join(__dirname, '../../database/migrations/*{.ts,.js}')],
         cli: {
           migrationsDir: __dirname + 'src/database/migrations',
         },

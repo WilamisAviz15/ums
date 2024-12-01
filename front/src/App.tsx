@@ -36,6 +36,9 @@ function App() {
           if (menu.module === "ConfigModule") {
             return true;
           }
+          if (menu.module === "ReportsModule") {
+            return true;
+          }
           const moduleKey = menu.module as keyof ConfigInterface;
           return config[moduleKey];
         });

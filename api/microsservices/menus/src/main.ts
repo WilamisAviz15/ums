@@ -7,12 +7,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.connectMicroservice({
     transport: Transport.TCP,
-    options: { port: 3004 },
+    options: { host: '0.0.0.0', port: 3004 },
   });
   await app.startAllMicroservices();
   app.enableCors();
-  await app.listen(process.env.APP_PORT, () => {
-    Logger.log(`Listening at http://localhost:${process.env.APP_PORT}`);
+  await app.listen(3000, () => {
+    Logger.log(`Listening at http://localhost:3000`);
   });
 }
 bootstrap();

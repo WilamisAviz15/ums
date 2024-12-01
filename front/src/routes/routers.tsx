@@ -37,6 +37,8 @@ import configService from "../pages/config/config.service";
 import Wizard from "../pages/wizard";
 import WizardForm from "../pages/wizard/wizard-form";
 import Payments from "../pages/payments";
+import Reports from "../pages/reports";
+import ReportsForm from "../pages/reports/reports-form";
 
 const routers = () => {
   const config = configService.getConfig();
@@ -261,6 +263,17 @@ const routers = () => {
         {
           name: "",
           component: <Payments />,
+        },
+      ],
+    },
+    {
+      name: "relatorios",
+      component: <Reports />,
+      active: true,
+      child: [
+        {
+          name: "",
+          component: <ReportsForm />,
         },
       ],
     },

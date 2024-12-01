@@ -105,6 +105,13 @@ export class MenusSeed implements Seeder {
         menuGroupId: 1,
         module: 'PaymentsModule',
       },
+      {
+        name: 'Relatórios',
+        route: 'relatorios',
+        menuKey: 'relatorios',
+        menuGroupId: 1,
+        module: 'ReportsModule',
+      },
     ]);
   }
 }

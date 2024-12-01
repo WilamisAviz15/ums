@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common/decorators';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Res } from '@nestjs/common/decorators';
 import { ParseIntPipe } from '@nestjs/common/pipes';
+import { Response } from 'express';
 
 import { ScheduleCreateDto } from './dto/create-schedule.dto';
 import { ScheduleUpdateDto } from './dto/update-schedule.dto';
 import { ScheduleService } from './schedules.service';
+import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 
 @Controller()
 export class ScheduleController {
@@ -17,6 +19,16 @@ export class ScheduleController {
   @Get('schedules/:id')
   getSchedulesById(@Param('id') id: string) {
     return this.service.getSchedulesById(+id);
+  }
+
+  @Get('schedules/reports/all')
+  async getAllReports(@Res() response: Response) {
+    try {
+      const schedules = await lastValueFrom(this.service.getAllSchedules());
+      return this.service.generateScheduleReport(response, schedules);
+    } catch (error) {
+      return response.status(500).send({ error: 'An error occurred while fetching schedules.' });
+    }
   }
 
   @Get('schedules/metrics/all')

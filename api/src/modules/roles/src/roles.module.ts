@@ -11,7 +11,7 @@ import { RoleController } from './roles.controller';
       {
         name: 'ROLES',
         transport: Transport.TCP,
-        options: { port: 3002 },
+        options: { port: 4002 },
       },
     ]),
   ],

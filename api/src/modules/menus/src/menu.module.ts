@@ -11,7 +11,7 @@ import { MenuService } from './menu.service';
       {
         name: 'MENUS',
         transport: Transport.TCP,
-        options: { port: 3004 },
+        options: { port: 4004 },
       },
     ]),
   ],

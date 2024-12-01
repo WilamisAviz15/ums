@@ -1,0 +1,270 @@
+version: '3.8'
+
+services:
+  ms-actions:
+    image: itswillmica/ums:action # Use a imagem já criada
+    ports:
+      - '3003:3000' # Mapeie a porta local para o container
+      - '4003:3003' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-authentication:
+    image: itswillmica/ums:authentication # Use a imagem já criada
+    ports:
+      - '3006:3000' # Mapeie a porta local para o container
+      - '4006:3006' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-users:
+    image: itswillmica/ums:users # Use a imagem já criada
+    ports:
+      - '3001:3000' # Mapeie a porta local para o container
+      - '4001:3001' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-schedule:
+    image: itswillmica/ums:schedule # Use a imagem já criada
+    ports:
+      - '3008:3000' # Mapeie a porta local para o container
+      - '4008:3008' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-role:
+    image: itswillmica/ums:role # Use a imagem já criada
+    ports:
+      - '3002:3000' # Mapeie a porta local para o container
+      - '4002:3002' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-rating:
+    image: itswillmica/ums:rating # Use a imagem já criada
+    ports:
+      - '3010:3000' # Mapeie a porta local para o container
+      - '4010:3010' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-meal:
+    image: itswillmica/ums:meal # Use a imagem já criada
+    ports:
+      - '3007:3000' # Mapeie a porta local para o container
+      - '4007:3007' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-menu:
+    image: itswillmica/ums:menu # Use a imagem já criada
+    ports:
+      - '3004:3000' # Mapeie a porta local para o container
+      - '4004:3004' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-metric:
+    image: itswillmica/ums:metric # Use a imagem já criada
+    ports:
+      - '3013:3000' # Mapeie a porta local para o container
+      - '4013:3013' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-payment:
+    image: itswillmica/ums:payment # Use a imagem já criada
+    ports:
+      - '3011:3000' # Mapeie a porta local para o container
+      - '4011:3011' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-profile:
+    image: itswillmica/ums:profile # Use a imagem já criada
+    ports:
+      - '3005:3000' # Mapeie a porta local para o container
+      - '4005:3005' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+  ms-user-role:
+    image: itswillmica/ums:user-role # Use a imagem já criada
+    ports:
+      - '3009:3000' # Mapeie a porta local para o container
+      - '4009:3009' #porta tcp
+    deploy:
+      replicas: 1 # Número de réplicas do serviço
+      resources:
+        limits:
+          cpus: '0.5' # Limite de CPU
+          memory: 100M # Limite de memória
+      update_config:
+        parallelism: 1 # Quantos containers atualizar por vez
+        delay: 10s # Intervalo entre atualizações
+      restart_policy:
+        condition: on-failure # Reinicie em caso de falha
+      # placement:
+      #   constraints:
+      #     - node.role == worker # Certifique-se de rodar em um nó trabalhador
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: overlay

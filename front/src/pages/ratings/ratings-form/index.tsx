@@ -56,8 +56,11 @@ const RatingsForm = () => {
 
   const getMenuMealId = async () => {
     const newDate = new Date(selectedMeal?.date!);
+    newDate.setDate(newDate.getDate() + 1);
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit" };
     const formattedDate = newDate.toLocaleDateString("en-CA", options).replace(/\//g, "-");
+    console.log(formattedDate);
+    console.log(selectedMeal?.mealId);
     const res = await menuMealService.httpGetByMenuIdAndDate(selectedMeal?.mealId!, formattedDate);
     return res?.id;
   };
@@ -109,7 +112,7 @@ const RatingsForm = () => {
             <TextField select label="Selecione a refeição" variant="outlined" fullWidth onChange={handleSelectedMeal}>
               {usedUserMeals.map((meals) => (
                 <MenuItem key={meals.id} value={meals.id}>
-                  {meals.meal.name} - {formatDate(meals.date)}
+                  {meals.meal?.name} - {formatDate(meals.date)}
                 </MenuItem>
               ))}
             </TextField>
@@ -155,7 +158,7 @@ const RatingsForm = () => {
             <TextField select label="Selecione a refeição" variant="outlined" fullWidth onChange={handleSelectedMeal}>
               {usedUserMeals.map((meals) => (
                 <MenuItem key={meals.id} value={meals.id}>
-                  {meals.meal.name} - {formatDate(meals.date)}
+                  {meals.meal?.name} - {formatDate(meals.date)}
                 </MenuItem>
               ))}
             </TextField>

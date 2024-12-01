@@ -3,6 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Fab } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import mealsService from "../meals.service";
+import WarningIcon from "@mui/icons-material/Warning";
 
 import styles from "../Meals.module.scss";
 import MealsRenderList from "./meals-list";
@@ -40,8 +41,18 @@ const MealsList = () => {
           <AddIcon />
         </Fab>
       </div>
-      <div className={styles.meals__wrapper}>
-        <MealsRenderList data={meals} setMeals={setMeals} />
+
+      <div className={meals?.length === 0 ? styles.meals__wrapper2 : styles.meals__wrapper}>
+        {meals === null ? (
+          <p>Carregando agendamentos...</p>
+        ) : meals?.length === 0 ? (
+          <div style={{ textAlign: "center", marginTop: "2rem" }}>
+            <WarningIcon style={{ fontSize: "4rem", color: "#4379f2" }} />
+            <p style={{ fontSize: "1.2rem", color: "#555" }}>Não há refeições cadastradas.</p>
+          </div>
+        ) : (
+          <MealsRenderList data={meals} setMeals={setMeals} />
+        )}
       </div>
     </>
   );

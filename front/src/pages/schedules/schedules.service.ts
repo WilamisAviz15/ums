@@ -1,7 +1,7 @@
-import http from "../../shared/services/axios";
-import authService from "../auth/auth.service";
-import { ConfirmMealInterface } from "../confirm-meal/interfaces/confirm-meal.interface";
-import { ScheduleInterface } from "./interfaces/schedule.interface";
+import http from '../../shared/services/axios';
+import authService from '../auth/auth.service';
+import { ConfirmMealInterface } from '../confirm-meal/interfaces/confirm-meal.interface';
+import { ScheduleInterface } from './interfaces/schedule.interface';
 
 class SchedulesService {
   user: any;
@@ -23,7 +23,7 @@ class SchedulesService {
   }
 
   async httpPost(data: ScheduleInterface): Promise<{ action: ScheduleInterface; message: string }> {
-    const response = await http.post<ScheduleInterface, any>("schedules", { data });
+    const response = await http.post<ScheduleInterface, any>('schedules', { data });
     return response.data;
   }
 

@@ -223,4 +223,27 @@ export class SchedulesService {
     newDate.setHours(0, 0, 0, 0);
     return await this.schedulesRepository.createQueryBuilder('schedule').where('schedule.date = :date', { date: newDate }).getMany();
   }
+
+  async getAllSchedules() {
+    try {
+      const schedules = await this.schedulesRepository.find({
+        order: { id: 'ASC' },
+      });
+
+      const filledSchedules = await Promise.all(
+        schedules.map(async (schedule) => {
+          const user = await this.findEntityByField<UserInterface>(schedule.userId, 'users', 'data', 'id');
+          const meal = await this.findEntityByField<MealInterface>(schedule.mealId, 'meals', 'data', 'id');
+          schedule.user = user;
+          schedule.meal = meal;
+
+          return schedule;
+        }),
+      );
+
+      return filledSchedules;
+    } catch (error) {
+      throw new HttpException({ message: 'Não foi possível encontrar os agendamentos.' }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
