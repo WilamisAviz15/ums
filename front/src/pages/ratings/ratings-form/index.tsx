@@ -56,8 +56,11 @@ const RatingsForm = () => {
 
   const getMenuMealId = async () => {
     const newDate = new Date(selectedMeal?.date!);
+    newDate.setDate(newDate.getDate() + 1);
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit" };
     const formattedDate = newDate.toLocaleDateString("en-CA", options).replace(/\//g, "-");
+    console.log(formattedDate);
+    console.log(selectedMeal?.mealId);
     const res = await menuMealService.httpGetByMenuIdAndDate(selectedMeal?.mealId!, formattedDate);
     return res?.id;
   };

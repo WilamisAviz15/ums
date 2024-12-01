@@ -1,6 +1,6 @@
-export interface ConfigInterface {
+export interface ConfigInterfaceInit {
   name: string;
-  database: string;
+  database: DatabaseConfigInterface;
   selectedModules: SelectedModules;
 }
 
@@ -14,4 +14,14 @@ export interface ModuleConfig {
   options: {
     [optionName: string]: boolean;
   };
+}
+
+export type DatabaseType = "mysql" | "postgres" | "mssql" | "sqlite";
+
+export interface DatabaseConfigInterface {
+  name: string;
+  type: DatabaseType;
+  port: number;
+  username: string;
+  password: string;
 }

@@ -12,6 +12,7 @@ const RatingsList = ({ renderRatingsList, setRenderRatingsList, mealId, date }: 
 
   const getMenuMealId = async () => {
     const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + 1);
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit" };
     const formattedDate = newDate.toLocaleDateString("en-CA", options).replace(/\//g, "-");
     const res = await menuMealService.httpGetByMenuIdAndDate(mealId, formattedDate);

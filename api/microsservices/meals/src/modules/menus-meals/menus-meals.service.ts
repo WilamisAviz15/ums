@@ -39,13 +39,15 @@ export class MenuMealService {
 
   async findByMealIdAndDate(mealId: number, date: string): Promise<MenuMealInterface> {
     try {
+      const newDate = new Date(date);
+      newDate.setDate(newDate.getDate() + 1);
       return await this.menuMealsRepository
         .createQueryBuilder('menu_meals')
         .where('menu_meals.mealId = :mealId', { mealId })
-        .andWhere('DATE(menu_meals.date) = :date', { date: new Date(date).toISOString().split('T')[0] })
+        .andWhere('DATE(menu_meals.date) = :date', { date: newDate.toISOString().split('T')[0] })
         .getOne();
     } catch (error) {
-      throw new HttpException({ message: 'Não foi possível encontrar o cardápio.' }, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException({ message: `Não foi possível encontrar o cardápio. ${error}` }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 

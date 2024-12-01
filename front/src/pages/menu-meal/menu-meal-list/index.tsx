@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Fab } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
+import WarningIcon from "@mui/icons-material/Warning";
 
 import styles from "../MenuMeal.module.scss";
 import { MenuMealInterface } from "../interfaces/menu-meal.interface";
@@ -30,8 +31,18 @@ const MenuMealList = () => {
           <AddIcon />
         </Fab>
       </div>
-      <div className={styles.menu_meal__wrapper}>
-        <MenuMealRenderList data={menuMeal} setMenuMeal={setMenuMeal} />
+
+      <div className={menuMeal?.length === 0 ? styles.menu_meal__wrapper2 : styles.menu_meal__wrapper}>
+        {menuMeal === null ? (
+          <p>Carregando agendamentos...</p>
+        ) : menuMeal?.length === 0 ? (
+          <div style={{ textAlign: "center", marginTop: "2rem" }}>
+            <WarningIcon style={{ fontSize: "4rem", color: "#4379f2" }} />
+            <p style={{ fontSize: "1.2rem", color: "#555" }}>Não há cardápios cadastrados.</p>
+          </div>
+        ) : (
+          <MenuMealRenderList data={menuMeal} setMenuMeal={setMenuMeal} />
+        )}
       </div>
     </>
   );

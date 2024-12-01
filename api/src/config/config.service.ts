@@ -3,7 +3,7 @@ import { execSync, exec } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { ConfigInterface, SelectedModules } from './config.interface';
+import { ConfigInterface, DatabaseConfigInterface, SelectedModules } from './config.interface';
 
 @Injectable()
 export class ConfigService {
@@ -24,26 +24,26 @@ export class ConfigService {
     try {
       fs.writeFileSync(this.configFilePath, JSON.stringify(newConfig, null, 2));
       console.log('Arquivo de configuração atualizado com sucesso.');
-      this.restartApplication();
+      // this.restartApplication();
     } catch (error) {
       console.error('Erro ao atualizar o arquivo de configuração:', error);
       throw error;
     }
   }
 
-  private restartApplication() {
-    exec('npm run start:dev', (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Erro ao reiniciar a aplicação: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.error(`stderr: ${stderr}`);
-        return;
-      }
-      console.log(`stdout: ${stdout}`);
-    });
-  }
+  // private restartApplication() {
+  //   exec('npm run start:dev', (error, stdout, stderr) => {
+  //     if (error) {
+  //       console.error(`Erro ao reiniciar a aplicação: ${error.message}`);
+  //       return;
+  //     }
+  //     if (stderr) {
+  //       console.error(`stderr: ${stderr}`);
+  //       return;
+  //     }
+  //     console.log(`stdout: ${stdout}`);
+  //   });
+  // }
 
   async createProject(config: ConfigInterface) {
     const { name, database, selectedModules } = config;
@@ -89,33 +89,25 @@ export class ConfigService {
       options: {},
     };
 
-    // 1. Criar novo diretório do projeto dentro de "api"
     const newProjectPath = path.join(process.cwd(), name, 'api');
     fs.mkdirSync(newProjectPath, { recursive: true });
 
-    // 2. Inicializar novo projeto NestJS no diretório "api"
     execSync(`nest new . --package-manager npm`, {
-      cwd: newProjectPath, // Define o diretório de trabalho para o novo projeto
+      cwd: newProjectPath,
       stdio: 'inherit',
     });
 
-    // 3. Caminho do projeto-base para copiar arquivos
-    const basePath = path.join(process.cwd()); // Caminho para a raiz de api
+    const basePath = path.join(process.cwd());
     const newSrcPath = path.join(newProjectPath, 'src');
 
-    // 4. Copiar arquivos principais para o novo projeto
     this.copyCoreFiles(basePath, newProjectPath);
 
-    // 5. Copiar módulos selecionados
     this.copySelectedModules(basePath, newSrcPath, selectedModules, newProjectPath);
 
-    // 6. Configurar MySQL no novo projeto
     this.configureDatabase(newProjectPath, database);
 
-    // 7. Instalar dependências
     execSync(`cd ${newProjectPath} && npm install`, { stdio: 'inherit' });
 
-    // Sobrescrever o arquivo de seed do RoleModule no microsserviço se estiver ativo
     if (selectedModules.RoleModule?.active) {
       this.overwriteRoleSeedFileInMicroservice(newProjectPath, selectedModules.RoleModule.options);
     }
@@ -334,9 +326,9 @@ export class ConfigService {
     }
   }
 
-  private configureDatabase(newProjectPath: string, databaseName: string) {
+  private configureDatabase(newProjectPath: string, databaseName: DatabaseConfigInterface) {
     const envPath = path.join(newProjectPath, '.env');
-    const envContent = `DATABASE_TYPE=mysql\nDATABASE_NAME=${databaseName}\nDATABASE_HOST=localhost\nDATABASE_PORT=3306\nDATABASE_USER=root\nDATABASE_PASSWORD=root`;
+    const envContent = `DATABASE_TYPE=${databaseName.type}\nDATABASE_NAME=${databaseName.name}\nDATABASE_HOST=localhost\nDATABASE_PORT=${databaseName.port}\nDATABASE_USER=${databaseName.username}\nDATABASE_PASSWORD=${databaseName.password}`;
 
     fs.writeFileSync(envPath, envContent);
   }

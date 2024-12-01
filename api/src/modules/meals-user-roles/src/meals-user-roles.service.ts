@@ -21,7 +21,6 @@ export class MealsUserRolesService {
   }
 
   updateMealUserRoles(mealId: number, data: MealUserRoleUpdateDto) {
-    console.error('jkdfjkdfj<>>>>>>>>>>>>>>>>>>>');
     return this.msMeals.send('update_meals_users_roles', { mealId, data });
   }
 

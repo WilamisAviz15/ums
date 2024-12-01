@@ -30,9 +30,10 @@ const ScheduleRenderList = ({
       for (const item of data) {
         if (item.mealId && item.date) {
           const newDate = new Date(item.date);
+          newDate.setDate(newDate.getDate() + 1);
+          console.log(newDate);
           const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit" };
           const formattedDate = newDate.toLocaleDateString("en-CA", options).replace(/\//g, "-");
-
           const response = await menuMealService.httpGetByMenuIdAndDate(item.mealId!, formattedDate);
           if (response) {
             menuMealsMap[item.id!] = response;
@@ -67,7 +68,7 @@ const ScheduleRenderList = ({
     return item.used ? (
       <CardUI
         key={item.id}
-        title={item.meal.name}
+        title={item.meal?.name}
         subTitle={formatDate(item.date)}
         customStyles={{ opacity: "0.5" }}
         isDeletable={false}
@@ -91,7 +92,7 @@ const ScheduleRenderList = ({
       <>
         <CardUI
           key={item.id}
-          title={item.meal.name}
+          title={item.meal?.name}
           subTitle={formatDate(item.date)}
           customStyles={{ borderTop: "6px solid rgba(21, 101, 192, 0.9)" }}
           // isPaymentCard={true}
